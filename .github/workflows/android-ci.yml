@@ -5,14 +5,117 @@ on:
     branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
+  release:
+    types: [published]
 
 jobs:
-  build:
+  get-version:
     runs-on: ubuntu-latest
+    outputs:
+      version-code: ${{ steps.version.outputs.VERSION_CODE }}
+      version-name: ${{ steps.version.outputs.VERSION_NAME }}
+      version-name-base: ${{ steps.version.outputs.VERSION_NAME_BASE }}
+      apk-suffix: ${{ steps.version.outputs.APK_SUFFIX }}
+      pr-number: ${{ steps.pr-info.outputs.PR_NUMBER }}
+      pr-author: ${{ steps.pr-info.outputs.PR_AUTHOR }}
+      pr-title: ${{ steps.pr-info.outputs.PR_TITLE }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Determine build type
+      id: build-type
+      run: |
+        if [[ "${{ github.event_name }}" == "release" ]]; then
+          echo "BUILD_TYPE=release" >> $GITHUB_OUTPUT
+          echo "IS_RELEASE=true" >> $GITHUB_OUTPUT
+        elif [[ "${{ github.ref }}" == "refs/heads/main" || "${{ github.ref }}" == "refs/heads/master" ]]; then
+          echo "BUILD_TYPE=release" >> $GITHUB_OUTPUT
+          echo "IS_RELEASE=true" >> $GITHUB_OUTPUT
+        else
+          echo "BUILD_TYPE=debug" >> $GITHUB_OUTPUT
+          echo "IS_RELEASE=false" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Get version info for Release
+      id: version-release
+      if: steps.build-type.outputs.IS_RELEASE == 'true'
+      run: |
+        python3 version_manager.py set-release stable >> $GITHUB_OUTPUT
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Get version info for Debug
+      id: version-debug
+      if: steps.build-type.outputs.IS_RELEASE == 'false'
+      run: |
+        python3 version_manager.py set-debug >> $GITHUB_OUTPUT
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Set version outputs
+      id: version
+      run: |
+        if [[ "${{ steps.build-type.outputs.IS_RELEASE }}" == "true" ]]; then
+          echo "VERSION_CODE=${{ steps.version-release.outputs.VERSION_CODE }}" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME=${{ steps.version-release.outputs.VERSION_NAME }}" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME_BASE=${{ steps.version-release.outputs.VERSION_NAME_BASE }}" >> $GITHUB_OUTPUT
+          echo "APK_SUFFIX=${{ steps.version-release.outputs.APK_SUFFIX }}" >> $GITHUB_OUTPUT
+        else
+          echo "VERSION_CODE=${{ steps.version-debug.outputs.VERSION_CODE }}" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME=${{ steps.version-debug.outputs.VERSION_NAME }}" >> $GITHUB_OUTPUT
+          echo "VERSION_NAME_BASE=${{ steps.version-debug.outputs.VERSION_NAME_BASE }}" >> $GITHUB_OUTPUT
+          echo "APK_SUFFIX=${{ steps.version-debug.outputs.APK_SUFFIX }}" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Get PR Information
+      id: pr-info
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+        echo "PR_AUTHOR=${{ github.event.pull_request.user.login }}" >> $GITHUB_OUTPUT
+        echo "PR_TITLE=${{ github.event.pull_request.title }}" >> $GITHUB_OUTPUT
+
+    - name: Get PR Info from API for merge commits
+      id: pr-api
+      if: github.event_name == 'push' && contains(github.event.head_commit.message, 'Merge pull request')
+      run: |
+        PR_NUM=$(echo "${{ github.event.head_commit.message }}" | grep -oP '#\K\d+' | head -1)
+        if [ ! -z "$PR_NUM" ]; then
+          PR_DATA=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$PR_NUM")
+          PR_AUTHOR=$(echo "$PR_DATA" | python3 -c "import sys, json; print(json.load(sys.stdin)['user']['login'])" 2>/dev/null || echo "unknown")
+          PR_TITLE=$(echo "$PR_DATA" | python3 -c "import sys, json; print(json.load(sys.stdin)['title'])" 2>/dev/null || echo "unknown")
+          echo "PR_NUMBER=$PR_NUM" >> $GITHUB_OUTPUT
+          echo "PR_AUTHOR=$PR_AUTHOR" >> $GITHUB_OUTPUT
+          echo "PR_TITLE=$PR_TITLE" >> $GITHUB_OUTPUT
+        else
+          echo "PR_NUMBER=N/A" >> $GITHUB_OUTPUT
+          echo "PR_AUTHOR=${{ github.actor }}" >> $GITHUB_OUTPUT
+          echo "PR_TITLE=Direct push" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Fallback PR info
+      if: github.event_name == 'push' && steps.pr-api.outputs.PR_NUMBER == ''
+      run: |
+        echo "PR_NUMBER=N/A" >> $GITHUB_OUTPUT
+        echo "PR_AUTHOR=${{ github.actor }}" >> $GITHUB_OUTPUT
+        echo "PR_TITLE=Direct push by ${{ github.actor }}" >> $GITHUB_OUTPUT
+
+  build:
+    needs: get-version
+    runs-on: ubuntu-latest
+    outputs:
+      tag-name: ${{ steps.create-tag.outputs.TAG_NAME }}
+      release-notes: ${{ steps.generate-notes.outputs.RELEASE_NOTES }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -27,30 +130,114 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build with Gradle
-      run: ./gradlew build --no-daemon
-
-    - name: Run tests
-      run: ./gradlew test --no-daemon || true
+    - name: Update build.gradle.kts with version info
+      run: |
+        # Update versionCode and versionName in build.gradle.kts
+        sed -i "s/versionCode = [0-9]\+/versionCode = ${{ needs.get-version.outputs.version-code }}/" app/build.gradle.kts
+        sed -i "s/versionName = \"[^\"]*\"/versionName = \"${{ needs.get-version.outputs.version-name }}\"/" app/build.gradle.kts
+        echo "Updated to version: ${{ needs.get-version.outputs.version-name }} (code: ${{ needs.get-version.outputs.version-code }})"
+        cat app/build.gradle.kts | grep -E "version(Code|Name)"
 
     - name: Build Debug APK
+      if: needs.get-version.outputs.apk-suffix == 'nightly'
       run: ./gradlew assembleDebug --no-daemon
 
-    - name: Upload Debug APK
+    - name: Build Release APK
+      if: needs.get-version.outputs.apk-suffix != 'nightly'
+      run: ./gradlew assembleRelease --no-daemon
+
+    - name: Generate Release Notes
+      id: generate-notes
+      run: |
+        TAG_NAME="v${{ needs.get-version.outputs.version-name-base }}"
+        PR_NUM="${{ needs.get-version.outputs.pr-number }}"
+        PR_AUTHOR="${{ needs.get-version.outputs.pr-author }}"
+        PR_TITLE="${{ needs.get-version.outputs.pr-title }}"
+        
+        if [ "$PR_NUM" != "" ] && [ "$PR_NUM" != "N/A" ]; then
+          NOTES="## Release $TAG_NAME
+        
+        **Build Information:**
+        - **PR #**: #$PR_NUM
+        - **PR Title**: $PR_TITLE
+        - **Author**: @$PR_AUTHOR
+        - **Build Type**: ${{ needs.get-version.outputs.apk-suffix }}
+        - **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        **Changes:**
+        Merged PR #$PR_NUM by @$PR_AUTHOR"
+        else
+          NOTES="## Release $TAG_NAME
+        
+        **Build Information:**
+        - **Author**: $PR_AUTHOR
+        - **Build Type**: ${{ needs.get-version.outputs.apk-suffix }}
+        - **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        **Changes:**
+        Direct push by $PR_AUTHOR"
+        fi
+        
+        echo "RELEASE_NOTES<<EOF" >> $GITHUB_OUTPUT
+        echo "$NOTES" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create Git Tag
+      id: create-tag
+      if: needs.get-version.outputs.apk-suffix != 'nightly'
+      run: |
+        TAG_NAME="v${{ needs.get-version.outputs.version-name-base }}"
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # Check if tag already exists
+        if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+          echo "Tag $TAG_NAME already exists, skipping creation"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "TAG_CREATED=false" >> $GITHUB_OUTPUT
+        else
+          git tag -a "$TAG_NAME" -m "${{ steps.generate-notes.outputs.release-notes }}"
+          git push origin "$TAG_NAME"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "TAG_CREATED=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Rename and Upload Debug APK
+      if: needs.get-version.outputs.apk-suffix == 'nightly'
       uses: actions/upload-artifact@v4
       with:
-        name: app-debug
+        name: TKJ_OnE-${{ needs.get-version.outputs.version-name-base }}_${{ needs.get-version.outputs.apk-suffix }}
         path: app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
 
-    - name: Build Release APK (without signing)
-      run: ./gradlew assembleRelease --no-daemon || true
-
-    - name: Upload Release APK
+    - name: Rename and Upload Release APK
+      if: needs.get-version.outputs.apk-suffix != 'nightly'
       uses: actions/upload-artifact@v4
-      if: always()
       with:
-        name: app-release-unsigned
+        name: TKJ_OnE-${{ needs.get-version.outputs.version-name-base }}_${{ needs.get-version.outputs.apk-suffix }}
         path: app/build/outputs/apk/release/app-release-unsigned.apk
         retention-days: 30
-        if-no-files-found: ignore
+
+    - name: Create GitHub Release
+      if: needs.get-version.outputs.apk-suffix != 'nightly' && github.event_name == 'release'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ needs.get-version.outputs.version-name-base }}
+        body: ${{ steps.generate-notes.outputs.release-notes }}
+        files: app/build/outputs/apk/release/app-release-unsigned.apk
+        token: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Print Build Summary
+      run: |
+        echo "## Build Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Version Name**: ${{ needs.get-version.outputs.version-name }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Version Code**: ${{ needs.get-version.outputs.version-code }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Build Type**: ${{ needs.get-version.outputs.apk-suffix }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Tag**: v${{ needs.get-version.outputs.version-name-base }}" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ needs.get-version.outputs.pr-number }}" != "" ] && [ "${{ needs.get-version.outputs.pr-number }}" != "N/A" ]; then
+          echo "**PR #**: ${{ needs.get-version.outputs.pr-number }}" >> $GITHUB_STEP_SUMMARY
+          echo "**PR Author**: @${{ needs.get-version.outputs.pr-author }}" >> $GITHUB_STEP_SUMMARY
+        fi
