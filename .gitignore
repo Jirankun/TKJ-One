@@ -1,2 +1,63 @@
-.gradle
-.kotlin
+```
+# Dependencies
+.gradle/
+node_modules/
+
+# Build artifacts
+build/
+target/
+dist/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Java/Gradle
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.hprof
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Temp files
+*.tmp
+*.temp
+*.bak
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+```
