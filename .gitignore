@@ -1,1 +1,9 @@
-(version_info.json and version_manager.py are source files, and android-ci.yml is a config file - all are legitimate project files that should not be ignored)
+```
+.gradle/
+build/
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+```

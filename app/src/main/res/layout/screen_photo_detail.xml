@@ -43,6 +43,13 @@
             android:layout_height="24dp"
             android:layout_marginEnd="12dp"
             android:src="@drawable/arrow_forward" />
+
+        <ImageView
+            android:id="@+id/detail_download_btn"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:padding="4dp"
+            android:src="@drawable/download" />
     </LinearLayout>
 
     <ScrollView
