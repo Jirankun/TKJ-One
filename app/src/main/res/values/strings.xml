@@ -65,7 +65,7 @@
 
     <!-- Photo -->
     <string name="photo_name_format">#%s</string>
-    <string name="photo_counter_format">%d/%d</string>
+    <string name="photo_counter_format" formatted="false">%d/%d</string>
     <string name="photo_copyright">Hak cipta konten ini ada pada pengambilnya.</string>
     <string name="photo_date">%s</string>
 
@@ -170,7 +170,7 @@
 
     <!-- API errors -->
     <string name="error_format_invalid">Format data %s tidak valid</string>
-    <string name="error_load_generic">Gagal memuat %s: %s</string>
+    <string name="error_load_generic" formatted="false">Gagal memuat %s: %s</string>
 
     <!-- Month array for formatDate -->
     <string-array name="months">

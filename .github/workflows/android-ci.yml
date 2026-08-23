@@ -8,6 +8,12 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+  actions: write
+  issues: write
+  pull-requests: write
+
 jobs:
   get-version:
     runs-on: ubuntu-latest
@@ -197,7 +203,13 @@ jobs:
           echo "TAG_CREATED=false" >> $GITHUB_OUTPUT
         else
           git tag -a "$TAG_NAME" -m "${{ steps.generate-notes.outputs.release-notes }}"
-          git push origin "$TAG_NAME"
+          git push origin "$TAG_NAME" || {
+            echo "Warning: Failed to push tag. This may be due to insufficient permissions."
+            echo "To fix this, ensure the workflow has 'contents: write' permission or use a PAT with repo scope."
+            echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+            echo "TAG_CREATED=false" >> $GITHUB_OUTPUT
+            exit 0
+          }
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "TAG_CREATED=true" >> $GITHUB_OUTPUT
         fi
