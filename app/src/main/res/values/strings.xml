@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TKJ OnE</string>
+
+    <!-- Splash -->
+    <string name="splash_loading">Loading TKJ OnE…</string>
+
+    <!-- Login -->
+    <string name="login_title">TKJ OnE</string>
+    <string name="login_subtitle">Login Untuk Lanjut.</string>
+    <string name="login_hint">Nama Kamu</string>
+    <string name="login_button">MASUK</string>
+    <string name="login_hint_admin">Hubungi admin jika mengalami kendala.</string>
+    <string name="login_error_empty">Nama tidak boleh kosong!</string>
+    <string name="login_error_too_short">Nama terlalu pendek (min 2 karakter)</string>
+    <string name="login_error_too_long">Nama terlalu panjang (max 30 karakter)</string>
+    <string name="login_error_no_connection">Gagal login. Periksa koneksi internet.</string>
+    <string name="login_error_not_registered">Nama tidak terdaftar. Hubungi admin.</string>
+    <string name="login_error_suspended">Login ditolak: Akun di-suspend.</string>
+    <string name="login_error_suspended_reason">Login ditolak: %s</string>
+    <string name="login_error_generic">Login gagal. Coba lagi.</string>
+
+    <!-- Toast -->
+    <string name="toast_welcome">Selamat datang, %s!</string>
+    <string name="toast_logout">Berhasil keluar.</string>
+    <string name="toast_photo_not_found">Foto \"%s\" tidak ditemukan.</string>
+    <string name="toast_link_failed">Gagal membuka link</string>
+    <string name="toast_link_failed2">Gagal membuka tautan</string>
+    <string name="toast_video_failed">Gagal memutar video</string>
+    <string name="toast_story_empty">Belum ada konten cerita</string>
+    <string name="toast_upload_hint">Upload via web: https://tkj1.pages.dev</string>
+    <string name="toast_permission_needed">Izin penyimpanan diperlukan</string>
+    <string name="toast_update_failed">Gagal: %s</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_close">Tutup</string>
+    <string name="dialog_cancel">BATAL</string>
+    <string name="dialog_confirm">Konfirmasi</string>
+    <string name="dialog_suspended_title">Akun Ditangguhkan</string>
+    <string name="dialog_maintenance_title">Maintenance</string>
+    <string name="dialog_info_title">Informasi</string>
+    <string name="dialog_logout_title">Konfirmasi</string>
+    <string name="dialog_logout_message">Apakah Anda Yakin Ingin Logout?</string>
+    <string name="dialog_logout_confirm">LOGOUT</string>
+
+    <!-- User status -->
+    <string name="user_invalid">User tidak valid.</string>
+    <string name="user_deleted">Akun Anda telah dihapus dari sistem.</string>
+    <string name="user_suspended">Akun Anda di-suspend.</string>
+
+    <!-- Gallery -->
+    <string name="gallery_filter_all">Semua</string>
+    <string name="gallery_search_hint">Cari foto…</string>
+    <string name="gallery_empty">Belum ada konten</string>
+    <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
+    <string name="gallery_offline">Offline, Please check Your connection…!!!</string>
+
+    <!-- Photo -->
+    <string name="photo_name_format">#%s</string>
+    <string name="photo_counter_format">%d/%d</string>
+    <string name="photo_copyright">Hak cipta konten ini ada pada pengambilnya.</string>
+    <string name="photo_date">%s</string>
+
+    <!-- Media type badge -->
+    <string name="type_video">VIDEO</string>
+    <string name="type_photo">FOTO</string>
+
+    <!-- Download -->
+    <string name="download_saved_dcim">Tersimpan di DCIM/TKJ Photos</string>
+    <string name="download_saved_app">Tersimpan di folder aplikasi</string>
+    <string name="download_failed_empty">File hasil download kosong.</string>
+    <string name="download_failed_http">Download gagal: HTTP %d</string>
+    <string name="download_failed_response">Response kosong</string>
+    <string name="download_failed_generic">Download gagal: %s</string>
+    <string name="download_failed_save">Gagal menyimpan: %s</string>
+
+    <!-- Profile -->
+    <string name="profile_subtitle">TKJ OnE • Dev. Jirankun</string>
+    <string name="profile_theme_title">Tema Aplikasi</string>
+    <string name="profile_theme_dark">Gelap</string>
+    <string name="profile_theme_dark_desc">Tampilan gelap iOS-style</string>
+    <string name="profile_theme_light">Terang</string>
+    <string name="profile_theme_light_desc">Tampilan terang minimalis</string>
+    <string name="profile_theme_auto">Otomatis</string>
+    <string name="profile_theme_auto_desc">Ikuti tema sistem</string>
+    <string name="profile_layout_title">Tata Letak Grid</string>
+    <string name="profile_layout_grid">Grid Biasa</string>
+    <string name="profile_layout_grid_desc">Grid (Normal)</string>
+    <string name="profile_layout_staggered">Staggered</string>
+    <string name="profile_layout_staggered_desc">Grid (Masonry)</string>
+    <string name="profile_upload_title">Ajukan Upload</string>
+    <string name="profile_upload_subtitle">Upload foto</string>
+    <string name="profile_github_title">GitHub</string>
+    <string name="profile_github_subtitle">Tahan untuk Info &amp; Lisensi</string>
+    <string name="profile_logout">LOGOUT</string>
+
+    <!-- Update -->
+    <string name="update_title">Pembaruan Tersedia</string>
+    <string name="update_version">TKJ OnE v%s</string>
+    <string name="update_size">Ukuran: %s</string>
+    <string name="update_changelog">Perubahan:</string>
+    <string name="update_later">Nanti Saja</string>
+    <string name="update_now">Perbarui</string>
+    <string name="update_check_failed_http">Gagal cek update (HTTP %d)</string>
+    <string name="update_no_apk">Tidak ada file APK di rilis terbaru.</string>
+    <string name="update_check_failed">Gagal cek update: %s</string>
+    <string name="update_no_description">Tidak ada deskripsi.</string>
+    <string name="update_apk_not_found">File APK tidak ditemukan.</string>
+    <string name="update_install_starting">Memulai instalasi…</string>
+    <string name="update_install_failed">Gagal instalasi: %s</string>
+
+    <!-- Loading -->
+    <string name="loading_data">Memuat data…</string>
+    <string name="loading_upload">Memuat upload…</string>
+    <string name="loading_video">Memuat video…</string>
+    <string name="loading_image">Memuat…</string>
+    <string name="loading_story">Memuat cerita…</string>
+
+    <!-- Nav -->
+    <string name="nav_gallery">Galeri</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_upload">Upload</string>
+
+    <!-- Month abbreviations -->
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Feb</string>
+    <string name="month_mar">Mar</string>
+    <string name="month_apr">Apr</string>
+    <string name="month_may">Mei</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Agu</string>
+    <string name="month_sep">Sep</string>
+    <string name="month_oct">Okt</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Des</string>
+
+    <!-- Gallery greeting -->
+    <string name="gallery_greeting">Halo, </string>
+
+    <!-- Error view -->
+    <string name="error_network">Gagal memuat data.\nPeriksa koneksi internet Anda.</string>
+    <string name="error_retry">COBA LAGI</string>
+
+    <!-- Dev popup -->
+    <string name="dev_subtitle">Developer aplikasi android dan website</string>
+    <string name="dev_close">TUTUP</string>
+    <string name="dev_portfolio">PORTOFOLIO</string>
+    <string name="dev_license_section">LISENSI</string>
+    <string name="dev_license_mit">MIT License</string>
+    <string name="dev_license_apache">Apache 2.0</string>
+    <string name="dev_license_flutter">Flutter License</string>
+    <string name="dev_license_not_found">File lisensi tidak ditemukan.</string>
+
+    <!-- Story -->
+    <string name="story_close">X</string>
+    <string name="story_title">Cerita</string>
+
+    <!-- Profile photo -->
+    <string name="profile_photo_error">Gagal memuat foto: %s</string>
+    <string name="profile_photo_pick">Ubah Foto Profil</string>
+
+    <!-- API errors -->
+    <string name="error_format_invalid">Format data %s tidak valid</string>
+    <string name="error_load_generic">Gagal memuat %s: %s</string>
+
+    <!-- Month array for formatDate -->
+    <string-array name="months">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>Mei</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Agu</item>
+        <item>Sep</item>
+        <item>Okt</item>
+        <item>Nov</item>
+        <item>Des</item>
+    </string-array>
+</resources>

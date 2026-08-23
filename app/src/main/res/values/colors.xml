@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand accent -->
+    <color name="primary_cyan">#FF0A84FF</color>
+    <color name="primary_cyan_dark">#FF0A84FF</color>
+
+    <!-- iOS System Colors -->
+    <color name="accent_blue">#FF0A84FF</color>
+    <color name="accent_green">#FF34C759</color>
+    <color name="accent_red">#FFFF453A</color>
+    <color name="accent_orange">#FFFF9F0A</color>
+    <color name="accent_yellow">#FFFFD60A</color>
+    <color name="accent_purple">#FFBF5AF2</color>
+    <color name="accent_pink">#FFFF375F</color>
+    <color name="accent_teal">#FF64D2FF</color>
+
+    <!-- Dark mode -->
+    <color name="dark_bg">#FF1C1C1E</color>
+    <color name="dark_bg2">#FF2C2C2E</color>
+    <color name="dark_bg3">#FF3A3A3C</color>
+    <color name="card_bg">#FF2C2C2E</color>
+    <color name="dark_sep">#FF38383A</color>
+    <color name="dark_label">#FFFFFFFF</color>
+    <color name="dark_sec_label">#FF98989E</color>
+    <color name="dark_tert_label">#FF555557</color>
+    <color name="dark_fill">#FF3A3A3C</color>
+
+    <!-- Light mode -->
+    <color name="light_bg">#FFF2F2F7</color>
+    <color name="light_bg2">#FFFFFFFF</color>
+    <color name="light_card">#FFFFFFFF</color>
+    <color name="light_sep">#FFC6C6C8</color>
+    <color name="light_label">#FF000000</color>
+    <color name="light_sec_label">#FF8E8E93</color>
+    <color name="light_tert_label">#FFC6C6C8</color>
+    <color name="light_fill">#FF787880</color>
+
+    <!-- Story FAB -->
+    <color name="story_fab_start">#FF6366F1</color>
+    <color name="story_fab_end">#FF8B5CF6</color>
+
+    <!-- Basics -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="error_red">#FFFF0000</color>
+
+    <!-- Offline banner -->
+    <color name="offline_banner">#FFE65100</color>
+
+    <!-- Video overlay -->
+    <color name="video_overlay">#40000000</color>
+
+    <!-- Thumbnail placeholder -->
+    <color name="thumbnail_placeholder_light">#FFBDBDBD</color>
+    <color name="thumbnail_placeholder_dark">#FF424242</color>
+
+    <!-- Logout button -->
+    <color name="offline_orange">#FFE65100</color>
+
+    <color name="logout_red">#FFFF0D00</color>
+
+    <!-- Story handle dark/light -->
+    <color name="story_handle_dark">#4DFFFFFF</color>
+    <color name="story_handle_light">#33000000</color>
+</resources>

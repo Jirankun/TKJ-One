@@ -1,0 +1,170 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.tkjone.app"
+4    android:versionCode="1"
+5    android:versionName="1.0.1" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="35" />
+10
+11    <uses-permission
+11-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:4:5-107
+12        android:name="android.permission.READ_EXTERNAL_STORAGE"
+12-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:4:22-77
+13        android:maxSdkVersion="32" />
+13-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:4:78-104
+14    <uses-permission
+14-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:5:5-108
+15        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+15-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:5:22-78
+16        android:maxSdkVersion="29" />
+16-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:5:79-105
+17    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+17-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:6:5-76
+17-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:6:22-73
+18    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+18-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:7:5-75
+18-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:7:22-72
+19    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+19-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:8:5-82
+19-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:8:22-79
+20    <uses-permission android:name="android.permission.INTERNET" />
+20-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:9:5-67
+20-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:9:22-64
+21    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+21-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:10:5-79
+21-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:10:22-76
+22    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+22-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:11:5-83
+22-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:11:22-80
+23
+24    <queries>
+24-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:61:5-70:15
+25        <intent>
+25-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:62:9-65:18
+26            <action android:name="android.intent.action.VIEW" />
+26-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:17-69
+26-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:25-66
+27
+28            <data android:scheme="https" />
+28-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:17-49
+28-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:23-46
+29        </intent>
+30        <intent>
+30-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:66:9-69:18
+31            <action android:name="android.intent.action.VIEW" />
+31-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:17-69
+31-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:25-66
+32
+33            <data android:scheme="http" />
+33-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:17-49
+33-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:23-46
+34        </intent>
+35    </queries>
+36
+37    <application
+37-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:13:5-59:19
+38        android:name="com.tkjone.app.TKJOneApp"
+38-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:14:9-34
+39        android:allowBackup="false"
+39-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:18:9-36
+40        android:debuggable="true"
+41        android:extractNativeLibs="false"
+42        android:icon="@mipmap/ic_launcher"
+42-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:16:9-43
+43        android:label="@string/app_name"
+43-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:15:9-41
+44        android:requestLegacyExternalStorage="true"
+44-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:17:9-52
+45        android:supportsRtl="true"
+45-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:19:9-35
+46        android:usesCleartextTraffic="true" >
+46-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:20:9-44
+47        <activity
+47-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:22:9-48:20
+48            android:name="com.tkjone.app.MainActivity"
+48-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:23:13-41
+49            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+49-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:27:13-163
+50            android:exported="true"
+50-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:24:13-36
+51            android:hardwareAccelerated="true"
+51-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:28:13-47
+52            android:launchMode="singleTop"
+52-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:25:13-43
+53            android:theme="@style/AppTheme"
+53-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:26:13-44
+54            android:windowSoftInputMode="adjustResize" >
+54-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:29:13-55
+55            <intent-filter>
+55-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:30:13-33:29
+56                <action android:name="android.intent.action.MAIN" />
+56-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:31:17-69
+56-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:31:25-66
+57
+58                <category android:name="android.intent.category.LAUNCHER" />
+58-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:32:17-77
+58-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:32:27-74
+59            </intent-filter>
+60            <intent-filter>
+60-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:34:13-39:29
+61                <action android:name="android.intent.action.VIEW" />
+61-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:17-69
+61-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:25-66
+62
+63                <category android:name="android.intent.category.DEFAULT" />
+63-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:36:17-76
+63-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:36:27-73
+64                <category android:name="android.intent.category.BROWSABLE" />
+64-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:37:17-78
+64-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:37:27-75
+65
+66                <data android:scheme="tkjone" />
+66-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:17-49
+66-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:23-46
+67            </intent-filter>
+68            <intent-filter android:autoVerify="true" >
+68-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:40:13-47:29
+68-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:40:28-53
+69                <action android:name="android.intent.action.VIEW" />
+69-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:17-69
+69-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:35:25-66
+70
+71                <category android:name="android.intent.category.DEFAULT" />
+71-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:36:17-76
+71-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:36:27-73
+72                <category android:name="android.intent.category.BROWSABLE" />
+72-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:37:17-78
+72-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:37:27-75
+73
+74                <data
+74-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:17-49
+75                    android:host="tkj1.pages.dev"
+75-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:45:23-52
+76                    android:pathPrefix="/photo"
+76-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:46:23-50
+77                    android:scheme="https" />
+77-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:38:23-46
+78            </intent-filter>
+79        </activity>
+80
+81        <provider
+82            android:name="com.tkjone.app.service.TKJFileProvider"
+82-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:51:13-52
+83            android:authorities="com.tkjone.app.fileprovider"
+83-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:52:13-64
+84            android:exported="false"
+84-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:53:13-37
+85            android:grantUriPermissions="true" >
+85-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:54:13-47
+86            <meta-data
+86-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:55:13-57:58
+87                android:name="android.support.FILE_PROVIDER_PATHS"
+87-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:56:17-67
+88                android:resource="@xml/provider_paths" />
+88-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/AndroidManifest.xml:57:17-55
+89        </provider>
+90    </application>
+91
+92</manifest>

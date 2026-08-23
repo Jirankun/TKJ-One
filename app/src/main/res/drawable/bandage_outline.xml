@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 63.69 167.88 L 448.32 167.88 Q 536.44 167.88 536.44 256 L 536.44 256.01 Q 536.44 344.13 448.32 344.13 L 63.69 344.13 Q -24.43 344.13 -24.43 256.01 L -24.43 256 Q -24.43 167.88 63.69 167.88 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 201.41 156.59 L 313.41 156.59 Q 345.41 156.59 345.41 188.59 L 345.41 320.59 Q 345.41 352.59 313.41 352.59 L 201.41 352.59 Q 169.41 352.59 169.41 320.59 L 169.41 188.59 Q 169.41 156.59 201.41 156.59 Z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 256 192 C 264.836555997 192 272 199.163444003 272 208 C 272 216.836555997 264.836555997 224 256 224 C 247.163444003 224 240 216.836555997 240 208 C 240 199.163444003 247.163444003 192 256 192 Z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 304 240 C 312.836555997 240 320 247.163444003 320 256 C 320 264.836555997 312.836555997 272 304 272 C 295.163444003 272 288 264.836555997 288 256 C 288 247.163444003 295.163444003 240 304 240 Z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 208 240 C 216.836555997 240 224 247.163444003 224 256 C 224 264.836555997 216.836555997 272 208 272 C 199.163444003 272 192 264.836555997 192 256 C 192 247.163444003 199.163444003 240 208 240 Z" />
+    <path
+        android:fillColor="#000000"
+        android:pathData="M 256 288 C 264.836555997 288 272 295.163444003 272 304 C 272 312.836555997 264.836555997 320 256 320 C 247.163444003 320 240 312.836555997 240 304 C 240 295.163444003 247.163444003 288 256 288 Z" />
+</vector>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 256 32 C 326.692447978 32 384 89.3075520217 384 160 C 384 230.692447978 326.692447978 288 256 288 C 185.307552022 288 128 230.692447978 128 160 C 128 89.3075520217 185.307552022 32 256 32 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M143.65,227.82,48,400l86.86-0.42a16,16,0,0,1,13.82,7.8L192,480l88.33-194.32" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M366.54,224,464,400l-86.86-0.42a16,16,0,0,0-13.82,7.8L320,480,256,339.2" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 256 96 C 291.346223989 96 320 124.653776011 320 160 C 320 195.346223989 291.346223989 224 256 224 C 220.653776011 224 192 195.346223989 192 160 C 192 124.653776011 220.653776011 96 256 96 Z" />
+</vector>

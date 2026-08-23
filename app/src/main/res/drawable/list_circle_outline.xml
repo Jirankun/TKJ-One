@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 224 184 L 352 184" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 224 256 L 352 256" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 224 327 L 352 327" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10"
+        android:pathData="M448,258c0-106-86-192-192-192S64,152,64,258s86,192,192,192S448,364,448,258Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 168 176 C 172.418277999 176 176 179.581722001 176 184 C 176 188.418277999 172.418277999 192 168 192 C 163.581722001 192 160 188.418277999 160 184 C 160 179.581722001 163.581722001 176 168 176 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 168 249 C 172.418277999 249 176 252.581722001 176 257 C 176 261.418277999 172.418277999 265 168 265 C 163.581722001 265 160 261.418277999 160 257 C 160 252.581722001 163.581722001 249 168 249 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 168 320 C 172.418277999 320 176 323.581722001 176 328 C 176 332.418277999 172.418277999 336 168 336 C 163.581722001 336 160 332.418277999 160 328 C 160 323.581722001 163.581722001 320 168 320 Z" />
+</vector>

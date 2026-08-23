@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 104 96 C 134.927945991 96 160 121.072054009 160 152 C 160 182.927945991 134.927945991 208 104 208 C 73.0720540095 208 48 182.927945991 48 152 C 48 121.072054009 73.0720540095 96 104 96 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeLineJoin="round"
+        android:strokeLineCap="round"
+        android:pathData="M 104 304 C 134.927945991 304 160 329.072054009 160 360 C 160 390.927945991 134.927945991 416 104 416 C 73.0720540095 416 48 390.927945991 48 360 C 48 329.072054009 73.0720540095 304 104 304 Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10"
+        android:strokeLineCap="square"
+        android:pathData="M157,175,146,190,183,205s3.46-6.42,7-10Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10"
+        android:strokeLineCap="round"
+        android:pathData="M154.17,334.43,460,162c-2.5-6.7-28-12-64-4-29.12,6.47-121.16,29.05-159.16,56.05C205.85,236.06,227,272,192,298c-25.61,19-44.43,22.82-44.43,22.82Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10"
+        android:strokeLineCap="round"
+        android:pathData="M344.47,278.24,295,306.67c14.23,6.74,65.54,33.27,117,36.33,14.92 0.89 ,30,0.39,39-6Z" />
+    <path
+        android:strokeColor="#000"
+        android:strokeWidth="32"
+        android:strokeMiterLimit="10"
+        android:pathData="M 256 208 C 273.673111995 208 288 222.326888005 288 240 C 288 257.673111995 273.673111995 272 256 272 C 238.326888005 272 224 257.673111995 224 240 C 224 222.326888005 238.326888005 208 256 208 Z" />
+</vector>

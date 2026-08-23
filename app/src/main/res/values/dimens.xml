@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Grid -->
+    <dimen name="grid_spacing">12dp</dimen>
+    <dimen name="grid_padding">12dp</dimen>
+    <dimen name="card_radius">12dp</dimen>
+
+    <!-- Nav bar -->
+    <dimen name="nav_bar_height">65dp</dimen>
+    <dimen name="nav_icon_size">22sp</dimen>
+    <dimen name="nav_label_size">11sp</dimen>
+
+    <!-- Photo card -->
+    <dimen name="photo_card_thumb_height">200dp</dimen>
+    <dimen name="photo_card_name_size">14sp</dimen>
+    <dimen name="photo_card_date_size">10sp</dimen>
+
+    <!-- Login -->
+    <dimen name="login_logo_size">100dp</dimen>
+    <dimen name="login_logo_icon_size">40sp</dimen>
+    <dimen name="login_title_size">28sp</dimen>
+    <dimen name="login_subtitle_size">15sp</dimen>
+    <dimen name="login_button_radius">12dp</dimen>
+
+    <!-- Profile -->
+    <dimen name="profile_avatar_size">100dp</dimen>
+    <dimen name="profile_name_size">22sp</dimen>
+    <dimen name="profile_subtitle_size">13sp</dimen>
+
+    <!-- Dialog -->
+    <dimen name="dialog_width">280dp</dimen>
+    <dimen name="dialog_title_size">17sp</dimen>
+    <dimen name="dialog_body_size">13sp</dimen>
+    <dimen name="dialog_button_size">15sp</dimen>
+
+    <!-- FAB -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_margin_end">16dp</dimen>
+    <dimen name="fab_margin_bottom">80dp</dimen>
+
+    <!-- Thumbnail loading spinner -->
+    <dimen name="spinner_size">40dp</dimen>
+
+    <!-- Story -->
+    <dimen name="story_handle_width">36dp</dimen>
+    <dimen name="story_handle_height">4dp</dimen>
+    <dimen name="story_thumb_size">56dp</dimen>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <font
+        android:font="@font/torus_thin"
+        android:fontStyle="normal"
+        android:fontWeight="100" />
+
+    <font
+        android:font="@font/torus_light"
+        android:fontStyle="normal"
+        android:fontWeight="300" />
+
+    <font
+        android:font="@font/torus_regular"
+        android:fontStyle="normal"
+        android:fontWeight="400" />
+
+    <font
+        android:font="@font/torus_semibold"
+        android:fontStyle="normal"
+        android:fontWeight="600" />
+
+    <font
+        android:font="@font/torus_bold"
+        android:fontStyle="normal"
+        android:fontWeight="700" />
+
+    <font
+        android:font="@font/torus_heavy"
+        android:fontStyle="normal"
+        android:fontWeight="800" />
+
+</font-family>

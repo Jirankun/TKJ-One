@@ -1,0 +1,7 @@
+com.tkjone.app-pngs-0 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/build/generated/res/pngs/debug
+com.tkjone.app-resValues-1 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/build/generated/res/resValues/debug
+com.tkjone.app-packageDebugResources-2 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/build/intermediates/incremental/debug/packageDebugResources/merged.dir
+com.tkjone.app-packageDebugResources-3 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/build/intermediates/incremental/debug/packageDebugResources/stripped.dir
+com.tkjone.app-debug-4 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/build/intermediates/merged_res/debug/mergeDebugResources
+com.tkjone.app-debug-5 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/debug/res
+com.tkjone.app-main-6 /home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/app/src/main/res
