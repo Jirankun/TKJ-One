@@ -1,5 +1,31 @@
-(version_info.json is a source/config file, so no changes needed to .gitignore)
+```
+# Build artifacts
+*.apk
+*.aar
+*.jar
+*.class
+build/
+app/build/
 
-```json
+# Dependencies
+.gradle/
+node_modules/
+libs/
 
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
