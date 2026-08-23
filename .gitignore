@@ -1,9 +1,5 @@
-```
-.gradle/
-build/
-*.log
-*.tmp
-*.swp
-.DS_Store
-Thumbs.db
+(version_info.json is a source/config file, so no changes needed to .gitignore)
+
+```json
+
 ```
