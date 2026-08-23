@@ -95,13 +95,18 @@
     <string name="dialog_cancel">BATAL</string>
     <string name="dialog_close">Tutup</string>
     <string name="dialog_confirm">Konfirmasi</string>
+    <string name="dialog_download_progress">Mendownload… %d%%</string>
     <string name="dialog_info_title">Informasi</string>
     <string name="dialog_logout_confirm">LOGOUT</string>
     <string name="dialog_logout_message">Apakah Anda Yakin Ingin Logout?</string>
     <string name="dialog_logout_title">Konfirmasi</string>
     <string name="dialog_maintenance_title">Maintenance</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_permission_grant">Buka Pengaturan</string>
+    <string name="dialog_permission_message">Aplikasi memerlukan izin akses foto dan video untuk menyimpan file. Silakan berikan izin di pengaturan.</string>
+    <string name="dialog_permission_title">Izin Diperlukan</string>
     <string name="dialog_suspended_title">Akun Ditangguhkan</string>
+    <string name="download_enhancing">Meningkatkan kualitas foto…</string>
     <string name="download_failed_empty">File hasil download kosong.</string>
     <string name="download_failed_generic">Download gagal: %s</string>
     <string name="download_failed_http">Download gagal: HTTP %d</string>
@@ -109,14 +114,19 @@
     <string name="download_failed_save">Gagal menyimpan: %s</string>
     <string name="download_saved_app">Tersimpan di folder aplikasi</string>
     <string name="download_saved_dcim">Tersimpan di DCIM/TKJ Photos</string>
+    <string name="download_saving">Menyimpan foto…</string>
     <string name="error_format_invalid">Format data %s tidak valid</string>
-    <string name="error_load_generic">Gagal memuat %s: %s</string>
+    <string formatted="false" name="error_load_generic">Gagal memuat %s: %s</string>
     <string name="error_network">Gagal memuat data.\nPeriksa koneksi internet Anda.</string>
     <string name="error_retry">COBA LAGI</string>
+    <string name="filter_all">Semua (Default)</string>
+    <string name="filter_photo">Foto</string>
+    <string name="filter_video">Video</string>
     <string name="gallery_empty">Belum ada konten</string>
     <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
-    <string name="gallery_filter_all">Semua</string>
+    <string name="gallery_filter_all">Semua (Default)</string>
     <string name="gallery_greeting">Halo, </string>
+    <string name="gallery_loading_thumbs">Memuat %d foto…</string>
     <string name="gallery_offline">Offline, Please check Your connection…!!!</string>
     <string name="gallery_search_hint">Cari foto…</string>
     <string name="loading_data">Memuat data…</string>
@@ -153,7 +163,7 @@
     <string name="nav_profile">Profil</string>
     <string name="nav_upload">Upload</string>
     <string name="photo_copyright">Hak cipta konten ini ada pada pengambilnya.</string>
-    <string name="photo_counter_format">%d/%d</string>
+    <string formatted="false" name="photo_counter_format">%d/%d</string>
     <string name="photo_date">%s</string>
     <string name="photo_name_format">#%s</string>
     <string name="profile_github_subtitle">Tahan untuk Info &amp; Lisensi</string>
@@ -176,17 +186,22 @@
     <string name="profile_theme_title">Tema Aplikasi</string>
     <string name="profile_upload_subtitle">Upload foto</string>
     <string name="profile_upload_title">Ajukan Upload</string>
+    <string name="share_chooser">Bagikan via</string>
     <string name="splash_loading">Loading TKJ OnE…</string>
     <string name="story_close">X</string>
     <string name="story_title">Cerita</string>
+    <string name="toast_download_complete">Download selesai</string>
+    <string name="toast_download_started">Download dimulai…</string>
+    <string name="toast_link_copied">Link disalin ke clipboard</string>
     <string name="toast_link_failed">Gagal membuka link</string>
     <string name="toast_link_failed2">Gagal membuka tautan</string>
     <string name="toast_logout">Berhasil keluar.</string>
     <string name="toast_permission_needed">Izin penyimpanan diperlukan</string>
+    <string name="toast_permission_photo_video">Izin akses foto dan video diperlukan untuk download</string>
     <string name="toast_photo_not_found">Foto \"%s\" tidak ditemukan.</string>
     <string name="toast_story_empty">Belum ada konten cerita</string>
     <string name="toast_update_failed">Gagal: %s</string>
-    <string name="toast_upload_hint">Upload via web: https://tkj1.pages.dev</string>
+    <string name="toast_upload_hint">Upload via web</string>
     <string name="toast_video_failed">Gagal memutar video</string>
     <string name="toast_welcome">Selamat datang, %s!</string>
     <string name="type_photo">FOTO</string>
@@ -212,5 +227,10 @@
         <item name="android:statusBarColor">@color/dark_bg</item>
         <item name="android:navigationBarColor">@color/dark_bg</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:fontFamily">@font/torus</item>
+    </style>
+    <style name="DialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
     </style>
 </resources>

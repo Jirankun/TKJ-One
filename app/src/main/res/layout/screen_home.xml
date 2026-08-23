@@ -41,7 +41,9 @@
                 <ImageView
                     android:id="@+id/nav_gallery_icon"
                     android:layout_width="26dp"
-                    android:layout_height="26dp" />
+                    android:layout_height="26dp"
+                    android:src="@drawable/photo"
+                    android:tint="@color/accent_blue" />
 
                 <TextView
                     android:id="@+id/nav_gallery_label"
@@ -49,7 +51,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@string/nav_gallery"
-                    android:textSize="11sp" />
+                    android:fontFamily="@font/torus"
+            android:textSize="11sp" />
             </LinearLayout>
 
             <!-- Divider -->
@@ -72,7 +75,9 @@
                 <ImageView
                     android:id="@+id/nav_profile_icon"
                     android:layout_width="26dp"
-                    android:layout_height="26dp" />
+                    android:layout_height="26dp"
+                    android:src="@drawable/person"
+                    android:tint="@android:color/darker_gray" />
 
                 <TextView
                     android:id="@+id/nav_profile_label"
@@ -80,7 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="@string/nav_profile"
-                    android:textSize="11sp" />
+                    android:fontFamily="@font/torus"
+            android:textSize="11sp" />
             </LinearLayout>
 
         </LinearLayout>

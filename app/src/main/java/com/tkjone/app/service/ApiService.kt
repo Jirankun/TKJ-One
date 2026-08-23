@@ -2,7 +2,6 @@ package com.tkjone.app.service
 
 import android.content.Context
 import com.tkjone.app.R
-import com.tkjone.app.model.BannerAd
 import com.tkjone.app.model.InfoMessage
 import com.tkjone.app.model.Photo
 import com.tkjone.app.model.UserStatus
@@ -11,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.withContext
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.json.JSONArray
@@ -30,16 +30,34 @@ data class ApiResult<T>(
 }
 
 object ApiService {
-    private const val PHOTOS_JSON_URL = "https://tkj1.pages.dev/DB/photos.json"
-    private const val BANNER_JSON_URL = "https://tkj1.pages.dev/DB/banner.json"
-    private const val INFO_JSON_URL = "https://tkj1.pages.dev/DB/info.json"
-    private const val STATUS_JSON_URL = "https://tkj1.pages.dev/DB/status.json"
+    private val PHOTOS_JSON_URL get() = com.tkjone.app.config.AppConfig.PHOTOS_JSON_URL
+    private val INFO_JSON_URL get() = com.tkjone.app.config.AppConfig.INFO_JSON_URL
+    private val STATUS_JSON_URL get() = com.tkjone.app.config.AppConfig.STATUS_JSON_URL
     private const val CACHE_FILE_NAME = "tkjone_photos_cache.json"
 
-    private val client = OkHttpClient.Builder()
-        .connectTimeout(20, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .build()
+    private lateinit var client: OkHttpClient
+
+    fun initClient(context: Context) {
+        val cacheDir = File(context.cacheDir, "http_cache")
+        val cache = okhttp3.Cache(cacheDir, 10L * 1024 * 1024) // 10MB HTTP cache
+        client = OkHttpClient.Builder()
+            .dns(FastDns)
+            .cache(cache)
+            .connectTimeout(8, TimeUnit.SECONDS)
+            .readTimeout(12, TimeUnit.SECONDS)
+            .build()
+    }
+
+    private fun getClient(): OkHttpClient {
+        if (!::client.isInitialized) {
+            client = OkHttpClient.Builder()
+                .dns(FastDns)
+                .connectTimeout(8, TimeUnit.SECONDS)
+                .readTimeout(12, TimeUnit.SECONDS)
+                .build()
+        }
+        return client
+    }
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
 
@@ -49,7 +67,7 @@ object ApiService {
         return withContext(Dispatchers.IO) {
             try {
                 val request = Request.Builder().url(PHOTOS_JSON_URL).build()
-                val response = client.newCall(request).execute()
+                val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
                     return@withContext ApiResult.failure(
                         context.getString(R.string.download_failed_http, response.code)
@@ -103,45 +121,13 @@ object ApiService {
         }
     }
 
-    // ==================== BANNERS ====================
-
-    suspend fun fetchBanners(context: Context): ApiResult<List<BannerAd>> {
-        return withContext(Dispatchers.IO) {
-            try {
-                val request = Request.Builder().url(BANNER_JSON_URL).build()
-                val response = client.newCall(request).execute()
-                if (!response.isSuccessful) {
-                    return@withContext ApiResult.failure(
-                        context.getString(R.string.download_failed_http, response.code)
-                    )
-                }
-                val body = response.body?.string() ?: ""
-                val banners = parseBanners(body)
-                    ?: return@withContext ApiResult.failure(context.getString(R.string.error_format_invalid, "banner"))
-                ApiResult.success(banners)
-            } catch (e: Exception) {
-                ApiResult.failure(context.getString(R.string.error_load_generic, "banner", e.message ?: ""))
-            }
-        }
-    }
-
-    private fun parseBanners(body: String): List<BannerAd>? {
-        return try {
-            val json = JSONObject(body)
-            val arr = json.optJSONArray("banner") ?: return null
-            (0 until arr.length()).map { BannerAd.fromJson(arr.getJSONObject(it)) }
-        } catch (_: Exception) {
-            null
-        }
-    }
-
     // ==================== INFO ====================
 
     suspend fun fetchInfo(context: Context): ApiResult<List<InfoMessage>> {
         return withContext(Dispatchers.IO) {
             try {
                 val request = Request.Builder().url(INFO_JSON_URL).build()
-                val response = client.newCall(request).execute()
+                val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
                     return@withContext ApiResult.failure(
                         context.getString(R.string.download_failed_http, response.code)
@@ -173,7 +159,7 @@ object ApiService {
         return withContext(Dispatchers.IO) {
             try {
                 val request = Request.Builder().url(STATUS_JSON_URL).build()
-                val response = client.newCall(request).execute()
+                val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
                     return@withContext ApiResult.failure("HTTP ${response.code}")
                 }

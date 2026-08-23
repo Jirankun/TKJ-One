@@ -20,7 +20,8 @@ object DownloadService {
     private const val DOWNLOAD_DIR_NAME = "DCIM/TKJ Photos"
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
+        .dns(FastDns)
+        .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 

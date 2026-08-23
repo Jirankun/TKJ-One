@@ -29,7 +29,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textSize="36sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="36sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -52,7 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:textSize="22sp"
+                android:fontFamily="@font/torus"
+            android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -60,7 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/profile_subtitle"
-                android:textSize="13sp" />
+                android:fontFamily="@font/torus"
+            android:textSize="13sp" />
         </LinearLayout>
 
         <!-- Spacer -->
@@ -96,7 +99,8 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:text="@string/profile_theme_title"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -148,7 +152,8 @@
                     android:layout_marginStart="12dp"
                     android:layout_weight="1"
                     android:text="@string/profile_layout_title"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -198,14 +203,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_upload_title"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_upload_subtitle"
-                    android:textSize="13sp" />
+                    android:fontFamily="@font/torus"
+            android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -239,14 +246,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_github_title"
-                    android:textSize="15sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/profile_github_subtitle"
-                    android:textSize="13sp" />
+                    android:fontFamily="@font/torus"
+            android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -264,18 +273,13 @@
             android:orientation="horizontal"
             android:paddingVertical="14dp">
 
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/log_out" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:text="@string/profile_logout"
                 android:textColor="@color/logout_red"
-                android:textSize="15sp" />
+                android:fontFamily="@font/torus"
+            android:textSize="15sp" />
         </LinearLayout>
 
         <View
@@ -289,6 +293,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="32dp"
+            android:fontFamily="@font/torus"
             android:textSize="12sp" />
 
     </LinearLayout>

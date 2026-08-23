@@ -18,7 +18,8 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/error_network"
-        android:textSize="15sp" />
+        android:fontFamily="@font/torus"
+            android:textSize="15sp" />
 
     <TextView
         android:id="@+id/error_retry_btn"
@@ -29,7 +30,8 @@
         android:paddingVertical="12dp"
         android:text="@string/error_retry"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:fontFamily="@font/torus"
+            android:textSize="15sp"
         android:textStyle="bold" />
 
 </LinearLayout>

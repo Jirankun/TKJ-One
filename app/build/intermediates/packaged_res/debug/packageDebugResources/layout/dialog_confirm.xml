@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:fontFamily="@font/torus"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -24,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
+            android:fontFamily="@font/torus"
             android:textSize="13sp" />
     </LinearLayout>
 
@@ -43,6 +45,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/dialog_cancel"
+            android:fontFamily="@font/torus"
             android:textSize="15sp" />
 
         <View
@@ -55,6 +58,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:fontFamily="@font/torus"
             android:textSize="15sp"
             android:textStyle="bold" />
     </LinearLayout>

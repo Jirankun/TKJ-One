@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Background image at full brightness -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background"
+        android:contentDescription="@null" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,17 +23,41 @@
             android:layout_height="48dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="16dp">
+            android:paddingHorizontal="16dp"
+            android:background="#CC1C1C1E">
 
-            <TextView
-                android:id="@+id/gallery_title"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/gallery_filter_btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/gallery_filter_all"
-                android:textColor="@color/accent_blue"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingVertical="4dp">
+
+                <TextView
+                    android:id="@+id/gallery_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gallery_filter_all"
+                    android:textColor="@color/accent_blue"
+                    android:fontFamily="@font/torus"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/chevron_down"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="4dp"
+                    android:src="@drawable/chevron_down"
+                    android:tint="@android:color/white" />
+            </LinearLayout>
+
+            <!-- Spacer pushes search to right -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/gallery_search_btn"
@@ -53,7 +85,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:textSize="15sp" />
+                android:fontFamily="@font/torus"
+            android:textSize="15sp" />
         </LinearLayout>
 
         <!-- Offline Banner -->
@@ -81,19 +114,22 @@
                 android:layout_weight="1"
                 android:text="@string/gallery_offline"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:fontFamily="@font/torus"
+            android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Banner Carousel -->
-        <HorizontalScrollView
-            android:id="@+id/banner_carousel"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginVertical="4dp"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            android:visibility="gone" />
+        <!-- ═══ AD BANNER PLACEHOLDER ═══
+             Pasang iklan di sini (misal: AdMob, Unity Ads, dll)
+             Ukuran banner: match_parent x 50-90dp
+             Contoh:
+             <com.google.android.gms.ads.AdView
+                 android:id="@+id/ad_banner"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 ads:adSize="BANNER"
+                 ads:adUnitId="ca-app-pub-XXXXX" />
+        -->
 
         <!-- Photo Count -->
         <LinearLayout
@@ -113,7 +149,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="13sp" />
+                android:fontFamily="@font/torus"
+            android:textSize="13sp" />
         </LinearLayout>
 
         <!-- Photo Grid -->
@@ -122,7 +159,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:background="#33000000">
 
             <LinearLayout
                 android:id="@+id/photo_grid"

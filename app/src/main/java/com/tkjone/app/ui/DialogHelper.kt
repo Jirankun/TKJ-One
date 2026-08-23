@@ -3,22 +3,56 @@ package com.tkjone.app.ui
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.Toast
 import com.tkjone.app.R
 
 object DialogHelper {
 
-    fun showToast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(context, message, duration).show()
+    fun showToast(context: Context, message: String, duration: Int = 2000) {
+        try {
+            val activity = context as? android.app.Activity ?: return
+            // Remove existing pill if any
+            val root = activity.findViewById<android.view.ViewGroup>(android.R.id.content)
+            val existing = root.findViewWithTag<android.view.View>("toast_pill")
+            if (existing != null) root.removeView(existing)
+
+            // Inflate pill banner
+            val inflater = android.view.LayoutInflater.from(context)
+            val pill = inflater.inflate(R.layout.toast_pill, null)
+            pill.tag = "toast_pill"
+            val tv = pill.findViewById<TextView>(R.id.toast_text)
+            tv.text = message
+
+            // Add to root with layout params
+            val lp = android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+                android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                gravity = android.view.Gravity.BOTTOM or android.view.Gravity.CENTER_HORIZONTAL
+                bottomMargin = (48 * context.resources.displayMetrics.density).toInt()
+            }
+            root.addView(pill, lp)
+
+            // Animate in
+            pill.alpha = 0f; pill.translationY = 20f
+            pill.animate().alpha(1f).translationY(0f).setDuration(250)
+                .setInterpolator(android.view.animation.DecelerateInterpolator()).start()
+
+            // Auto remove after duration
+            pill.postDelayed({
+                pill.animate().alpha(0f).translationY(20f).setDuration(200)
+                    .setInterpolator(android.view.animation.AccelerateInterpolator())
+                    .withEndAction { try { root.removeView(pill) } catch (_: Exception) {} }
+                    .start()
+            }, duration.toLong())
+        } catch (_: Exception) {}
     }
 
     fun showConfirmDialog(
@@ -34,7 +68,7 @@ object DialogHelper {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        val isDark = ThemeHelper.isDarkMode(context as? android.app.Activity ?: return, com.tkjone.app.service.AppThemeMode.DARK)
+        val isDark = true
 
         val container = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
@@ -46,7 +80,7 @@ object DialogHelper {
             text = title
             textSize = 17f
             setTextColor(ThemeHelper.getLabelColor(isDark))
-            setTypeface(null, Typeface.BOLD)
+            typeface = resources.getFont(R.font.torus_bold)
             gravity = Gravity.CENTER
         })
 
@@ -59,17 +93,13 @@ object DialogHelper {
         })
 
         container.addView(View(context).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, dp(1)
-            )
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(1))
             setBackgroundColor(ThemeHelper.getSepColor(isDark))
         })
 
         val buttonRow = LinearLayout(context).apply {
             orientation = LinearLayout.HORIZONTAL
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, dp(48)
-            )
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(48))
         }
 
         buttonRow.addView(TextView(context).apply {
@@ -90,13 +120,10 @@ object DialogHelper {
             text = confirmLabel
             textSize = 15f
             setTextColor(confirmColor)
-            setTypeface(null, Typeface.BOLD)
+            typeface = resources.getFont(R.font.torus_bold)
             gravity = Gravity.CENTER
             layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f)
-            setOnClickListener {
-                dialog.dismiss()
-                onConfirm()
-            }
+            setOnClickListener { dialog.dismiss(); onConfirm() }
         })
 
         container.addView(buttonRow)
@@ -106,6 +133,7 @@ object DialogHelper {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setLayout(dp(280), WindowManager.LayoutParams.WRAP_CONTENT)
             setGravity(Gravity.CENTER)
+            setWindowAnimations(R.style.DialogAnimation)
         }
         dialog.show()
     }
@@ -120,7 +148,7 @@ object DialogHelper {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        val isDark = ThemeHelper.isDarkMode(context as? android.app.Activity ?: return, com.tkjone.app.service.AppThemeMode.DARK)
+        val isDark = true
 
         val container = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
@@ -128,40 +156,58 @@ object DialogHelper {
             setPadding(dp(24), dp(24), dp(24), dp(16))
         }
 
+        // Title
         container.addView(TextView(context).apply {
             text = title
             textSize = 17f
             setTextColor(ThemeHelper.getLabelColor(isDark))
-            setTypeface(null, Typeface.BOLD)
+            typeface = resources.getFont(R.font.torus_bold)
             gravity = Gravity.CENTER
         })
 
-        container.addView(TextView(context).apply {
+        // Scrollable message area with fixed max height
+        val scrollView = ScrollView(context).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                dp(350) // Fixed max height — prevents dialog from growing to full screen
+            ).apply { setMargins(0, dp(12), 0, dp(12)) }
+            isFillViewport = true
+        }
+
+        val messageTv = TextView(context).apply {
             text = message
             textSize = 13f
             setTextColor(ThemeHelper.getSecLabelColor(isDark))
-            gravity = Gravity.CENTER
-            setPadding(0, dp(12), 0, dp(16))
+            setPadding(dp(4), dp(4), dp(4), dp(4))
+            setTextIsSelectable(true)
+        }
+
+        scrollView.addView(messageTv)
+        container.addView(scrollView)
+
+        // Separator
+        container.addView(View(context).apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(1))
+            setBackgroundColor(ThemeHelper.getSepColor(isDark))
         })
 
+        // OK button
         container.addView(TextView(context).apply {
             text = context.getString(R.string.dialog_ok)
             textSize = 15f
             setTextColor(ThemeHelper.ACCENT_BLUE)
-            setTypeface(null, Typeface.BOLD)
+            typeface = resources.getFont(R.font.torus_bold)
             gravity = Gravity.CENTER
-            setPadding(0, dp(12), 0, 0)
-            setOnClickListener {
-                dialog.dismiss()
-                onDismiss?.invoke()
-            }
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp(48))
+            setOnClickListener { dialog.dismiss(); onDismiss?.invoke() }
         })
 
         dialog.setContentView(container)
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setLayout(dp(280), WindowManager.LayoutParams.WRAP_CONTENT)
+            setLayout(dp(300), WindowManager.LayoutParams.WRAP_CONTENT)
             setGravity(Gravity.CENTER)
+            setWindowAnimations(R.style.DialogAnimation)
         }
         dialog.show()
     }

@@ -2,8 +2,8 @@ package com.tkjone.app.service
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import com.tkjone.app.R
+import com.tkjone.app.config.AppConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -38,10 +38,11 @@ data class UpdateCheckResult(
 
 object UpdateService {
     private const val GITHUB_API = "https://api.github.com/repos/Jirankun/TKJ-One/releases/latest"
-    private const val GITHUB_RELEASES = "https://github.com/Jirankun/TKJ-One/releases/tag"
+    private val GITHUB_RELEASES get() = AppConfig.BASE_URL + "/../releases/tag"
 
     private val client = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS)
+        .dns(FastDns)
+        .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .build()
 
@@ -168,9 +169,13 @@ object UpdateService {
             val file = File(filePath)
             if (!file.exists()) return context.getString(R.string.update_apk_not_found)
 
+            val uri = androidx.core.content.FileProvider.getUriForFile(
+                context, "${context.packageName}.fileprovider", file
+            )
             val intent = Intent(Intent.ACTION_VIEW).apply {
-                setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive")
+                setDataAndType(uri, "application/vnd.android.package-archive")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
             context.startActivity(intent)
             context.getString(R.string.update_install_starting)

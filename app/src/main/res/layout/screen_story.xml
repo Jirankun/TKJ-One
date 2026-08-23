@@ -25,6 +25,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:text="@string/story_title"
+            android:fontFamily="@font/torus"
             android:textSize="17sp"
             android:textStyle="bold" />
     </LinearLayout>

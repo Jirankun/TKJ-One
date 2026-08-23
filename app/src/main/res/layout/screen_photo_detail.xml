@@ -18,7 +18,8 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:padding="4dp"
-            android:src="@drawable/arrow_back" />
+            android:src="@drawable/arrow_back"
+            android:tint="#0A84FF" />
 
         <TextView
             android:id="@+id/detail_title"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
+            android:fontFamily="@font/torus"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -35,146 +37,144 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:textColor="@android:color/darker_gray"
+            android:fontFamily="@font/torus"
             android:textSize="12sp" />
-
-        <ImageView
-            android:id="@+id/detail_link_btn"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="12dp"
-            android:src="@drawable/arrow_forward" />
 
         <ImageView
             android:id="@+id/detail_download_btn"
             android:layout_width="28dp"
             android:layout_height="28dp"
+            android:layout_marginEnd="12dp"
             android:padding="4dp"
-            android:src="@drawable/download" />
+            android:src="@drawable/download"
+            android:tint="#0A84FF" />
+
+        <ImageView
+            android:id="@+id/detail_share_btn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/share_social"
+            android:tint="#0A84FF" />
     </LinearLayout>
 
-    <ScrollView
+    <!-- Photo fills all available space -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@android:color/black">
 
+        <ImageView
+            android:id="@+id/detail_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
+
+        <FrameLayout
+            android:id="@+id/detail_play_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/play"
+                android:tint="@android:color/white" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- Info Footer -->
+    <LinearLayout
+        android:id="@+id/detail_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Name + Type Badge -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <!-- Media Area -->
-            <FrameLayout
-                android:id="@+id/detail_media_container"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="@android:color/black">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/create"
+                android:tint="#0A84FF" />
 
-                <ImageView
-                    android:id="@+id/detail_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter" />
-
-                <!-- Play overlay for video -->
-                <FrameLayout
-                    android:id="@+id/detail_play_overlay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/play"
-                        android:tint="@android:color/white" />
-                </FrameLayout>
-            </FrameLayout>
-
-            <!-- Info Footer -->
-            <LinearLayout
-                android:id="@+id/detail_footer"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/detail_photo_name"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/torus"
+            android:textSize="16sp"
+                android:textStyle="bold" />
 
-                <!-- Name + Type Badge -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/create" />
-
-                    <TextView
-                        android:id="@+id/detail_photo_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_weight="1"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detail_media_badge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Date -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/calendar" />
-
-                    <TextView
-                        android:id="@+id/detail_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <!-- Copyright -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-                    <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/information_circle" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/photo_copyright"
-                        android:textSize="11sp" />
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/detail_media_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:fontFamily="@font/torus"
+            android:textSize="11sp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </ScrollView>
+
+        <!-- Date -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/calendar"
+                android:tint="#0A84FF" />
+
+            <TextView
+                android:id="@+id/detail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/torus"
+            android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Copyright -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/information_circle"
+                android:tint="#0A84FF" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/photo_copyright"
+                android:fontFamily="@font/torus"
+            android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

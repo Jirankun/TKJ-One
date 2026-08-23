@@ -93,6 +93,6 @@ object AuthService {
             val reason = matchedUser.suspendReason.ifEmpty { context.getString(R.string.login_error_generic) }
             return context.getString(R.string.login_error_suspended_reason, reason)
         }
-        return context.getString(R.string.login_error_generic)
+        return "" // user valid, no error
     }
 }

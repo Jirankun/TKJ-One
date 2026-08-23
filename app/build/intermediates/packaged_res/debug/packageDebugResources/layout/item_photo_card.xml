@@ -8,13 +8,24 @@
     <FrameLayout
         android:id="@+id/card_thumb_container"
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="200dp"
+        android:background="#1AFFFFFF">
 
         <ImageView
             android:id="@+id/card_thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:contentDescription="@null" />
+
+        <!-- Loading spinner -->
+        <ProgressBar
+            android:id="@+id/card_thumb_loading"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="#80FFFFFF" />
 
         <!-- Play overlay for video -->
         <FrameLayout
@@ -70,7 +81,8 @@
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:textSize="14sp"
+                    android:fontFamily="@font/torus"
+            android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -80,15 +92,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:textSize="10sp" />
+                android:fontFamily="@font/torus"
+            android:textSize="10sp" />
         </LinearLayout>
 
         <!-- Link Arrow -->
         <ImageView
             android:id="@+id/card_link_btn"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:padding="6dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:padding="2dp"
             android:src="@drawable/arrow_forward" />
     </LinearLayout>
 

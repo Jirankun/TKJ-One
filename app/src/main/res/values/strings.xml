@@ -26,13 +26,17 @@
     <string name="toast_photo_not_found">Foto \"%s\" tidak ditemukan.</string>
     <string name="toast_link_failed">Gagal membuka link</string>
     <string name="toast_link_failed2">Gagal membuka tautan</string>
+    <string name="toast_link_copied">Link disalin ke clipboard</string>
+    <string name="share_chooser">Bagikan via</string>
     <string name="toast_video_failed">Gagal memutar video</string>
     <string name="toast_story_empty">Belum ada konten cerita</string>
-    <string name="toast_upload_hint">Upload via web: https://tkj1.pages.dev</string>
+    <string name="toast_upload_hint">Upload via web</string>
     <string name="toast_permission_needed">Izin penyimpanan diperlukan</string>
     <string name="toast_permission_photo_video">Izin akses foto dan video diperlukan untuk download</string>
     <string name="toast_download_started">Download dimulai…</string>
     <string name="toast_download_complete">Download selesai</string>
+    <string name="download_enhancing">Meningkatkan kualitas foto…</string>
+    <string name="download_saving">Menyimpan foto…</string>
     <string name="dialog_permission_title">Izin Diperlukan</string>
     <string name="dialog_permission_message">Aplikasi memerlukan izin akses foto dan video untuk menyimpan file. Silakan berikan izin di pengaturan.</string>
     <string name="dialog_permission_grant">Buka Pengaturan</string>
@@ -57,11 +61,15 @@
     <string name="user_suspended">Akun Anda di-suspend.</string>
 
     <!-- Gallery -->
-    <string name="gallery_filter_all">Semua</string>
+    <string name="gallery_filter_all">Semua (Default)</string>
+    <string name="filter_all">Semua (Default)</string>
+    <string name="filter_photo">Foto</string>
+    <string name="filter_video">Video</string>
     <string name="gallery_search_hint">Cari foto…</string>
     <string name="gallery_empty">Belum ada konten</string>
     <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
     <string name="gallery_offline">Offline, Please check Your connection…!!!</string>
+    <string name="gallery_loading_thumbs">Memuat %d foto…</string>
 
     <!-- Photo -->
     <string name="photo_name_format">#%s</string>
