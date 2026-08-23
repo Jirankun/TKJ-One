@@ -20,22 +20,32 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file(System.getenv("SIGN_KEY") ?: "")
-            storePassword = System.getenv("SIGN_STORE_PASS") ?: ""
-            keyAlias = System.getenv("SIGN_ALIAS") ?: ""
-            keyPassword = System.getenv("SIGN_KEY_PASS") ?: ""
+            val signKey = System.getenv("SIGN_KEY")
+            if (!signKey.isNullOrEmpty()) {
+                storeFile = file(signKey)
+                storePassword = System.getenv("SIGN_STORE_PASS") ?: ""
+                keyAlias = System.getenv("SIGN_ALIAS") ?: ""
+                keyPassword = System.getenv("SIGN_KEY_PASS") ?: ""
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            val signKey = System.getenv("SIGN_KEY")
+            if (!signKey.isNullOrEmpty()) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
 
