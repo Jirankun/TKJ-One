@@ -30,6 +30,13 @@
     <string name="toast_story_empty">Belum ada konten cerita</string>
     <string name="toast_upload_hint">Upload via web: https://tkj1.pages.dev</string>
     <string name="toast_permission_needed">Izin penyimpanan diperlukan</string>
+    <string name="toast_permission_photo_video">Izin akses foto dan video diperlukan untuk download</string>
+    <string name="toast_download_started">Download dimulai…</string>
+    <string name="toast_download_complete">Download selesai</string>
+    <string name="dialog_permission_title">Izin Diperlukan</string>
+    <string name="dialog_permission_message">Aplikasi memerlukan izin akses foto dan video untuk menyimpan file. Silakan berikan izin di pengaturan.</string>
+    <string name="dialog_permission_grant">Buka Pengaturan</string>
+    <string name="dialog_download_progress">Mendownload… %d%%</string>
     <string name="toast_update_failed">Gagal: %s</string>
 
     <!-- Dialogs -->

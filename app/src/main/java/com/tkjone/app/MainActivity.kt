@@ -1,17 +1,22 @@
 package com.tkjone.app
 
+import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -33,6 +38,9 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.tkjone.app.model.BannerAd
 import com.tkjone.app.model.InfoMessage
 import com.tkjone.app.model.Photo
@@ -40,6 +48,7 @@ import com.tkjone.app.service.AppThemeMode
 import com.tkjone.app.service.ApiService
 import com.tkjone.app.service.AuthService
 import com.tkjone.app.service.CachePriority
+import com.tkjone.app.service.DownloadService
 import com.tkjone.app.service.GridLayout
 import com.tkjone.app.service.SettingsService
 import com.tkjone.app.service.ThumbnailCacheService
@@ -56,6 +65,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
 
 class MainActivity : Activity() {
 
@@ -87,6 +97,10 @@ class MainActivity : Activity() {
     private var initialPhotoName: String? = null
 
     private val scope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    
+    // Permission request code
+    private val PERMISSION_REQUEST_CODE = 1002
+    private var pendingDownloadPhoto: Photo? = null
 
     // ─── LIFECYCLE ───
 
@@ -124,6 +138,17 @@ class MainActivity : Activity() {
                 }
             } catch (e: Exception) {
                 DialogHelper.showToast(this, getString(R.string.profile_photo_error, e.message ?: ""))
+            }
+        } else if (requestCode == PERMISSION_REQUEST_CODE) {
+            // User returned from permission settings
+            if (hasStoragePermission()) {
+                // Permission granted, start download
+                pendingDownloadPhoto?.let { photo ->
+                    pendingDownloadPhoto = null
+                    startDownloadWithProgress(photo)
+                }
+            } else {
+                DialogHelper.showToast(this, getString(R.string.toast_permission_photo_video))
             }
         }
     }
@@ -616,10 +641,16 @@ class MainActivity : Activity() {
         v.findViewById<TextView>(R.id.detail_counter).text = getString(R.string.photo_counter_format, initialIndex + 1, photos.size)
         v.findViewById<ImageView>(R.id.detail_back_btn).setColorFilter(ThemeHelper.ACCENT_BLUE)
         v.findViewById<ImageView>(R.id.detail_link_btn).setColorFilter(ThemeHelper.ACCENT_BLUE)
+        v.findViewById<ImageView>(R.id.detail_download_btn).setColorFilter(ThemeHelper.ACCENT_BLUE)
 
         v.findViewById<ImageView>(R.id.detail_back_btn).setOnClickListener { showHomeScreen() }
         v.findViewById<ImageView>(R.id.detail_link_btn).setOnClickListener {
             try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(photo.url))) } catch (_: Exception) { DialogHelper.showToast(this@MainActivity, getString(R.string.toast_link_failed2)) }
+        }
+        
+        // Download button click handler
+        v.findViewById<ImageView>(R.id.detail_download_btn).setOnClickListener {
+            handleDownloadClick(photo)
         }
 
         // Media type badge
@@ -926,6 +957,185 @@ class MainActivity : Activity() {
         sv.addView(c); dialog.setContentView(sv)
         dialog.window?.apply { setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setLayout(dp(300), WindowManager.LayoutParams.WRAP_CONTENT); setGravity(Gravity.CENTER) }
         dialog.show()
+    }
+
+    // ─── DOWNLOAD HANDLING ───
+
+    private fun hasStoragePermission(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) == PackageManager.PERMISSION_GRANTED
+        } else {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun requestStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.READ_MEDIA_IMAGES,
+                    Manifest.permission.READ_MEDIA_VIDEO
+                ),
+                PERMISSION_REQUEST_CODE
+            )
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun handleDownloadClick(photo: Photo) {
+        if (hasStoragePermission()) {
+            startDownloadWithProgress(photo)
+        } else {
+            // Show dialog first, then redirect to settings
+            DialogHelper.showConfirmDialog(
+                this,
+                getString(R.string.dialog_permission_title),
+                getString(R.string.dialog_permission_message),
+                getString(R.string.dialog_permission_grant),
+                getString(R.string.dialog_cancel),
+                ThemeHelper.ACCENT_BLUE
+            ) {
+                pendingDownloadPhoto = photo
+                openPermissionSettings()
+            }
+        }
+    }
+
+    private fun openPermissionSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.fromParts("package", packageName, null)
+        }
+        try {
+            startActivityForResult(intent, PERMISSION_REQUEST_CODE)
+        } catch (e: Exception) {
+            // Fallback to general app settings
+            try {
+                val fallbackIntent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
+                startActivityForResult(fallbackIntent, PERMISSION_REQUEST_CODE)
+            } catch (e2: Exception) {
+                DialogHelper.showToast(this, getString(R.string.toast_permission_needed))
+            }
+        }
+    }
+
+    private fun startDownloadWithProgress(photo: Photo) {
+        DialogHelper.showToast(this, getString(R.string.toast_download_started))
+        
+        // Create progress dialog
+        val isDark = ThemeHelper.isDarkMode(this, themeMode)
+        val progressDialog = Dialog(this)
+        progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        
+        val container = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(24), dp(20), dp(24), dp(20))
+            background = GradientDrawable().apply {
+                setColor(ThemeHelper.getCardColor(isDark))
+                cornerRadius = dpFloat(16f)
+            }
+        }
+        
+        val titleText = TextView(this).apply {
+            text = getString(R.string.dialog_download_progress, 0)
+            textSize = 16f
+            setTextColor(ThemeHelper.getLabelColor(isDark))
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { gravity = Gravity.CENTER_HORIZONTAL; bottomMargin = dp(16) }
+        }
+        
+        val progressBar = ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                dp(8)
+            )
+            max = 100
+            progress = 0
+            progressDrawable = GradientDrawable().apply {
+                shape = GradientDrawable.RECTANGLE
+                cornerRadius = dpFloat(4f)
+            }
+        }
+        
+        // Custom drawable for progress
+        val progressDrawable = android.graphics.drawable.LayerDrawable(arrayOf(
+            android.graphics.drawable.GradientDrawable().apply {
+                shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+                setColor(ThemeHelper.getSepColor(isDark))
+                cornerRadius = dpFloat(4f)
+            },
+            android.graphics.drawable.GradientDrawable().apply {
+                shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+                setColor(ThemeHelper.ACCENT_BLUE)
+                cornerRadius = dpFloat(4f)
+            }
+        )).apply {
+            setId(0, android.R.id.background)
+            setId(1, android.R.id.progress)
+        }
+        progressBar.progressDrawable = progressDrawable
+        
+        container.addView(titleText)
+        container.addView(progressBar)
+        
+        progressDialog.setContentView(container)
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+        
+        val window = progressDialog.window
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setLayout(dp(300), LinearLayout.LayoutParams.WRAP_CONTENT)
+        window?.setGravity(Gravity.CENTER)
+        
+        scope.launch {
+            val fileName = DownloadService.sanitizeFileName(photo.name) + "." + DownloadService.getFileExtension(photo.url)
+            val result = DownloadService.downloadToDcim(
+                context = this@MainActivity,
+                url = photo.url,
+                fileName = fileName
+            ) { received, total ->
+                val percent = if (total > 0) ((received * 100) / total).toInt() else 0
+                runOnUiThread {
+                    progressBar.progress = percent
+                    titleText.text = getString(R.string.dialog_download_progress, percent)
+                }
+            }
+            
+            progressDialog.dismiss()
+            
+            if (result.success) {
+                DialogHelper.showToast(this@MainActivity, getString(R.string.toast_download_complete))
+                
+                // Show file in gallery using FileProvider
+                result.filePath?.let { path ->
+                    try {
+                        val file = File(path)
+                        val uri = FileProvider.getUriForFile(
+                            this@MainActivity,
+                            "${packageName}.fileprovider",
+                            file
+                        )
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            setDataAndType(uri, if (photo.isVideo) "video/*" else "image/*")
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                        startActivity(intent)
+                    } catch (e: Exception) {
+                        // Fallback: just show toast
+                    }
+                }
+            } else {
+                DialogHelper.showToast(this@MainActivity, result.message)
+            }
+        }
     }
 
     // ─── HELPERS ───
