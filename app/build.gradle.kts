@@ -64,6 +64,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     // AndroidX Core
     implementation("androidx.core:core-ktx:1.13.1")
+    // Chrome Custom Tabs — buka halaman upload di browser tab dalam-app
+    implementation("androidx.browser:browser:1.8.0")
     // JSON parsing
     implementation("org.json:json:20231013")
     // Network
