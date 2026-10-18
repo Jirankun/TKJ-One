@@ -94,6 +94,21 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
     private val PERMISSION_REQUEST_CODE = 1002
     private var pendingDownloadPhoto: Photo? = null
 
+    // ─── GLOBAL CRASH GUARD (penyebab #1 force close ditangani di sini) ───
+    // Error tak terduga di thread mana pun tidak lagi mematikan proses;
+    // dicatat, dan user diberi tahu lewat toast bila app masih hidup.
+    private val defaultUEH = Thread.getDefaultUncaughtExceptionHandler()
+    private val crashGuard = Thread.UncaughtExceptionHandler { t, e ->
+        android.util.Log.e("TKJCrashGuard", "Unhandled di ${t.name}", e)
+        try {
+            if (!isFinishing && !isDestroyed) {
+                handler.post {
+                    try { DialogHelper.showToast(this, getString(R.string.toast_app_error)) } catch (_: Exception) {}
+                }
+            }
+        } catch (_: Exception) {}
+    }
+
     private var galleryVersion = 0
     private var thumbnailJobs = mutableListOf<Job>()
     private var thumbnailsPaused = false // pause thumbnails when photo detail is open
@@ -107,12 +122,16 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Pasang crash guard secepat mungkin (setelah super agar WebView provider siap)
+        Thread.setDefaultUncaughtExceptionHandler(crashGuard)
         window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
         setContentView(R.layout.activity_main)
         rootContainer = findViewById(R.id.root_container)
         parseDeepLink(intent)
-        // Auto-trim cache on startup
+        // Auto-trim cache on startup — di luar jalur kritis splash agar tidak memperlambat load
         scope.launch { ThumbnailCacheService.trimCacheOnStartup(this@MainActivity) }
+        // Warm-up Custom Tab browser agar halaman upload terbuka instan
+        scope.launch(kotlinx.coroutines.Dispatchers.IO) { com.tkjone.app.service.CustomTabLauncher.warmUp(this@MainActivity) }
         showSplash()
         scope.launch { initialize() }
     }
@@ -201,11 +220,20 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // Kembalikan handler default — jangan tinggalkan guard milik activity mati
+        if (Thread.getDefaultUncaughtExceptionHandler() === crashGuard) {
+            Thread.setDefaultUncaughtExceptionHandler(defaultUEH)
+        }
         cancelTimers()
         thumbnailJobs.forEach { it.cancel() }; thumbnailJobs.clear()
         photoDetailJob?.cancel()
         photoSwipeHelper?.destroy(); photoSwipeHelper = null
         destroyWebViews()
+        // Recycle bitmap cache — mencegah memory leak yang berujung OOM/force close
+        cardBitmapCache.values.forEach { try { it.recycle() } catch (_: Exception) {} }
+        cardBitmapCache.clear()
+        galleryCardMap.clear()
+        cachedHomeView = null; cachedGalleryView = null; cachedProfileView = null
         scope.cancel()
         ApiService.cancelAll(); ThumbnailCacheService.cancelAll()
     }
@@ -243,16 +271,30 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     private suspend fun initialize() {
         applyTheme()
+        // Tampilkan layar secepat mungkin — JANGAN blokir splash dengan jaringan.
         loggedInUser = AuthService.getLoggedInUser(this)
-        if (loggedInUser != null) {
-            fetchAllData()
+        if (loggedInUser == null) {
             isLoading = false; showAppropriateScreen()
-            startSuspendTimer()
-            initialPhotoName?.let { n -> if (photos.isNotEmpty()) { initialPhotoName = null; navigateToPhoto(n) } }
-            showInfoMessages(); checkForUpdate()
-        } else {
-            isLoading = false; showAppropriateScreen()
+            startInfoCheckTimer()
+            return
         }
+        // Langsung tampilkan home dari cache lokal (instan, tanpa stuck "Loading…")
+        val cached = withContext(Dispatchers.IO) { ApiService.loadCachedPhotos(this@MainActivity) }
+        if (!cached.isNullOrEmpty()) {
+            photos.clear(); photos.addAll(cached); isOffline = true
+        }
+        isLoading = false; showAppropriateScreen()
+        // Baru lalu refresh data asli di background
+        try { fetchAllData() } catch (_: Exception) {}
+        if (!isDestroyed && !isFinishing) {
+            runOnUiThread {
+                cachedGalleryView?.let { refreshPhotoGrid(it) }
+                if (photos.isEmpty() && errorMessage != null) showErrorView()
+            }
+        }
+        startSuspendTimer()
+        initialPhotoName?.let { n -> if (photos.isNotEmpty()) { initialPhotoName = null; navigateToPhoto(n) } }
+        showInfoMessages(); checkForUpdate()
         startInfoCheckTimer()
     }
 
@@ -614,6 +656,11 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         val grid = galleryView.findViewById<LinearLayout>(R.id.photo_grid) ?: return
         val countTv = galleryView.findViewById<TextView>(R.id.photo_count)
         val isDark = isDark
+        // Hentikan shimmer & job thumbnail lama sebelum rebuild — mencegah animasi
+        // yatim menumpuk (penyebab UI makin lama makin berat lalu force close).
+        thumbnailJobs.forEach { it.cancel() }; thumbnailJobs.clear()
+        galleryVersion++
+        galleryCardMap.clear()
         grid.removeAllViews()
         val filtered = getFilteredPhotos()
         countTv?.text = "${filtered.size}"
@@ -644,7 +691,9 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             row?.addView(card, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
                 setMargins(if (idx % 2 == 0) 0 else dp(6), 0, if (idx % 2 == 0) dp(6) else 0, 0)
             })
-            animateCardIn(card, idx * 50)
+            // Hanya 12 kartu pertama yang dianimasikan — sisanya langsung tampil
+            // agar scroll awal tidak drop-frame saat konten banyak.
+            if (idx < 12) animateCardIn(card, idx * 50)
         }
         galleryBuilt = true
 
@@ -666,8 +715,8 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             val row = grid.getChildAt(i) as? LinearLayout ?: continue
             for (j in 0 until row.childCount) {
                 val card = row.getChildAt(j)
-                // Find the photo name from card's tag
-                val name = card.tag as? String ?: continue
+                // Find the photo name from card's tag (Array: [name, shimmer])
+                val name = (card.tag as? Array<*>)?.firstOrNull() as? String ?: continue
                 val photo = photos.find { it.name == name } ?: continue
                 val matchesSearch = q.isEmpty() || photo.name.lowercase().contains(q)
                 val matchesType = when (galleryFilter) {
@@ -686,41 +735,49 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     private fun createPhotoCard(photo: Photo, isDark: Boolean, version: Int, index: Int = 0): LinearLayout {
         val card = layoutInflater.inflate(R.layout.item_photo_card, null) as LinearLayout
-        card.tag = photo.name // tag for filterCards to identify
         card.background = ThemeHelper.createRoundedBackground(ThemeHelper.getBg2Color(isDark), 12f)
         (card.background as? GradientDrawable)?.setStroke(1, ThemeHelper.getSepColor(isDark))
         val thumb = card.findViewById<ImageView>(R.id.card_thumb)
         val thumbLoading = card.findViewById<ProgressBar>(R.id.card_thumb_loading)
         val playOverlay = card.findViewById<FrameLayout>(R.id.card_play_overlay)
-        // Skeleton shimmer — pulsing placeholder until thumbnail loads
-        thumbLoading?.let { bar ->
-            val shimmer = android.animation.ObjectAnimator.ofFloat(bar, "alpha", 0.3f, 1f).apply {
-                duration = 800; repeatMode = android.animation.ObjectAnimator.REVERSE; repeatCount = android.animation.ObjectAnimator.INFINITE
-            }
-            shimmer.start()
-            thumb.tag = shimmer // store reference to cancel later
+        // Skeleton shimmer — pulsing placeholder until thumbnail loads.
+        // Animator disimpan di tag card (Array), tidak menabrak tag name yang dipakai filterCards.
+        val shimmer = android.animation.ObjectAnimator.ofFloat(thumbLoading, "alpha", 0.3f, 1f).apply {
+            duration = 800; repeatMode = android.animation.ObjectAnimator.REVERSE; repeatCount = android.animation.ObjectAnimator.INFINITE
         }
+        shimmer.start()
+        card.tag = arrayOf(photo.name, shimmer)
         val nameTv = card.findViewById<TextView>(R.id.card_name); val dateTv = card.findViewById<TextView>(R.id.card_date)
         val linkBtn = card.findViewById<ImageView>(R.id.card_link_btn)
         nameTv.setTextColor(ThemeHelper.getLabelColor(isDark)); dateTv.setTextColor(ThemeHelper.getSecLabelColor(isDark)); linkBtn.setColorFilter(ThemeHelper.PRIMARY_CYAN)
         nameTv.text = photo.name; dateTv.text = formatDate(photo.date)
         if (photo.isVideo) playOverlay.visibility = View.VISIBLE
-        linkBtn.setOnClickListener { try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.photoLink(photo.name)))) } catch (_: Exception) { DialogHelper.showToast(this@MainActivity, getString(R.string.toast_link_failed)) } }
+        linkBtn.setOnClickListener { com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, AppConfig.photoLink(photo.name)) }
         card.setOnClickListener { navigateToPhoto(photo.name) }
 
         // Show placeholder immediately with photo name
         thumb.setBackgroundColor(ThemeHelper.getSepColor(isDark))
-        // Load thumbnail — staggered, one by one from left to right
+
+        // Instan dari cache bitmap in-memory bila sudah pernah didecode sesi ini
+        val memBmp = cardBitmapCache[photo.name]
+        if (memBmp != null && !memBmp.isRecycled) {
+            thumb.setImageBitmap(memBmp); thumb.setBackgroundColor(Color.TRANSPARENT)
+            thumbLoading?.visibility = View.GONE
+            shimmer.cancel()
+            return card
+        }
+
+        // Load thumbnail — staggered, satu per satu dari kiri ke kanan
         val job = scope.launch {
             try {
-                // Check cache first for instant display (no delay)
                 var needDownload = true
                 val cachedPath = ThumbnailCacheService.getCachedPathSync(this@MainActivity, photo.url, photo.date)
                 if (cachedPath != null && version == galleryVersion && !isDestroyed) {
                     val bmp = ThumbnailCacheService.decodeBitmapOnIO(cachedPath, 250)
                     if (bmp != null && version == galleryVersion && !isDestroyed) {
                         thumb.setImageBitmap(bmp); thumb.setBackgroundColor(Color.TRANSPARENT); thumbLoading?.visibility = View.GONE
-                        (thumb.tag as? android.animation.ObjectAnimator)?.cancel() // stop shimmer
+                        shimmer.cancel()
+                        trimMemoryCache()
                         cardBitmapCache[photo.name] = bmp
                         needDownload = false // cache valid, no download needed
                     } else {
@@ -738,16 +795,29 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
                         val bmp = ThumbnailCacheService.decodeBitmapOnIO(path, 250)
                         if (bmp != null && version == galleryVersion && !isDestroyed) {
                             thumb.setImageBitmap(bmp); thumb.setBackgroundColor(Color.TRANSPARENT)
-                            (thumb.tag as? android.animation.ObjectAnimator)?.cancel() // stop shimmer
+                            shimmer.cancel()
+                            trimMemoryCache()
                             cardBitmapCache[photo.name] = bmp
                         }
                     }
                 }
                 thumbLoading?.visibility = View.GONE
-            } catch (_: Exception) { thumbLoading?.visibility = View.GONE }
+                shimmer.cancel()
+            } catch (_: Exception) { thumbLoading?.visibility = View.GONE; shimmer.cancel() }
         }
         thumbnailJobs.add(job)
         return card
+    }
+
+    /**
+     * Batasi bitmap cache in-memory agar tidak menumpuk → mencegah OOM
+     * (penyebab force-close paling sering saat scroll galeri panjang).
+     */
+    private fun trimMemoryCache(maxEntries: Int = 48) {
+        while (cardBitmapCache.size > maxEntries) {
+            val oldest = cardBitmapCache.keys.first()
+            try { cardBitmapCache.remove(oldest)?.recycle() } catch (_: Exception) {}
+        }
     }
 
     private fun navigateToPhoto(name: String) {
@@ -876,8 +946,8 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         val nameTv = v.findViewById<TextView>(R.id.profile_name); nameTv.setTextColor(ThemeHelper.getLabelColor(isDark)); nameTv.text = loggedInUser ?: ""
         try { v.findViewById<View>(R.id.profile_theme_dropdown).visibility = View.GONE } catch (_: Exception) {}
         try { v.findViewById<View>(R.id.profile_layout_dropdown).visibility = View.GONE } catch (_: Exception) {}
-        v.findViewById<LinearLayout>(R.id.profile_upload_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.UPLOAD_URL))) } catch (_: Exception) { DialogHelper.showToast(this@MainActivity, getString(R.string.toast_upload_hint)) } } }
-        v.findViewById<LinearLayout>(R.id.profile_github_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(AppConfig.GITHUB_AVATAR_URL.replace(".png", "")))) } catch (_: Exception) {} }; setOnLongClickListener { showDevPopup(); true } }
+        v.findViewById<LinearLayout>(R.id.profile_upload_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, AppConfig.UPLOAD_URL) } }
+        v.findViewById<LinearLayout>(R.id.profile_github_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, AppConfig.GITHUB_AVATAR_URL.replace(".png", "")) } }; setOnLongClickListener { showDevPopup(); true } }
         v.findViewById<LinearLayout>(R.id.profile_logout_btn).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { DialogHelper.showConfirmDialog(this@MainActivity, getString(R.string.dialog_logout_title), getString(R.string.dialog_logout_message), getString(R.string.dialog_logout_confirm), getString(R.string.dialog_cancel), ThemeHelper.ACCENT_RED) { handleLogout() } } }
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
         val versionTv = v.findViewById<TextView>(R.id.profile_version); versionTv.setTextColor(ThemeHelper.getLabelColor(isDark)); versionTv.text = pInfo?.versionName?.let { "v$it" } ?: ""
@@ -969,7 +1039,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         for ((name, assetPath) in licenses) { c.addView(LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER_VERTICAL; setPadding(dp(4), dp(12), 0, dp(12)); isClickable = true; isFocusable = true; addView(ImageView(this@MainActivity).apply { setImageResource(R.drawable.document_text); setColorFilter(ThemeHelper.PRIMARY_CYAN); layoutParams = LinearLayout.LayoutParams(dp(28), dp(28)); background = GradientDrawable().apply { setColor(ThemeHelper.PRIMARY_CYAN and 0x1FFFFFFF or 0x1F000000); cornerRadius = dpFloat(6f) }; setPadding(dp(4), dp(4), dp(4), dp(4)) }); addView(TextView(this@MainActivity).apply { text = name; textSize = 14f; setTextColor(ThemeHelper.getLabelColor(isDark)); setPadding(dp(10), 0, 0, 0) }); setOnClickListener { try { val content = assets.open(assetPath).use { it.bufferedReader().readText() }; DialogHelper.showInfoDialog(this@MainActivity, name, content) } catch (_: Exception) { DialogHelper.showToast(this@MainActivity, getString(R.string.dev_license_not_found)) } } }); c.addView(View(this).apply { layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 1); setBackgroundColor(ThemeHelper.getSepColor(isDark)) }) }
         val btnRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL; gravity = Gravity.CENTER; setPadding(0, dp(12), 0, 0) }
         btnRow.addView(TextView(this@MainActivity).apply { text = getString(R.string.dev_close); textSize = 15f; setTextColor(Color.WHITE); typeface = resources.getFont(R.font.torus_bold); setPadding(dp(24), dp(12), dp(24), dp(12)); background = ThemeHelper.createRoundedBackground(ThemeHelper.ACCENT_BLUE, 12f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { marginEnd = dp(8) }; setOnClickListener { dialog.dismiss() } })
-        btnRow.addView(TextView(this@MainActivity).apply { text = getString(R.string.dev_portfolio); textSize = 15f; setTextColor(Color.WHITE); typeface = resources.getFont(R.font.torus_bold); setPadding(dp(24), dp(12), dp(24), dp(12)); background = ThemeHelper.createRoundedBackground(ThemeHelper.ACCENT_GREEN, 12f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT); setOnClickListener { try { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://jirankun.github.io/portofoliozhyllan"))) } catch (_: Exception) {} } })
+        btnRow.addView(TextView(this@MainActivity).apply { text = getString(R.string.dev_portfolio); textSize = 15f; setTextColor(Color.WHITE); typeface = resources.getFont(R.font.torus_bold); setPadding(dp(24), dp(12), dp(24), dp(12)); background = ThemeHelper.createRoundedBackground(ThemeHelper.ACCENT_GREEN, 12f); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT); setOnClickListener { com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, AppConfig.PORTFOLIO_URL) } })
         c.addView(btnRow); sv.addView(c); dialog.setContentView(sv)
         dialog.window?.apply { setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setLayout(dp(300), WindowManager.LayoutParams.WRAP_CONTENT); setGravity(Gravity.CENTER) }; dialog.show()
     }

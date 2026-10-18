@@ -54,6 +54,14 @@
             </intent-filter>
         </activity>
 
+        <!-- Fallback WebView in-app bila Custom Tab tidak tersedia -->
+        <activity
+            android:name=".WebFallbackActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|uiMode"
+            android:hardwareAccelerated="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
