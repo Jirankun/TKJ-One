@@ -86,7 +86,6 @@
     <string name="app_name">TKJ OnE</string>
     <string name="dev_close">TUTUP</string>
     <string name="dev_license_apache">Apache 2.0</string>
-    <string name="dev_license_flutter">Flutter License</string>
     <string name="dev_license_mit">MIT License</string>
     <string name="dev_license_not_found">File lisensi tidak ditemukan.</string>
     <string name="dev_license_section">LISENSI</string>
@@ -102,8 +101,8 @@
     <string name="dialog_logout_title">Konfirmasi</string>
     <string name="dialog_maintenance_title">Maintenance</string>
     <string name="dialog_ok">OK</string>
-    <string name="dialog_permission_grant">Buka Pengaturan</string>
-    <string name="dialog_permission_message">Aplikasi memerlukan izin akses foto dan video untuk menyimpan file. Silakan berikan izin di pengaturan.</string>
+    <string name="dialog_permission_grant">Berikan izin</string>
+    <string name="dialog_permission_message">Izinkan akses foto dan video agar aplikasi dapat menyimpan hasil download.</string>
     <string name="dialog_permission_title">Izin Diperlukan</string>
     <string name="dialog_suspended_title">Akun Ditangguhkan</string>
     <string name="download_enhancing">Meningkatkan kualitas foto…</string>
@@ -122,12 +121,14 @@
     <string name="filter_all">Semua (Default)</string>
     <string name="filter_photo">Foto</string>
     <string name="filter_video">Video</string>
+    <string name="gallery_cached_refresh_failed">Gagal memperbarui foto. Menampilkan data tersimpan.</string>
     <string name="gallery_empty">Belum ada konten</string>
     <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
     <string name="gallery_filter_all">Semua (Default)</string>
     <string name="gallery_greeting">Halo, </string>
-    <string name="gallery_loading_thumbs">Memuat %d foto…</string>
-    <string name="gallery_offline">Offline, Please check Your connection…!!!</string>
+    <string name="gallery_loading_thumbs">Memuat %d media…</string>
+    <string name="gallery_offline">Tidak ada koneksi internet. Menampilkan foto tersimpan.</string>
+    <string name="gallery_search_clear">Hapus pencarian</string>
     <string name="gallery_search_hint">Cari foto…</string>
     <string name="loading_data">Memuat data…</string>
     <string name="loading_image">Memuat…</string>
@@ -166,6 +167,7 @@
     <string formatted="false" name="photo_counter_format">%d/%d</string>
     <string name="photo_date">%s</string>
     <string name="photo_name_format">#%s</string>
+    <string name="photo_uploader_format">Diunggah oleh %s</string>
     <string name="profile_github_subtitle">Tahan untuk Info &amp; Lisensi</string>
     <string name="profile_github_title">GitHub</string>
     <string name="profile_layout_grid">Grid Biasa</string>
@@ -174,8 +176,6 @@
     <string name="profile_layout_staggered_desc">Grid (Masonry)</string>
     <string name="profile_layout_title">Tata Letak Grid</string>
     <string name="profile_logout">LOGOUT</string>
-    <string name="profile_photo_error">Gagal memuat foto: %s</string>
-    <string name="profile_photo_pick">Ubah Foto Profil</string>
     <string name="profile_subtitle">TKJ OnE • Dev. Jirankun</string>
     <string name="profile_theme_auto">Otomatis</string>
     <string name="profile_theme_auto_desc">Ikuti tema sistem</string>
@@ -190,6 +190,7 @@
     <string name="splash_loading">Loading TKJ OnE…</string>
     <string name="story_close">X</string>
     <string name="story_title">Cerita</string>
+    <string name="toast_app_error">Terjadi kesalahan. Silakan coba lagi.</string>
     <string name="toast_download_complete">Download selesai</string>
     <string name="toast_download_started">Download dimulai…</string>
     <string name="toast_link_copied">Link disalin ke clipboard</string>
@@ -223,6 +224,8 @@
     <string name="user_invalid">User tidak valid.</string>
     <string name="user_suspended">Akun Anda di-suspend.</string>
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
+        <item name="android:colorAccent">#0A84FF</item>
+        <item name="android:colorControlActivated">#0A84FF</item>
         <item name="android:windowBackground">@color/dark_bg</item>
         <item name="android:statusBarColor">@color/dark_bg</item>
         <item name="android:navigationBarColor">@color/dark_bg</item>

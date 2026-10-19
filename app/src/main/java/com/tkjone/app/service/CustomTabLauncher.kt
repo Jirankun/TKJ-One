@@ -4,12 +4,11 @@ import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.util.Log
 import androidx.browser.customtabs.CustomTabsClient
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.browser.customtabs.CustomTabsService
+import androidx.browser.customtabs.CustomTabsServiceConnection
 import com.tkjone.app.R
 import com.tkjone.app.ui.ThemeHelper
 
@@ -33,12 +32,19 @@ object CustomTabLauncher {
         try {
             val pkg = resolveBrowserPackage(context) ?: return
             if (pkg == warmedPackage && warmClient != null) return
-            val client = CustomTabsClient.connectAndInitialize(context, pkg)
-            if (client != null) {
-                client.warmup(0)
-                warmClient = client
-                warmedPackage = pkg
+            val connection = object : CustomTabsServiceConnection() {
+                override fun onCustomTabsServiceConnected(name: ComponentName, client: CustomTabsClient) {
+                    client.warmup(0)
+                    warmClient = client
+                    warmedPackage = pkg
+                }
+
+                override fun onServiceDisconnected(name: ComponentName) {
+                    warmClient = null
+                    warmedPackage = null
+                }
             }
+            CustomTabsClient.bindCustomTabsService(context, pkg, connection)
         } catch (e: Exception) {
             Log.w(TAG, "warmUp gagal (bukan masalah): ${e.message}")
         }
@@ -69,12 +75,8 @@ object CustomTabLauncher {
             val builder = CustomTabsIntent.Builder().apply {
                 setShowTitle(true)
                 setToolbarColor(ThemeHelper.BG2)
-                setStartAnimations(
-                    android.R.anim.fade_in, android.R.anim.slide_out_right
-                )
-                setExitAnimations(
-                    android.R.anim.fade_out, android.R.anim.slide_in_left
-                )
+                setStartAnimations(context, android.R.anim.fade_in, android.R.anim.slide_out_right)
+                setExitAnimations(context, android.R.anim.fade_out, android.R.anim.slide_in_left)
             }
             val intent = builder.build()
             if (pkg != null) {

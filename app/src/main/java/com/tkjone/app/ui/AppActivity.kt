@@ -1,6 +1,5 @@
 package com.tkjone.app.ui
 
-import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.graphics.drawable.GradientDrawable
@@ -8,12 +7,13 @@ import android.widget.EditText
 import android.view.inputmethod.InputMethodManager
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
+import androidx.activity.ComponentActivity
 
 /**
  * Base activity — all shared helpers live here once.
  * Both MainActivity and UriViewerActivity extend this.
  */
-open class AppActivity : Activity() {
+open class AppActivity : ComponentActivity() {
 
     // ─── Theme ───
 

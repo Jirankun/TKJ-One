@@ -3,10 +3,8 @@ import com.tkjone.app.config.AppConfig
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -19,8 +17,8 @@ import android.widget.Toast
 import com.tkjone.app.model.Photo
 import com.tkjone.app.service.ApiService
 import com.tkjone.app.service.DownloadService
-import com.tkjone.app.service.ThumbnailCacheService
 import com.tkjone.app.ui.ThemeHelper
+import coil.load
 import kotlinx.coroutines.*
 
 class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
@@ -52,6 +50,12 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
         val scheme = uri.scheme
         val host = uri.host
         val segs = uri.pathSegments
+
+        // Bentuk kanonik: https://host/photo/?name=ID (juga ?id=ID)
+        val fromQuery = (uri.getQueryParameter("name") ?: uri.getQueryParameter("id"))
+            ?.trim()?.takeIf { it.isNotEmpty() }
+        if (fromQuery != null) return fromQuery
+
         return when {
             scheme == "https" && host == AppConfig.DEEP_LINK_HOST && segs.size >= 2 && segs[0] == "photo" -> segs[1]
             scheme == "https" && host == AppConfig.DEEP_LINK_HOST && segs.size == 1 && segs[0] != "photo" -> segs[0]
@@ -120,6 +124,16 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
         v.findViewById<TextView>(R.id.detail_date).setTextColor(ThemeHelper.getSecLabelColor(isDark))
         v.findViewById<TextView>(R.id.detail_date).text = photo.date
 
+        val uploaderRow = v.findViewById<LinearLayout>(R.id.detail_uploader_row)
+        val uploaderTv = v.findViewById<TextView>(R.id.detail_uploader)
+        uploaderTv.setTextColor(ThemeHelper.ACCENT_BLUE)
+        if (photo.uploader.isNotEmpty()) {
+            uploaderRow.visibility = View.VISIBLE
+            uploaderTv.text = getString(R.string.photo_uploader_format, photo.uploader)
+        } else {
+            uploaderRow.visibility = View.GONE
+        }
+
         if (photo.isVideo) {
             v.findViewById<FrameLayout>(R.id.detail_play_overlay).visibility = View.VISIBLE
             v.findViewById<FrameLayout>(R.id.detail_play_overlay).setOnClickListener {
@@ -141,36 +155,18 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
             FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply { gravity = Gravity.CENTER })
 
-        // Load image
-        scope.launch {
-            try {
-                val cachedP = ThumbnailCacheService.getCachedPathSync(this@UriViewerActivity, photo.url, photo.date)
-                if (cachedP != null) {
-                    val lowBmp = ThumbnailCacheService.decodeBitmapOnIO(cachedP, 400)
-                    if (lowBmp != null) { imgView.setImageBitmap(lowBmp); imgView.setBackgroundColor(Color.TRANSPARENT); loadingTv.visibility = View.GONE }
+        imgView.load(photo.url, (application as TKJOneApp).imageLoader) {
+            crossfade(false)
+            listener(
+                onSuccess = { _, _ ->
+                    imgView.setBackgroundColor(Color.TRANSPARENT)
+                    loadingTv.visibility = View.GONE
+                },
+                onError = { _, result ->
+                    android.util.Log.e("UriPhotoDetail", "Load failed for ${photo.name}: ${photo.url}", result.throwable)
+                    loadingTv.visibility = View.GONE
                 }
-                val p = cachedP ?: ThumbnailCacheService.cacheThumbnail(this@UriViewerActivity, photo.url, version = photo.date)
-                if (p != null) {
-                    val isGif = photo.url.lowercase().let { it.endsWith(".gif") || it.contains(".gif?") }
-                    if (isGif && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        try {
-                            val drawable = withContext(Dispatchers.IO) {
-                                ImageDecoder.decodeDrawable(ImageDecoder.createSource(contentResolver, Uri.parse(photo.url))) { decoder, _, _ ->
-                                    decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE; decoder.isMutableRequired = true
-                                }
-                            }
-                            if (drawable != null) { imgView.setImageDrawable(drawable); loadingTv.visibility = View.GONE }
-                        } catch (_: Exception) {
-                            val bmp = ThumbnailCacheService.decodeBitmapOnIO(p, 800)
-                            if (bmp != null) { imgView.setImageBitmap(bmp); loadingTv.visibility = View.GONE }
-                        }
-                    } else {
-                        val bmp = ThumbnailCacheService.decodeBitmapOnIO(p, 800)
-                        if (bmp != null) { imgView.setImageBitmap(bmp); loadingTv.visibility = View.GONE }
-                    }
-                }
-                loadingTv.visibility = View.GONE
-            } catch (_: Exception) { loadingTv.visibility = View.GONE }
+            )
         }
 
         rootContainer.removeAllViews()

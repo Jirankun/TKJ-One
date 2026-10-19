@@ -31,7 +31,7 @@ class PhotoSwipeHelper(
     private val onDownload: (Photo) -> Unit,
     private val onShare: (Photo) -> Unit,
     private val onVideoOpen: (Photo, Int) -> Unit,
-    private val getCachedBitmap: (String) -> Bitmap?,
+    private val getCachedBitmap: (Photo) -> Bitmap?,
     private val loadHighQuality: (Photo, ImageView) -> Unit
 ) {
     private var currentView: View? = null
@@ -101,6 +101,16 @@ class PhotoSwipeHelper(
             v.findViewById<TextView>(R.id.detail_photo_name).text = activity.getString(R.string.photo_name_format, photo.name)
             v.findViewById<TextView>(R.id.detail_date).text = photo.date
 
+            val uploaderRow = v.findViewById<LinearLayout>(R.id.detail_uploader_row)
+            val uploaderTv = v.findViewById<TextView>(R.id.detail_uploader)
+            uploaderTv.setTextColor(ThemeHelper.ACCENT_BLUE)
+            if (photo.uploader.isNotEmpty()) {
+                uploaderRow.visibility = View.VISIBLE
+                uploaderTv.text = activity.getString(R.string.photo_uploader_format, photo.uploader)
+            } else {
+                uploaderRow.visibility = View.GONE
+            }
+
             val badge = v.findViewById<TextView>(R.id.detail_media_badge)
             val (badgeText, badgeColor) = if (photo.isVideo) activity.getString(R.string.type_video) to ThemeHelper.ACCENT_YELLOW else activity.getString(R.string.type_photo) to ThemeHelper.ACCENT_BLUE
             badge.text = badgeText; badge.setTextColor(badgeColor)
@@ -123,7 +133,8 @@ class PhotoSwipeHelper(
     private fun loadImage(v: View, photo: Photo) {
         try {
             val imgView = v.findViewById<ImageView>(R.id.detail_image)
-            val cachedBmp = getCachedBitmap(photo.name)
+            imgView.tag = photo.url
+            val cachedBmp = getCachedBitmap(photo)
             if (cachedBmp != null && !cachedBmp.isRecycled) {
                 imgView.setImageBitmap(cachedBmp)
                 imgView.scaleType = ImageView.ScaleType.FIT_CENTER
@@ -133,6 +144,7 @@ class PhotoSwipeHelper(
                 imgView.setBackgroundColor(0xFF1C1C1E.toInt())
                 imgView.scaleType = ImageView.ScaleType.FIT_CENTER
             }
+            if (photo.isVideo) return
             loadHighQuality(photo, imgView)
         } catch (_: Exception) {}
     }

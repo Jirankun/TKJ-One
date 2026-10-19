@@ -5,7 +5,8 @@ import org.json.JSONObject
 data class UserStatus(
     val name: String,
     val isActive: Boolean,
-    val suspendReason: String
+    val suspendReason: String,
+    val profile: String
 ) {
     val normalizedName: String
         get() = name.lowercase().replace(" ", "")
@@ -15,7 +16,8 @@ data class UserStatus(
             return UserStatus(
                 name = json.optString("name", "").trim(),
                 isActive = json.optBoolean("status", true),
-                suspendReason = json.optString("suspend_reason", "").trim()
+                suspendReason = json.optString("suspend_reason", "").trim(),
+                profile = json.optString("profile", "").trim()
             )
         }
     }

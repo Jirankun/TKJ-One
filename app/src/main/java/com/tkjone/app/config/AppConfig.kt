@@ -11,7 +11,7 @@ object AppConfig {
     private val _baseHost = charArrayOf('t','k','j','1','.','p','a','g','e','s','.','d','e','v')
     val BASE_HOST: String get() = String(_baseHost)
     val BASE_URL: String get() = "https://$BASE_HOST"
-    val PHOTO_LINK_PREFIX: String get() = "$BASE_URL/photo/"
+    val PHOTO_LINK_PREFIX: String get() = "$BASE_URL/photo/?name="
     val UPLOAD_URL: String get() = "$BASE_URL/upload"
 
     // ─── API Endpoints (obfuscated) ───
@@ -32,7 +32,7 @@ object AppConfig {
     val GITHUB_AVATAR_URL: String get() = String(_ghAvatar)
 
     // ─── Portfolio link (obfuscated) ───
-    private val _portfolio = charArrayOf('h','t','t','p','s',':','/','/','j','i','r','a','n','k','u','n','.','g','i','t','h','u','b','.','i','o','/','p','o','r','t','o','f','o','l','i','o','z','h','y','l','l','a','n')
+    private val _portfolio = charArrayOf('h','t','t','p','s',':','/','/','z','h','y','l','l','a','n','f','y','l','l','a','h','.','m','y','.','i','d')
     val PORTFOLIO_URL: String get() = String(_portfolio)
 
     // ─── DNS over HTTPS URL (obfuscated) ───
@@ -40,5 +40,5 @@ object AppConfig {
     val DOH_URL: String get() = String(_dohUrl)
 
     // ─── Photo link builder ───
-    fun photoLink(name: String): String = "$PHOTO_LINK_PREFIX$name"
+    fun photoLink(name: String): String = "$PHOTO_LINK_PREFIX" + java.net.URLEncoder.encode(name, "UTF-8")
 }

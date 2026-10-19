@@ -32,7 +32,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="4dp">
+                android:paddingVertical="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:id="@+id/gallery_title"
@@ -59,12 +62,23 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <ImageView
+            <TextView
+                android:id="@+id/photo_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/torus"
+                android:text="0"
+                android:textSize="12sp" />
+
+            <ImageButton
                 android:id="@+id/gallery_search_btn"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:padding="4dp"
-                android:src="@drawable/search" />
+                android:src="@drawable/search"
+                android:contentDescription="@string/gallery_search_hint"
+                android:background="?android:attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
 
         <!-- Search Bar (hidden by default) -->
@@ -72,21 +86,37 @@
             android:id="@+id/search_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
             android:visibility="gone">
 
             <EditText
                 android:id="@+id/search_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
                 android:hint="@string/gallery_search_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
-                android:padding="10dp"
+                android:paddingHorizontal="8dp"
                 android:fontFamily="@font/torus"
-            android:textSize="15sp" />
+                android:textSize="15sp"
+                android:background="@android:color/transparent" />
+
+            <ImageButton
+                android:id="@+id/search_clear_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="8dp"
+                android:src="@drawable/close"
+                android:background="@android:color/transparent"
+                android:foreground="@null"
+                android:contentDescription="@string/gallery_search_clear"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!-- Offline Banner -->
@@ -131,28 +161,6 @@
                  ads:adUnitId="ca-app-pub-XXXXX" />
         -->
 
-        <!-- Photo Count -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/photo_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:fontFamily="@font/torus"
-            android:textSize="13sp" />
-        </LinearLayout>
-
         <!-- Photo Grid -->
         <ScrollView
             android:id="@+id/photo_scroll"
@@ -168,6 +176,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="12dp"
+                android:paddingTop="12dp"
                 android:paddingBottom="80dp" />
         </ScrollView>
     </LinearLayout>

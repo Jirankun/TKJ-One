@@ -36,7 +36,12 @@ object DownloadService {
                 val tempDir = context.cacheDir
                 val tempFile = File(tempDir, fileName)
 
-                val request = Request.Builder().url(url).build()
+                val request = Request.Builder()
+                    .url(url)
+                    .cacheControl(okhttp3.CacheControl.FORCE_NETWORK)
+                    .header("Cache-Control", "no-cache")
+                    .header("Pragma", "no-cache")
+                    .build()
                 val response = client.newCall(request).execute()
                 if (!response.isSuccessful) {
                     return@withContext DownloadResult(

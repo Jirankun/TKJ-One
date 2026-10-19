@@ -21,6 +21,7 @@
             android:paddingBottom="24dp">
 
             <FrameLayout
+                android:id="@+id/profile_avatar_frame"
                 android:layout_width="100dp"
                 android:layout_height="100dp">
 
@@ -40,12 +41,6 @@
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/profile_camera_badge"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="bottom|end"
-                    android:src="@drawable/image" />
             </FrameLayout>
 
             <TextView

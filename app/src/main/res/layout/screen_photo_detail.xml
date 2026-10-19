@@ -151,6 +151,30 @@
             android:textSize="13sp" />
         </LinearLayout>
 
+        <!-- Uploader -->
+        <LinearLayout
+            android:id="@+id/detail_uploader_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/person"
+                android:tint="#0A84FF" />
+
+            <TextView
+                android:id="@+id/detail_uploader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/torus"
+                android:textSize="13sp" />
+        </LinearLayout>
+
         <!-- Copyright -->
         <LinearLayout
             android:layout_width="match_parent"

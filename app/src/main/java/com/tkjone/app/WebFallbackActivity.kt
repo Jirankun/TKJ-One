@@ -102,7 +102,7 @@ class WebFallbackActivity : com.tkjone.app.ui.AppActivity() {
             settings.cacheMode = WebSettings.LOAD_DEFAULT
             settings.mediaPlaybackRequiresUserGesture = false
             settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-            backgroundColor = ThemeHelper.BG
+            setBackgroundColor(ThemeHelper.BG)
             isVerticalScrollBarEnabled = false
             webViewClient = object : WebViewClient() {
                 override fun shouldOverrideUrlLoading(

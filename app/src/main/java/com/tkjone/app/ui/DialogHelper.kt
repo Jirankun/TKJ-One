@@ -152,8 +152,8 @@ object DialogHelper {
 
         val container = LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
-            background = ThemeHelper.createRoundedBackground(ThemeHelper.getBg2Color(isDark), 16f)
-            setPadding(dp(24), dp(24), dp(24), dp(16))
+            background = ThemeHelper.createRoundedBackground(ThemeHelper.getBg2Color(isDark), 12f)
+            setPadding(dp(20), dp(18), dp(20), dp(12))
         }
 
         // Title
@@ -165,21 +165,24 @@ object DialogHelper {
             gravity = Gravity.CENTER
         })
 
-        // Scrollable message area with fixed max height
+        val maxMessageHeight = (context.resources.displayMetrics.heightPixels * 0.42f).toInt()
         val scrollView = ScrollView(context).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                dp(350) // Fixed max height — prevents dialog from growing to full screen
-            ).apply { setMargins(0, dp(12), 0, dp(12)) }
-            isFillViewport = true
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, dp(10), 0, dp(10)) }
+            isFillViewport = false
+            isVerticalScrollBarEnabled = true
+            overScrollMode = View.OVER_SCROLL_IF_CONTENT_SCROLLS
         }
 
         val messageTv = TextView(context).apply {
             text = message
             textSize = 13f
             setTextColor(ThemeHelper.getSecLabelColor(isDark))
-            setPadding(dp(4), dp(4), dp(4), dp(4))
+            setPadding(dp(2), dp(2), dp(2), dp(2))
             setTextIsSelectable(true)
+            maxHeight = maxMessageHeight
         }
 
         scrollView.addView(messageTv)
@@ -205,7 +208,8 @@ object DialogHelper {
         dialog.setContentView(container)
         dialog.window?.apply {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            setLayout(dp(300), WindowManager.LayoutParams.WRAP_CONTENT)
+            val maxWidth = (context.resources.displayMetrics.widthPixels - dp(40)).coerceAtLeast(dp(260))
+            setLayout(minOf(dp(360), maxWidth), WindowManager.LayoutParams.WRAP_CONTENT)
             setGravity(Gravity.CENTER)
             setWindowAnimations(R.style.DialogAnimation)
         }

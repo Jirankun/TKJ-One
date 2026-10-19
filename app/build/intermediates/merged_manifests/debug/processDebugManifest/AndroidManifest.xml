@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jirankun.nz9f50"
-    android:versionCode="1"
-    android:versionName="1.0.1" >
+    package="aokaze.jirankun.dev"
+    android:versionCode="2"
+    android:versionName="1.0.2" >
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -34,10 +34,10 @@
     </queries>
 
     <permission
-        android:name="com.jirankun.nz9f50.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.jirankun.nz9f50.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:name="com.tkjone.app.TKJOneApp"
@@ -91,9 +91,17 @@
             </intent-filter>
         </activity>
 
+        <!-- Fallback WebView in-app bila Custom Tab tidak tersedia -->
+        <activity
+            android:name="com.tkjone.app.WebFallbackActivity"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|uiMode"
+            android:exported="false"
+            android:hardwareAccelerated="true"
+            android:theme="@style/AppTheme" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.jirankun.nz9f50.fileprovider"
+            android:authorities="aokaze.jirankun.dev.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -102,8 +110,14 @@
         </provider>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.jirankun.nz9f50.androidx-startup"
+            android:authorities="aokaze.jirankun.dev.androidx-startup"
             android:exported="false" >
+            <meta-data
+                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+                android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
                 android:value="androidx.startup" />

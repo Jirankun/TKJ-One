@@ -1,246 +1,272 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.jirankun.nz9f50"
-4    android:versionCode="1"
-5    android:versionName="1.0.1" >
+3    package="aokaze.jirankun.dev"
+4    android:versionCode="2"
+5    android:versionName="1.0.2" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="24"
 9        android:targetSdkVersion="35" />
 10
 11    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-11-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:4:5-76
-11-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:4:22-73
+11-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:4:5-76
+11-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:4:22-73
 12    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-12-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:5:5-75
-12-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:5:22-72
+12-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:5:5-75
+12-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:5:22-72
 13    <uses-permission
-13-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:6:5-107
+13-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:5-107
 14        android:name="android.permission.READ_EXTERNAL_STORAGE"
-14-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:6:22-77
+14-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:22-77
 15        android:maxSdkVersion="32" />
-15-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:6:78-104
+15-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:78-104
 16    <uses-permission
-16-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:7:5-108
+16-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:5-108
 17        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-17-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:7:22-78
+17-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:22-78
 18        android:maxSdkVersion="28" />
-18-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:7:79-105
+18-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:79-105
 19    <uses-permission android:name="android.permission.INTERNET" />
-19-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:8:5-67
-19-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:8:22-64
+19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:5-67
+19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:22-64
 20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-20-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:9:5-79
-20-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:9:22-76
+20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:9:5-79
+20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:9:22-76
 21    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-21-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:10:5-83
-21-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:10:22-80
+21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:5-83
+21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:22-80
 22
 23    <queries>
-23-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:68:5-77:15
+23-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:76:5-85:15
 24        <intent>
-24-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:69:9-72:18
+24-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:77:9-80:18
 25            <action android:name="android.intent.action.VIEW" />
-25-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-25-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
+25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
 26
 27            <data android:scheme="https" />
-27-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-27-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
+27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
 28        </intent>
 29        <intent>
-29-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:73:9-76:18
+29-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:81:9-84:18
 30            <action android:name="android.intent.action.VIEW" />
-30-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-30-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
+30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
 31
 32            <data android:scheme="http" />
-32-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-32-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
+32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
 33        </intent>
 34    </queries>
 35
 36    <permission
-36-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-37        android:name="com.jirankun.nz9f50.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-37-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+36-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+37        android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+37-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 38        android:protectionLevel="signature" />
-38-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+38-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 39
-40    <uses-permission android:name="com.jirankun.nz9f50.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+40    <uses-permission android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 41
 42    <application
-42-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:12:5-66:19
+42-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:12:5-74:19
 43        android:name="com.tkjone.app.TKJOneApp"
-43-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:13:9-34
+43-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:13:9-34
 44        android:allowBackup="false"
-44-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:17:9-36
+44-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:17:9-36
 45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-45-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/c9fbe24023da4789f4130e189a6b8a19/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+45-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 46        android:debuggable="true"
 47        android:extractNativeLibs="false"
 48        android:icon="@mipmap/ic_launcher"
-48-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:15:9-43
+48-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:15:9-43
 49        android:label="@string/app_name"
-49-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:14:9-41
+49-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:14:9-41
 50        android:requestLegacyExternalStorage="true"
-50-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:16:9-52
+50-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:16:9-52
 51        android:supportsRtl="true"
-51-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:18:9-35
+51-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:18:9-35
 52        android:usesCleartextTraffic="true" >
-52-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:19:9-44
+52-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:19:9-44
 53        <activity
-53-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:21:9-33:20
+53-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:21:9-33:20
 54            android:name="com.tkjone.app.MainActivity"
-54-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:22:13-41
+54-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:22:13-41
 55            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-55-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:26:13-163
+55-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:26:13-163
 56            android:exported="true"
-56-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:23:13-36
+56-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:23:13-36
 57            android:hardwareAccelerated="true"
-57-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:27:13-47
+57-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:27:13-47
 58            android:launchMode="singleTop"
-58-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:24:13-43
+58-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:24:13-43
 59            android:theme="@style/AppTheme"
-59-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:25:13-44
+59-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:25:13-44
 60            android:windowSoftInputMode="adjustPan" >
-60-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:28:13-52
+60-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:28:13-52
 61            <intent-filter>
-61-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:29:13-32:29
+61-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:29:13-32:29
 62                <action android:name="android.intent.action.MAIN" />
-62-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:30:17-69
-62-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:30:25-66
+62-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:30:17-69
+62-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:30:25-66
 63
 64                <category android:name="android.intent.category.LAUNCHER" />
-64-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:31:17-77
-64-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:31:27-74
+64-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:31:17-77
+64-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:31:27-74
 65            </intent-filter>
 66        </activity>
 67        <activity
-67-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:35:9-55:20
+67-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:35:9-55:20
 68            android:name="com.tkjone.app.UriViewerActivity"
-68-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:36:13-46
+68-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:36:13-46
 69            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize"
-69-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:39:13-102
+69-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:39:13-102
 70            android:exported="true"
-70-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:37:13-36
+70-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:37:13-36
 71            android:hardwareAccelerated="true"
-71-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:40:13-47
+71-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:40:13-47
 72            android:theme="@style/AppTheme" >
-72-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:38:13-44
+72-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:38:13-44
 73            <intent-filter android:autoVerify="true" >
-73-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:41:13-48:29
-73-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:41:28-53
+73-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:41:13-48:29
+73-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:41:28-53
 74                <action android:name="android.intent.action.VIEW" />
-74-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-74-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+74-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
+74-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
 75
 76                <category android:name="android.intent.category.DEFAULT" />
-76-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
-76-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
+76-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
+76-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
 77                <category android:name="android.intent.category.BROWSABLE" />
-77-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
-77-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
+77-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
+77-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
 78
 79                <data
-79-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
+79-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
 80                    android:host="tkj1.pages.dev"
-80-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:46:23-52
+80-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:23-52
 81                    android:pathPrefix="/photo"
-81-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:47:23-50
+81-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:23-50
 82                    android:scheme="https" />
-82-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+82-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
 83            </intent-filter>
 84            <intent-filter>
-84-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:49:13-54:29
+84-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:13-54:29
 85                <action android:name="android.intent.action.VIEW" />
-85-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-85-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+85-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
+85-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
 86
 87                <category android:name="android.intent.category.DEFAULT" />
-87-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
-87-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
+87-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
+87-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
 88                <category android:name="android.intent.category.BROWSABLE" />
-88-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
-88-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
+88-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
+88-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
 89
 90                <data android:scheme="tkjone" />
-90-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-90-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+90-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
+90-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
 91            </intent-filter>
 92        </activity>
 93
-94        <provider
-95            android:name="androidx.core.content.FileProvider"
-95-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:58:13-62
-96            android:authorities="com.jirankun.nz9f50.fileprovider"
-96-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:59:13-64
-97            android:exported="false"
-97-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:60:13-37
-98            android:grantUriPermissions="true" >
-98-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:61:13-47
-99            <meta-data
-99-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:62:13-64:58
-100                android:name="android.support.FILE_PROVIDER_PATHS"
-100-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:63:17-67
-101                android:resource="@xml/provider_paths" />
-101-->/home/zhyllanf/Documents/Flutter projects/tkj_one_app/Kotlin/TKJ-One/app/src/main/AndroidManifest.xml:64:17-55
-102        </provider>
-103        <provider
-103-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:24:9-32:20
-104            android:name="androidx.startup.InitializationProvider"
-104-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:25:13-67
-105            android:authorities="com.jirankun.nz9f50.androidx-startup"
-105-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:26:13-68
-106            android:exported="false" >
-106-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:27:13-37
+94        <!-- Fallback WebView in-app bila Custom Tab tidak tersedia -->
+95        <activity
+95-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:58:9-63:50
+96            android:name="com.tkjone.app.WebFallbackActivity"
+96-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:59:13-48
+97            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|uiMode"
+97-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:62:13-109
+98            android:exported="false"
+98-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:60:13-37
+99            android:hardwareAccelerated="true"
+99-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:63:13-47
+100            android:theme="@style/AppTheme" />
+100-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:61:13-44
+101
+102        <provider
+103            android:name="androidx.core.content.FileProvider"
+103-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:66:13-62
+104            android:authorities="aokaze.jirankun.dev.fileprovider"
+104-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:67:13-64
+105            android:exported="false"
+105-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:68:13-37
+106            android:grantUriPermissions="true" >
+106-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:69:13-47
 107            <meta-data
-107-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
-108                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-108-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
-109                android:value="androidx.startup" />
-109-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+107-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:70:13-72:58
+108                android:name="android.support.FILE_PROVIDER_PATHS"
+108-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:71:17-67
+109                android:resource="@xml/provider_paths" />
+109-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:72:17-55
 110        </provider>
-111
-112        <receiver
-112-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
-113            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-113-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
-114            android:directBootAware="false"
-114-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
-115            android:enabled="true"
-115-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
-116            android:exported="true"
-116-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
-117            android:permission="android.permission.DUMP" >
-117-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
-118            <intent-filter>
-118-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
-119                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-119-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
-119-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
-120            </intent-filter>
-121            <intent-filter>
-121-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
-122                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-122-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
-122-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
-123            </intent-filter>
-124            <intent-filter>
-124-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
-125                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-125-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
-125-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
-126            </intent-filter>
-127            <intent-filter>
-127-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
-128                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-128-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
-128-->[androidx.profileinstaller:profileinstaller:1.3.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8f6f76677843c51bfc8ff2874129400e/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
-129            </intent-filter>
-130        </receiver>
-131    </application>
-132
-133</manifest>
+111        <provider
+111-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
+112            android:name="androidx.startup.InitializationProvider"
+112-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
+113            android:authorities="aokaze.jirankun.dev.androidx-startup"
+113-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
+114            android:exported="false" >
+114-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
+115            <meta-data
+115-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+116                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+116-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+117                android:value="androidx.startup" />
+117-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+118            <meta-data
+118-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+119                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+119-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+120                android:value="androidx.startup" />
+120-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+121            <meta-data
+121-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+122                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+122-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+123                android:value="androidx.startup" />
+123-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+124        </provider>
+125
+126        <receiver
+126-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+127            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+127-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+128            android:directBootAware="false"
+128-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+129            android:enabled="true"
+129-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+130            android:exported="true"
+130-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+131            android:permission="android.permission.DUMP" >
+131-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+133                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+133-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+133-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+134            </intent-filter>
+135            <intent-filter>
+135-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+136                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+136-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+136-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+137            </intent-filter>
+138            <intent-filter>
+138-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+139                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+139-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+139-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+140            </intent-filter>
+141            <intent-filter>
+141-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+142                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+142-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+142-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+143            </intent-filter>
+144        </receiver>
+145    </application>
+146
+147</manifest>

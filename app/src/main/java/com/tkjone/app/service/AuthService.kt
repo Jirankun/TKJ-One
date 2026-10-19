@@ -8,25 +8,14 @@ import com.tkjone.app.model.UserStatus
 object AuthService {
     private const val USER_KEY = "logged_user"
     private const val PREFS_NAME = "tkjone_prefs"
-    private var cachedUsers: List<UserStatus>? = null
-    private var lastUserFetch: Long = 0
 
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     private suspend fun getValidUsers(): List<UserStatus> {
-        val now = System.currentTimeMillis()
-        if (cachedUsers != null && lastUserFetch > 0 && (now - lastUserFetch) < 5 * 60 * 1000) {
-            return cachedUsers!!
-        }
         val result = ApiService.fetchUserStatus()
-        if (result.isSuccess && result.data != null) {
-            cachedUsers = result.data!!
-            lastUserFetch = now
-            return cachedUsers!!
-        }
-        return cachedUsers ?: emptyList()
+        return if (result.isSuccess) result.data.orEmpty() else emptyList()
     }
 
     suspend fun getLoggedInUser(context: Context): String? {
@@ -39,12 +28,10 @@ object AuthService {
         if (trimmed.isEmpty()) return null
 
         val validUsers = getValidUsers()
-        if (validUsers.isNotEmpty()) {
-            val normalizedInput = trimmed.lowercase().replace(" ", "")
-            val matchedUser = validUsers.find { it.normalizedName == normalizedInput }
-            if (matchedUser == null) return null
-            if (!matchedUser.isActive) return null
-        }
+        if (validUsers.isEmpty()) return null
+        val normalizedInput = trimmed.lowercase().replace(" ", "")
+        val matchedUser = validUsers.find { it.normalizedName == normalizedInput } ?: return null
+        if (!matchedUser.isActive) return null
 
         getPrefs(context).edit().putString(USER_KEY, trimmed).apply()
         return trimmed
