@@ -103,12 +103,15 @@ drawable grid
 drawable image
 drawable information
 drawable information_circle
+drawable pause_video
 drawable person
 drawable photo
 drawable play
 drawable search
 drawable share
 drawable share_social
+drawable skip_next
+drawable skip_previous
 drawable toast_pill_bg
 drawable wifi
 font comfortaa

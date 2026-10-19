@@ -1031,6 +1031,8 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         var swipeStartX = 0f
         var swipeStartY = 0f
         var swiping = false
+        val loadingLayout = v.findViewById<LinearLayout>(R.id.video_loading)
+        val loadingText = v.findViewById<TextView>(R.id.video_loading_text)
         fun showMediaAt(index: Int) {
             val target = photos.getOrNull(index) ?: return
             if (index == initialIndex) return
@@ -1041,53 +1043,22 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             if (target.isVideo) showVideoPlayer(target, index) else showPhotoDetailScreen(target, index)
         }
 
-        videoView.setOnTouchListener { _, event ->
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN -> {
-                    swipeStartX = event.x
-                    swipeStartY = event.y
-                    swiping = false
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    val dx = event.x - swipeStartX
-                    val dy = event.y - swipeStartY
-                    if (kotlin.math.abs(dx) > dp(12) && kotlin.math.abs(dx) > kotlin.math.abs(dy) * 1.25f) swiping = true
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    val dx = event.x - swipeStartX
-                    val dy = event.y - swipeStartY
-                    if (swiping && kotlin.math.abs(dx) > dp(70) && kotlin.math.abs(dx) > kotlin.math.abs(dy) * 1.25f) {
-                        showMediaAt(if (dx < 0) initialIndex + 1 else initialIndex - 1)
-                    }
-                    swiping = false
-                    true
-                }
-                MotionEvent.ACTION_CANCEL -> {
-                    swiping = false
-                    true
-                }
-                else -> true
-            }
-        }
-        val loadingLayout = v.findViewById<LinearLayout>(R.id.video_loading)
-        val loadingText = v.findViewById<TextView>(R.id.video_loading_text)
-
-        // Set up video controller
+        // VideoController dipasang dulu sebelum setVideoURI
         val controller = object : android.widget.MediaController(this) {
             override fun hide() = Unit
         }
         controller.setAnchorView(videoView)
         videoView.setMediaController(controller)
-        controller.show(0)
 
         videoView.setOnPreparedListener { mp ->
             mp.isLooping = true
             loadingLayout.visibility = View.GONE
             videoView.start()
-            controller.show(0)
+            try { controller.show() } catch (_: Exception) {}
         }
+
+        // Urutkan: set URI -> SurfaceView ready -> start via callback
+        videoView.setVideoURI(Uri.parse(photo.url))
 
         videoView.setOnErrorListener { _, what, extra ->
             loadingText.text = getString(R.string.toast_video_failed)
@@ -1097,12 +1068,26 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
         // Load video
         loadingLayout.visibility = View.VISIBLE
+        videoView.setOnPreparedListener(null)
+        videoView.setOnErrorListener(null)
+        try { videoView.stopPlayback() } catch (_: Exception) {}
+        activeVideoView = null
         videoView.setVideoURI(Uri.parse(photo.url))
-        videoView.start()
+
+        // Urutkan: set URI -> SurfaceView ready -> start via callback
+        videoView.setOnPreparedListener { mp ->
+            mp.isLooping = true
+            loadingLayout.visibility = View.GONE
+            videoView.start()
+            try {
+                controller.show()
+            } catch (_: Exception) {
+                // MediaController.show() gagal kalau media player belum siap: lanjutkan aja
+            }
+        }
 
         rootContainer.removeAllViews(); rootContainer.addView(v); currentScreenTag = "video_player"
         animateScreenIn(v)
-        videoView.post { controller.show(0) }
     }
 
     // ─── PROFILE ───
