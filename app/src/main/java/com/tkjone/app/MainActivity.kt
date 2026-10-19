@@ -120,7 +120,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
     private var cachedProfileView: View? = null
     private var cachedHomeView: View? = null
     private var selectedHomeTab = 0
-    private var activeVideoView: VideoView? = null
 
     // ─── LIFECYCLE ───
 
@@ -159,7 +158,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         when (currentScreenTag) {
             "story" -> { destroyWebViews(); showHomeScreen() }
             "photo_detail" -> closePhotoDetail()
-            "video_player" -> { stopActiveVideo(); showHomeScreen() }
             "upload" -> showHomeScreen()
             "error" -> { /* do nothing, error screen has retry button */ }
             else -> super.onBackPressed()
@@ -212,7 +210,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        stopActiveVideo()
         cancelTimers()
         thumbnailJobs.forEach { it.cancel() }; thumbnailJobs.clear()
         photoDetailJob?.cancel()
@@ -227,17 +224,8 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     override fun onPause() {
         backgroundedAt = System.currentTimeMillis()
-        activeVideoView?.pause()
+        photoSwipeHelper?.pauseForBackground()
         super.onPause()
-    }
-
-    private fun stopActiveVideo() {
-        activeVideoView?.apply {
-            setOnPreparedListener(null)
-            setOnErrorListener(null)
-            stopPlayback()
-        }
-        activeVideoView = null
     }
 
     // ─── WEBVIEW CLEANUP ───
@@ -409,7 +397,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     private fun showHomeScreen() {
         thumbnailsPaused = false // resume thumbnails
-        stopActiveVideo()
         destroyWebViews(); applyTheme()
         cachedHomeView = null
         val home = ComposeView(this).apply {
@@ -934,6 +921,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         currentScreenTag = "closing_photo_detail"
         photoDetailJob?.cancel()
         photoDetailJob = null
+        // Hentikan & lepas video player sebelum view dibuang — cegah kebocoran surface
         photoSwipeHelper?.destroy()
         photoSwipeHelper = null
         showHomeScreen()

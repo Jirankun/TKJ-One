@@ -57,8 +57,9 @@
             android:tint="#0A84FF" />
     </LinearLayout>
 
-    <!-- Photo fills all available space -->
+    <!-- Media fills all available space: photo (ImageView) or video (VideoView) -->
     <FrameLayout
+        android:id="@+id/detail_media_frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -71,6 +72,38 @@
             android:scaleType="fitCenter"
             android:contentDescription="@null" />
 
+        <VideoView
+            android:id="@+id/detail_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!-- Loading spinner for video -->
+        <LinearLayout
+            android:id="@+id/detail_video_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/loading_video"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/torus"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Tap-to-open overlay for videos that are not yet playing -->
         <FrameLayout
             android:id="@+id/detail_play_overlay"
             android:layout_width="match_parent"
@@ -86,7 +119,62 @@
         </FrameLayout>
     </FrameLayout>
 
-    <!-- Info Footer -->
+    <!-- Mini video player card (only visible when the current media is a video) -->
+    <LinearLayout
+        android:id="@+id/detail_player_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CC000000"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="8dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/detail_prev_btn"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:padding="6dp"
+            android:src="@drawable/skip_previous"
+            android:tint="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/detail_play_pause_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:padding="7dp"
+            android:src="@drawable/play"
+            android:tint="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/detail_next_btn"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="4dp"
+            android:padding="6dp"
+            android:src="@drawable/skip_next"
+            android:tint="@android:color/white" />
+
+        <SeekBar
+            android:id="@+id/detail_seek"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/detail_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/torus"
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Info Footer (card bawah — tampil di foto maupun video) -->
     <LinearLayout
         android:id="@+id/detail_footer"
         android:layout_width="match_parent"
