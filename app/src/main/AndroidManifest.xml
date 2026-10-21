@@ -3,8 +3,10 @@
 
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
@@ -16,7 +18,9 @@
         android:requestLegacyExternalStorage="true"
         android:allowBackup="false"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme"
+    >
 
         <activity
             android:name=".MainActivity"
@@ -43,8 +47,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https"
-                      android:host="tkj1.pages.dev"
-                      android:pathPrefix="/photo" />
+                    android:host="tkj1.pages.dev"
+                    android:pathPrefix="/photo" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -53,14 +57,6 @@
                 <data android:scheme="tkjone" />
             </intent-filter>
         </activity>
-
-        <!-- Fallback WebView in-app bila Custom Tab tidak tersedia -->
-        <activity
-            android:name=".WebFallbackActivity"
-            android:exported="false"
-            android:theme="@style/AppTheme"
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|uiMode"
-            android:hardwareAccelerated="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -71,6 +67,9 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6754329161781195~6786451224" />
     </application>
 
     <queries>

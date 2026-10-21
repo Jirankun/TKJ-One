@@ -10,9 +10,7 @@ import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.graphics.Outline
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
@@ -35,27 +33,27 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
-import android.widget.VideoView
 import androidx.core.content.ContextCompat
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.ComposeView
 import com.tkjone.app.model.InfoMessage
 import com.tkjone.app.model.Photo
+import com.tkjone.app.service.AnalyticsService
 import com.tkjone.app.service.ApiService
 import com.tkjone.app.service.AuthService
+import com.tkjone.app.service.CustomTabLauncher
 import com.tkjone.app.service.DownloadService
+import com.tkjone.app.service.ProfileImageLoader
 import com.tkjone.app.service.ThumbnailCacheService
 import com.tkjone.app.service.UpdateInfo
 import com.tkjone.app.service.UpdateService
 import com.tkjone.app.ui.DialogHelper
 import com.tkjone.app.ui.ThemeHelper
-import coil.load
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -68,6 +66,14 @@ import java.io.File
 import java.security.MessageDigest
 
 class MainActivity : com.tkjone.app.ui.AppActivity() {
+
+    private companion object {
+        /** Batas decode gambar clean di layar detail — cukup untuk layar HP, hemat RAM. */
+        const val CLEAN_DETAIL_MAX_DIMENSION = 2048
+
+        /** Milestone scroll galeri yang dikirim ke analytics (sekali per milestone). */
+        val SCROLL_MILESTONES = intArrayOf(25, 50, 75, 90, 100)
+    }
 
     private lateinit var rootContainer: FrameLayout
     private var currentScreenTag: String? = null
@@ -112,6 +118,10 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
     private lateinit var mediaPermissionLauncher: ActivityResultLauncher<Array<String>>
 
     private var galleryVersion = 0
+    private val loggedScrollMilestones = mutableSetOf<Int>()
+    private var storyOpenedAt = 0L
+    private var uploadTabOpenedAt = 0L
+    private var uploadRefreshPending = false
     private var thumbnailJobs = mutableListOf<Job>()
     private var thumbnailsPaused = false // pause thumbnails when photo detail is open
 
@@ -188,6 +198,9 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     override fun onResume() {
         super.onResume()
+        refreshAfterUploadIfNeeded()
+        // Lanjutkan video dari posisi yang sama saat app ditinggalkan (bukan dari awal)
+        photoSwipeHelper?.resumeFromBackground()
         val now = System.currentTimeMillis()
         val backgroundDuration = if (backgroundedAt == 0L) 0L else now - backgroundedAt
         backgroundedAt = 0L
@@ -304,8 +317,9 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
                     photos.addAll(incomingPhotos)
                     ThumbnailCacheService.prefetchThumbnails(this@MainActivity, photos.toList())
                 }
-                isOffline = false
-                isCachedRefreshFailed = false
+                // Data dari cache/database artinya server tidak terjangkau
+                isOffline = r1.fromCache || !hasInternetConnection()
+                isCachedRefreshFailed = r1.fromCache
                 errorMessage = null
             } else {
                 photos.clear()
@@ -391,19 +405,29 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             }
         }
         rootContainer.removeAllViews(); rootContainer.addView(v); currentScreenTag = "login"
+        AnalyticsService.screen("login")
     }
 
     // ─── HOME ───
 
     private fun showHomeScreen() {
+        if (currentScreenTag == "story" && storyOpenedAt > 0L) {
+            AnalyticsService.storyClosed(System.currentTimeMillis() - storyOpenedAt)
+            storyOpenedAt = 0L
+        }
         thumbnailsPaused = false // resume thumbnails
+        ThumbnailCacheService.setPrefetchPaused(false)
         destroyWebViews(); applyTheme()
         cachedHomeView = null
         val home = ComposeView(this).apply {
             setContent {
                 com.tkjone.app.ui.ComposeHomeScreen(
                     selectedTab = selectedHomeTab,
-                    onTabSelected = { selectedHomeTab = it; invalidateHomeContent(it) },
+                    onTabSelected = { tab ->
+                        selectedHomeTab = tab
+                        AnalyticsService.tabSelected(if (tab == 0) "gallery" else "profile")
+                        invalidateHomeContent(tab)
+                    },
                     contentView = { tab ->
                         when (tab) {
                             0 -> cachedGalleryView ?: createGalleryView().also { cachedGalleryView = it }
@@ -416,6 +440,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         rootContainer.removeAllViews()
         rootContainer.addView(home)
         currentScreenTag = "home"
+        AnalyticsService.screen("home")
         animateScreenIn(home)
         if (galleryScrollY > 0) {
             home.post {
@@ -426,56 +451,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     private fun invalidateHomeContent(tab: Int) {
         if (tab == 1) cachedProfileView?.let { cachedProfileView = null }
-    }
-
-    // ─── GIF LOADER ───
-
-    private fun loadGifOrImage(imageView: ImageView, url: String, maxWidth: Int) {
-        val isGif = url.lowercase().let { it.endsWith(".gif") || it.contains(".gif?") }
-        if (isGif && Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // API 28+ can decode GIF as animated drawable
-            scope.launch {
-                try {
-                    val drawable: Drawable? = withContext(Dispatchers.IO) {
-                        val uri = Uri.parse(url)
-                        ImageDecoder.decodeDrawable(ImageDecoder.createSource(contentResolver, uri)) { decoder, _, _ ->
-                            decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-                            decoder.isMutableRequired = true
-                        }
-                    }
-                    if (drawable != null && !isDestroyed) imageView.setImageDrawable(drawable)
-                } catch (_: Exception) {
-                    // Fallback: try cached version
-                    val path = ThumbnailCacheService.getCachedPathSync(this@MainActivity, url)
-                    if (path != null && !isDestroyed) {
-                        val bmp = ThumbnailCacheService.decodeBitmapOnIO(path, maxWidth)
-                        if (bmp != null && !isDestroyed) imageView.setImageBitmap(bmp)
-                    }
-                }
-            }
-        } else if (isGif) {
-            // Pre-28: just show first frame
-            scope.launch {
-                try {
-                    val path = ThumbnailCacheService.cacheThumbnail(this@MainActivity, url, version = "gif")
-                    if (path != null && !isDestroyed) {
-                        val bmp = ThumbnailCacheService.decodeBitmapOnIO(path, maxWidth)
-                        if (bmp != null && !isDestroyed) imageView.setImageBitmap(bmp)
-                    }
-                } catch (_: Exception) {}
-            }
-        } else {
-            // Normal image
-            scope.launch {
-                try {
-                    val path = ThumbnailCacheService.cacheThumbnail(this@MainActivity, url)
-                    if (path != null && !isDestroyed) {
-                        val bmp = ThumbnailCacheService.decodeBitmapOnIO(path, maxWidth)
-                        if (bmp != null && !isDestroyed) imageView.setImageBitmap(bmp)
-                    }
-                } catch (_: Exception) {}
-            }
-        }
     }
 
     // ─── GALLERY ───
@@ -500,11 +475,10 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         val searchInput = v.findViewById<EditText>(R.id.search_input)
         searchInput.setTextColor(ThemeHelper.getLabelColor(isDark))
         searchInput.setHintTextColor(ThemeHelper.getSecLabelColor(isDark))
-        searchContainer.background = ThemeHelper.createRoundedBackground(ThemeHelper.getBgColor(isDark), 8f).apply {
+        // Kotak pencarian: tanpa sudut (persegi) dan selebar header (padding 16dp sama).
+        searchContainer.background = ThemeHelper.createRoundedBackground(ThemeHelper.getBgColor(isDark), 0f).apply {
             setStroke(dp(1), ThemeHelper.getSepColor(isDark))
         }
-        val clearSearch = v.findViewById<ImageButton>(R.id.search_clear_btn)
-        clearSearch.setColorFilter(ThemeHelper.getSecLabelColor(isDark))
         searchContainer.visibility = if (isSearching) View.VISIBLE else View.GONE
         if (searchInput.text.toString() != searchQuery) searchInput.setText(searchQuery)
         var searchJob: Job? = null
@@ -512,7 +486,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 searchQuery = s?.toString()?.trim().orEmpty()
-                clearSearch.visibility = if (searchQuery.isEmpty()) View.GONE else View.VISIBLE
                 searchJob?.cancel()
                 searchJob = scope.launch {
                     delay(450)
@@ -521,17 +494,12 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
-        clearSearch.setOnClickListener {
-            searchInput.text.clear()
-            searchInput.requestFocus()
-            val imm = getSystemService(INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
-            imm.showSoftInput(searchInput, android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT)
-        }
         searchInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH) {
                 searchJob?.cancel()
                 filterCards(v)
                 hideKeyboardFrom(searchInput)
+                AnalyticsService.search(searchQuery, galleryItems.size)
                 true
             } else false
         }
@@ -579,23 +547,16 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         )
         val countTv = v.findViewById<TextView>(R.id.photo_count); countTv.setTextColor(ThemeHelper.getSecLabelColor(isDark))
 
-        // ═══ AD BANNER PLACEHOLDER ═══
-        // Pasang iklan di sini (misal: AdMob, Unity Ads, dll)
-        // Load ad -> tambahkan ke view
-        // Contoh:
-        // val adView = AdView(this)
-        // adView.adSize = AdSize.BANNER
-        // adView.adUnitId = "ca-app-pub-XXXXX"
-        // adContainer.addView(adView)
-
         val fab = v.findViewById<FrameLayout>(R.id.story_fab)
         v.findViewById<View>(R.id.story_fab_bg).background = GradientDrawable().apply { colors = intArrayOf(0xFF6366F1.toInt(), 0xFF8B5CF6.toInt()); cornerRadius = dpFloat(16f) }
         fab.setOnClickListener { showStoryView() }
 
         v.findViewById<ScrollView>(R.id.photo_scroll).setOnScrollChangeListener { view, _, scrollY, _, _ ->
             val scrollView = view as ScrollView
-            val remaining = scrollView.getChildAt(0)?.height?.minus(scrollY + scrollView.height) ?: Int.MAX_VALUE
+            val contentHeight = scrollView.getChildAt(0)?.height ?: 0
+            val remaining = contentHeight - (scrollY + scrollView.height)
             if (remaining < scrollView.height) appendGalleryPage(v)
+            logScrollDepth(scrollY, scrollView.height, contentHeight)
         }
         refreshPhotoGrid(v)
         return v
@@ -624,6 +585,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             item.isChecked = true
             getSharedPreferences("tkjone_prefs", MODE_PRIVATE).edit().putInt(FILTER_PREF_KEY, galleryFilter).apply()
             titleTv.text = items.first { it.second == galleryFilter }.first
+            AnalyticsService.filterChanged(items.first { it.second == galleryFilter }.first)
             cachedGalleryView?.let { filterCards(it, addMissingResults = true) }
             true
         }
@@ -668,38 +630,11 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         galleryItems = filtered
         galleryRenderedCount = 0
         isAppendingGalleryPage = false
+        loggedScrollMilestones.clear()
         countTv?.text = "${filtered.size}"
 
         if (filtered.isEmpty()) {
-            val isSearchEmpty = searchQuery.isNotEmpty()
-            val message = TextView(this).apply {
-                text = if (isSearchEmpty) getString(R.string.gallery_empty_search, searchQuery) else getString(R.string.gallery_empty)
-                textSize = 13f
-                setTextColor(ThemeHelper.getSecLabelColor(isDark))
-                gravity = Gravity.CENTER
-            }
-            val emptyContent = LinearLayout(this).apply {
-                orientation = LinearLayout.VERTICAL
-                gravity = Gravity.CENTER
-                setPadding(dp(18), dp(16), dp(18), dp(16))
-                background = ThemeHelper.createRoundedBackground(ThemeHelper.getBg2Color(isDark), 8f).apply {
-                    setStroke(dp(1), ThemeHelper.getSepColor(isDark))
-                }
-                if (isSearchEmpty) {
-                    addView(ImageView(this@MainActivity).apply {
-                        setImageResource(R.drawable.search)
-                        setColorFilter(ThemeHelper.getSecLabelColor(isDark))
-                        layoutParams = LinearLayout.LayoutParams(dp(28), dp(28)).apply { bottomMargin = dp(8) }
-                    })
-                }
-                addView(message)
-            }
-            grid.addView(emptyContent, LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(dp(24), dp(1), dp(24), 0)
-            })
+            updateGalleryEmptyState(galleryView, true)
             return
         }
 
@@ -895,6 +830,18 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
      * Batasi bitmap cache in-memory agar tidak menumpuk → mencegah OOM
      * (penyebab force-close paling sering saat scroll galeri panjang).
      */
+    /** Kirim kedalaman scroll galeri ke analytics sekali per milestone (25/50/75/90/100%). */
+    private fun logScrollDepth(scrollY: Int, viewport: Int, contentHeight: Int) {
+        if (contentHeight <= 0 || galleryItems.isEmpty()) return
+        val maxScroll = (contentHeight - viewport).coerceAtLeast(1)
+        val depth = ((scrollY.toFloat() / maxScroll) * 100f).toInt().coerceIn(0, 100)
+        for (milestone in SCROLL_MILESTONES) {
+            if (depth >= milestone && loggedScrollMilestones.add(milestone)) {
+                AnalyticsService.galleryScroll(milestone, galleryRenderedCount, galleryItems.size)
+            }
+        }
+    }
+
     private fun trimMemoryCache(maxEntries: Int = 24) {
         while (cardBitmapCache.size > maxEntries) {
             val oldest = cardBitmapCache.keys.first()
@@ -902,11 +849,10 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         }
     }
 
-    private fun navigateToPhoto(name: String) {
+    private fun navigateToPhoto(name: String, source: String = "grid") {
         val match = photos.find { it.name.equals(name, ignoreCase = true) }
         if (match != null) {
-            if (match.isVideo) showVideoPlayer(match, photos.indexOf(match))
-            else showPhotoDetailScreen(match, photos.indexOf(match))
+            showPhotoDetailScreen(match, photos.indexOf(match), source)
         } else DialogHelper.showToast(this, getString(R.string.toast_photo_not_found, name))
     }
 
@@ -927,8 +873,11 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         showHomeScreen()
     }
 
-    private fun showPhotoDetailScreen(photo: Photo, initialIndex: Int) {
+    private fun showPhotoDetailScreen(photo: Photo, initialIndex: Int, source: String = "grid") {
         thumbnailsPaused = true
+        ThumbnailCacheService.setPrefetchPaused(true)
+        AnalyticsService.screen("photo_detail")
+        AnalyticsService.photoOpened(photo, initialIndex, source)
         photoDetailJob?.cancel()
         try {
             val gv = cachedGalleryView ?: return
@@ -945,41 +894,59 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
                 onBack = { closePhotoDetail() },
                 onDownload = { p -> handleDownloadClick(p) },
                 onShare = { p ->
+                    AnalyticsService.photoShared(p)
                     val shareIntent = Intent(Intent.ACTION_SEND).apply { type = "text/plain"; putExtra(Intent.EXTRA_TEXT, AppConfig.photoLink(p.name)) }
                     startActivity(Intent.createChooser(shareIntent, getString(R.string.share_chooser)))
                 },
-                onVideoOpen = { p, idx -> showVideoPlayer(p, idx) },
                 getCachedBitmap = { photo -> cardBitmapCache[imageCacheKey(photo.url)] },
-                loadHighQuality = { p, imgView ->
-                    photoDetailJob?.cancel()
-                    if (!p.isVideo) {
-                        photoDetailJob = scope.launch {
-                            try {
-                                val cachedPath = ThumbnailCacheService.cacheThumbnail(
-                                    this@MainActivity,
-                                    p.url,
-                                    version = p.date
-                                ) ?: return@launch
-                                val bitmap = ThumbnailCacheService.decodeBitmapOnIO(cachedPath, 1600)
-                                    ?: return@launch
-                                if (!isDestroyed && currentScreenTag == "photo_detail" &&
-                                    imgView.isAttachedToWindow && imgView.tag == p.url
-                                ) {
-                                    imgView.setImageBitmap(bitmap)
-                                    imgView.scaleType = ImageView.ScaleType.FIT_CENTER
-                                    imgView.setBackgroundColor(Color.TRANSPARENT)
-                                } else if (!bitmap.isRecycled) {
-                                    bitmap.recycle()
-                                }
-                            } catch (error: Exception) {
-                                android.util.Log.e("PhotoDetail", "Thumbnail load failed for ${p.name}", error)
-                            }
-                        }
-                    }
-                },
+                loadPlaceholder = { p -> loadDetailDrop(p) },
+                loadFullImage = { p -> loadDetailClean(p) },
             )
         }
         photoSwipeHelper!!.show(photo, initialIndex, photos)
+    }
+
+    /**
+     * Placeholder layar detail — kualitas drop (cepat, dari cache yang sudah ada).
+     * Video tidak pernah diunduh hanya untuk poster.
+     */
+    private suspend fun loadDetailDrop(p: Photo): Bitmap? {
+        val mem = cardBitmapCache[imageCacheKey(p.url)]
+        if (mem != null && !mem.isRecycled) return mem
+        if (p.isVideo) return null
+        return withContext(Dispatchers.IO) {
+            try {
+                val path = ThumbnailCacheService.cacheThumbnail(
+                    this@MainActivity, p.url, version = p.date
+                )
+                if (path != null) ThumbnailCacheService.decodeBitmapOnIO(path, 1600) else null
+            } catch (error: Exception) {
+                android.util.Log.e("PhotoDetail", "Drop load failed for ${p.name}", error)
+                null
+            }
+        }
+    }
+
+    /**
+     * Gambar utama layar detail — kualitas bersih (byte asli dari server).
+     * Disimpan di cache clean dengan nama hash supaya buka ulang tetap instan,
+     * dan otomatis ter-invalidasi ketika URL/tanggal fotonya berubah.
+     */
+    private suspend fun loadDetailClean(p: Photo): Bitmap? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val path = if (p.isVideo) {
+                    // Video: poster kualitas bersih (frame resolusi penuh) dari cache/view
+                    ThumbnailCacheService.cacheVideoPoster(this@MainActivity, p.url, version = p.date)
+                } else {
+                    ThumbnailCacheService.cacheCleanImage(this@MainActivity, p.url, version = p.date)
+                } ?: return@withContext null
+                ThumbnailCacheService.decodeBitmapOnIO(path, CLEAN_DETAIL_MAX_DIMENSION)
+            } catch (error: Exception) {
+                android.util.Log.e("PhotoDetail", "Clean load failed for ${p.name}", error)
+                null
+            }
+        }
     }
 
     /** Link biasa dibuka di browser/handler luar (bukan Custom Tab). */
@@ -989,93 +956,6 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         } catch (_: Exception) {
             DialogHelper.showToast(this, getString(R.string.toast_link_failed))
         }
-    }
-
-    // ─── VIDEO PLAYER ───
-
-    private fun showVideoPlayer(photo: Photo, initialIndex: Int) {
-        thumbnailsPaused = true // pause thumbnails while video is open
-        photoDetailJob?.cancel()
-        // Save gallery scroll
-        try {
-            val gv = cachedGalleryView ?: return
-            val scrollView = gv.findViewById<ScrollView>(R.id.photo_scroll)
-            galleryScrollY = scrollView?.scrollY ?: 0
-        } catch (_: Exception) {}
-
-        val v = layoutInflater.inflate(R.layout.screen_video_player, null) as ViewGroup
-        v.setBackgroundColor(Color.BLACK)
-
-        v.findViewById<ImageView>(R.id.video_back_btn).setOnClickListener { showHomeScreen() }
-        v.findViewById<TextView>(R.id.video_title).text = getString(R.string.photo_name_format, photo.name)
-
-
-        v.findViewById<ImageView>(R.id.video_download_btn).setOnClickListener { handleDownloadClick(photo) }
-        v.findViewById<TextView>(R.id.video_photo_name).text = photo.name
-        v.findViewById<TextView>(R.id.video_counter).text = getString(R.string.photo_counter_format, initialIndex + 1, photos.size)
-
-        val videoView = v.findViewById<VideoView>(R.id.video_view)
-        activeVideoView = videoView
-        var swipeStartX = 0f
-        var swipeStartY = 0f
-        var swiping = false
-        val loadingLayout = v.findViewById<LinearLayout>(R.id.video_loading)
-        val loadingText = v.findViewById<TextView>(R.id.video_loading_text)
-        fun showMediaAt(index: Int) {
-            val target = photos.getOrNull(index) ?: return
-            if (index == initialIndex) return
-            videoView.setOnPreparedListener(null)
-            videoView.setOnErrorListener(null)
-            try { videoView.stopPlayback() } catch (_: Exception) {}
-            activeVideoView = null
-            if (target.isVideo) showVideoPlayer(target, index) else showPhotoDetailScreen(target, index)
-        }
-
-        // VideoController dipasang dulu sebelum setVideoURI
-        val controller = object : android.widget.MediaController(this) {
-            override fun hide() = Unit
-        }
-        controller.setAnchorView(videoView)
-        videoView.setMediaController(controller)
-
-        videoView.setOnPreparedListener { mp ->
-            mp.isLooping = true
-            loadingLayout.visibility = View.GONE
-            videoView.start()
-            try { controller.show() } catch (_: Exception) {}
-        }
-
-        // Urutkan: set URI -> SurfaceView ready -> start via callback
-        videoView.setVideoURI(Uri.parse(photo.url))
-
-        videoView.setOnErrorListener { _, what, extra ->
-            loadingText.text = getString(R.string.toast_video_failed)
-            loadingLayout.postDelayed({ loadingLayout.visibility = View.GONE }, 2000)
-            false
-        }
-
-        // Load video
-        loadingLayout.visibility = View.VISIBLE
-        videoView.setOnPreparedListener(null)
-        videoView.setOnErrorListener(null)
-        try { videoView.stopPlayback() } catch (_: Exception) {}
-        activeVideoView = null
-        videoView.setVideoURI(Uri.parse(photo.url))
-
-        // Urutkan: set URI -> SurfaceView ready -> start via callback
-        videoView.setOnPreparedListener { mp ->
-            mp.isLooping = true
-            loadingLayout.visibility = View.GONE
-            videoView.start()
-            try {
-                controller.show()
-            } catch (_: Exception) {
-                // MediaController.show() gagal kalau media player belum siap: lanjutkan aja
-            }
-        }
-
-        rootContainer.removeAllViews(); rootContainer.addView(v); currentScreenTag = "video_player"
-        animateScreenIn(v)
     }
 
     // ─── PROFILE ───
@@ -1108,40 +988,113 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
         photoIv.visibility = View.GONE
         avatarLetter.visibility = View.VISIBLE
         val userForAvatar = loggedInUser
-        fun loadProfileImage(url: String) {
-            photoIv.load(url, (application as TKJOneApp).imageLoader) {
-                crossfade(false)
-                listener(onSuccess = { _, _ ->
-                    if (!isDestroyed && loggedInUser == userForAvatar) {
-                        photoIv.visibility = View.VISIBLE
-                        avatarLetter.visibility = View.GONE
-                    }
-                }, onError = { _, result ->
-                    android.util.Log.w("ProfileImage", "Failed to load profile image", result.throwable)
-                })
-            }
-        }
         if (!userForAvatar.isNullOrBlank()) scope.launch {
+            // URL dari status.json dinormalisasi + diunduh lewat loader sendiri (ikut redirect).
             val url = ApiService.fetchProfileImageUrl(userForAvatar)
-            if (!url.isNullOrBlank() && !isDestroyed && loggedInUser == userForAvatar) {
-                loadProfileImage(url)
+            val bitmap = ProfileImageLoader.loadAvatar(this@MainActivity, url)
+            if (!isDestroyed && !isFinishing && loggedInUser == userForAvatar &&
+                bitmap != null && !bitmap.isRecycled
+            ) {
+                photoIv.setImageBitmap(bitmap)
+                photoIv.visibility = View.VISIBLE
+                avatarLetter.visibility = View.GONE
             }
         }
         val nameTv = v.findViewById<TextView>(R.id.profile_name); nameTv.setTextColor(ThemeHelper.getLabelColor(isDark)); nameTv.text = loggedInUser ?: ""
         try { v.findViewById<View>(R.id.profile_theme_dropdown).visibility = View.GONE } catch (_: Exception) {}
         try { v.findViewById<View>(R.id.profile_layout_dropdown).visibility = View.GONE } catch (_: Exception) {}
-        v.findViewById<LinearLayout>(R.id.profile_upload_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { val user = loggedInUser ?: ""; val url = if (user.isNotEmpty()) AppConfig.UPLOAD_URL + "?u=" + java.net.URLEncoder.encode(user, "UTF-8") else AppConfig.UPLOAD_URL; com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, url) } }
-        v.findViewById<LinearLayout>(R.id.profile_github_tile).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { com.tkjone.app.service.CustomTabLauncher.openUrl(this@MainActivity, AppConfig.GITHUB_AVATAR_URL.replace(".png", "")) }; setOnLongClickListener { showDevPopup(); true } }
-        v.findViewById<LinearLayout>(R.id.profile_logout_btn).apply { background = GradientDrawable().apply { setColor(ThemeHelper.getBg2Color(isDark)); cornerRadius = dpFloat(12f); setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt())) }; setOnClickListener { DialogHelper.showConfirmDialog(this@MainActivity, getString(R.string.dialog_logout_title), getString(R.string.dialog_logout_message), getString(R.string.dialog_logout_confirm), getString(R.string.dialog_cancel), ThemeHelper.ACCENT_RED) { handleLogout() } } }
+        styleProfileTile(v.findViewById(R.id.profile_upload_tile), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_upload_tile).setOnClickListener {
+            val user = loggedInUser ?: ""
+            val url = if (user.isNotEmpty()) {
+                AppConfig.UPLOAD_URL + "?u=" + java.net.URLEncoder.encode(user, "UTF-8")
+            } else AppConfig.UPLOAD_URL
+            openUploadTab(url)
+        }
+
+        styleProfileTile(v.findViewById(R.id.profile_github_tile), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_github_tile).apply {
+            setOnClickListener { CustomTabLauncher.openUrl(this@MainActivity, AppConfig.GITHUB_AVATAR_URL.replace(".png", "")) }
+            setOnLongClickListener { showDevPopup(); true }
+        }
+
+        styleProfileTile(v.findViewById(R.id.profile_uploaders_tile), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_uploaders_tile).setOnClickListener {
+            CustomTabLauncher.openUrl(this@MainActivity, AppConfig.UPLOADERS_URL)
+        }
+
+        styleProfileTile(v.findViewById(R.id.profile_privacy_tile), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_privacy_tile).setOnClickListener {
+            CustomTabLauncher.openUrl(this@MainActivity, AppConfig.PRIVACY_URL)
+        }
+
+        styleProfileTile(v.findViewById(R.id.profile_terms_tile), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_terms_tile).setOnClickListener {
+            CustomTabLauncher.openUrl(this@MainActivity, AppConfig.TERMS_URL)
+        }
+
+        styleProfileTile(v.findViewById(R.id.profile_logout_btn), isDark)
+        v.findViewById<LinearLayout>(R.id.profile_logout_btn).setOnClickListener {
+            DialogHelper.showConfirmDialog(
+                this@MainActivity,
+                getString(R.string.dialog_logout_title),
+                getString(R.string.dialog_logout_message),
+                getString(R.string.dialog_logout_confirm),
+                getString(R.string.dialog_cancel),
+                ThemeHelper.ACCENT_RED
+            ) { handleLogout() }
+        }
         val pInfo = try { packageManager.getPackageInfo(packageName, 0) } catch (_: Exception) { null }
         val versionTv = v.findViewById<TextView>(R.id.profile_version); versionTv.setTextColor(ThemeHelper.getLabelColor(isDark)); versionTv.text = pInfo?.versionName?.let { "v$it" } ?: ""
         return v
+    }
+
+    /** Background seragam untuk semua tile di halaman profil. */
+    private fun styleProfileTile(view: View?, isDark: Boolean) {
+        val tile = view as? LinearLayout ?: return
+        tile.background = GradientDrawable().apply {
+            setColor(ThemeHelper.getBg2Color(isDark))
+            cornerRadius = dpFloat(12f)
+            setStroke(1, (ThemeHelper.getSepColor(isDark) and 0x9FFFFFFF.toInt()))
+        }
+    }
+
+    /**
+     * Buka halaman upload di Custom Tab, lalu tandai agar data di-refresh begitu user
+     * kembali (menutup tab). Dengan begitu foto yang baru diunggah langsung muncul.
+     */
+    private fun openUploadTab(url: String) {
+        uploadTabOpenedAt = System.currentTimeMillis()
+        uploadRefreshPending = true
+        CustomTabLauncher.openUrl(this, url)
+    }
+
+    /** Dipanggil saat activity kembali ke foreground — refresh setelah upload selesai. */
+    private fun refreshAfterUploadIfNeeded() {
+        if (!uploadRefreshPending) return
+        if (System.currentTimeMillis() - uploadTabOpenedAt < 1500L) return
+        uploadRefreshPending = false
+        if (isDestroyed || isFinishing || loggedInUser == null) return
+        scope.launch {
+            try {
+                fetchAllData()
+                if (!isDestroyed && !isFinishing && selectedHomeTab == 0) {
+                    cachedGalleryView?.let { view ->
+                        if (photosChangedOnLastFetch) refreshPhotoGrid(view, showLoadingIndicator = false)
+                    }
+                }
+            } catch (_: Exception) {
+            }
+        }
     }
 
     // ─── STORY ───
 
     private fun showStoryView() {
         if (photos.isEmpty()) { DialogHelper.showToast(this, getString(R.string.toast_story_empty)); return }
+        storyOpenedAt = System.currentTimeMillis()
+        AnalyticsService.screen("story")
+        AnalyticsService.storyOpened()
         val v = layoutInflater.inflate(R.layout.screen_story, null) as ViewGroup
         val isDark = isDark; v.setBackgroundColor(ThemeHelper.getBgColor(isDark))
         v.findViewById<ImageView>(R.id.story_close_btn).setColorFilter(ThemeHelper.ACCENT_BLUE); v.findViewById<ImageView>(R.id.story_close_btn).setOnClickListener { showHomeScreen() }
@@ -1215,28 +1168,12 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
             }
             clipToOutline = true
         }
-        // Load GitHub profile picture — download bytes directly via OkHttp
+        // Avatar developer — pakai loader + cache yang sama dengan foto profil user
         scope.launch {
-            try {
-                val bitmap = withContext(Dispatchers.IO) {
-                    val client = okhttp3.OkHttpClient.Builder().connectTimeout(10, java.util.concurrent.TimeUnit.SECONDS).readTimeout(10, java.util.concurrent.TimeUnit.SECONDS).followRedirects(true).build()
-                    val request = okhttp3.Request.Builder().url(AppConfig.GITHUB_AVATAR_URL).build()
-                    val response = client.newCall(request).execute()
-                    if (response.isSuccessful) {
-                        val bytes = response.body?.bytes()
-                        if (bytes != null && bytes.isNotEmpty()) {
-                            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                        } else null
-                    } else null
-                }
-                if (bitmap != null && !isDestroyed) {
-                    avatarIv.setImageBitmap(bitmap)
-                } else if (!isDestroyed) {
-                    avatarIv.setImageResource(R.drawable.person)
-                }
-            } catch (_: Exception) {
-                if (!isDestroyed) avatarIv.setImageResource(R.drawable.person)
-            }
+            val bitmap = ProfileImageLoader.loadAvatar(this@MainActivity, AppConfig.GITHUB_AVATAR_URL)
+            if (isDestroyed) return@launch
+            if (bitmap != null && !bitmap.isRecycled) avatarIv.setImageBitmap(bitmap)
+            else avatarIv.setImageResource(R.drawable.person)
         }
         c.addView(avatarIv)
         c.addView(TextView(this@MainActivity).apply { text = "ZHYLLAN FYLLLAH"; textSize = 20f; setTextColor(ThemeHelper.getLabelColor(isDark)); typeface = resources.getFont(R.font.torus_bold); gravity = Gravity.CENTER; setPadding(0, dp(10), 0, dp(2)) })
@@ -1275,6 +1212,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
     }
 
     private fun handleDownloadClick(photo: Photo) {
+        AnalyticsService.downloadRequested(photo, "detail")
         if (hasStoragePermission()) {
             startDownloadWithProgress(photo)
         } else {
@@ -1317,6 +1255,7 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
 
     private fun startDownloadWithProgress(photo: Photo) {
         DialogHelper.showToast(this, getString(R.string.toast_download_started)); val isDark = isDark
+        val startedAt = System.currentTimeMillis()
         val progressDialog = Dialog(this); progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         val container = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL; setPadding(dp(24), dp(20), dp(24), dp(20)); background = GradientDrawable().apply { setColor(ThemeHelper.getCardColor(isDark)); cornerRadius = dpFloat(16f) } }
         val titleText = TextView(this).apply { text = getString(R.string.dialog_download_progress, 0); textSize = 16f; setTextColor(ThemeHelper.getLabelColor(isDark)); layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { gravity = Gravity.CENTER_HORIZONTAL; bottomMargin = dp(16) } }
@@ -1340,12 +1279,20 @@ class MainActivity : com.tkjone.app.ui.AppActivity() {
                         }
                     }
                 }
+                val savedBytes = result.filePath?.let { runCatching { File(it).length() }.getOrDefault(0L) } ?: 0L
+                AnalyticsService.downloadFinished(
+                    photo,
+                    result.success,
+                    bytes = savedBytes,
+                    durationMs = System.currentTimeMillis() - startedAt
+                )
                 runOnUiThread {
                     try { if (progressDialog.isShowing) progressDialog.dismiss() } catch (_: Exception) {}
                     if (result.success) DialogHelper.showToast(this@MainActivity, getString(R.string.toast_download_complete))
                     else DialogHelper.showToast(this@MainActivity, result.message)
                 }
             } catch (e: Exception) {
+                AnalyticsService.downloadFinished(photo, false, durationMs = System.currentTimeMillis() - startedAt)
                 runOnUiThread { try { if (progressDialog.isShowing) progressDialog.dismiss() } catch (_: Exception) {} }
                 DialogHelper.showToast(this@MainActivity, e.message ?: "Error")
             }

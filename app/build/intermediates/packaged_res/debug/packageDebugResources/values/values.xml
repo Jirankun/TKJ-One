@@ -118,23 +118,27 @@
     <string formatted="false" name="error_load_generic">Gagal memuat %s: %s</string>
     <string name="error_network">Gagal memuat data.\nPeriksa koneksi internet Anda.</string>
     <string name="error_retry">COBA LAGI</string>
-    <string name="filter_all">Semua (Default)</string>
+    <string name="filter_all">Semua</string>
     <string name="filter_photo">Foto</string>
     <string name="filter_video">Video</string>
     <string name="gallery_cached_refresh_failed">Gagal memperbarui foto. Menampilkan data tersimpan.</string>
     <string name="gallery_empty">Belum ada konten</string>
     <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
-    <string name="gallery_filter_all">Semua (Default)</string>
+    <string name="gallery_filter_all">Semua</string>
     <string name="gallery_greeting">Halo, </string>
     <string name="gallery_loading_thumbs">Memuat %d media…</string>
-    <string name="gallery_offline">Tidak ada koneksi internet. Menampilkan foto tersimpan.</string>
-    <string name="gallery_search_clear">Hapus pencarian</string>
+    <string name="gallery_offline">Mode offline aktif\nTips : Buka dan tutup aplikasi untuk kembali ke mode online</string>
     <string name="gallery_search_hint">Cari foto…</string>
-    <string name="loading_data">Memuat data…</string>
+    <string name="gcm_defaultSenderId" translatable="false">276535782088</string>
+    <string name="google_api_key" translatable="false">AIzaSyAFjJQN6FAut-p52Z_dA_dC58-Qg841Vas</string>
+    <string name="google_app_id" translatable="false">1:276535782088:android:8f43cde1312307f7fb53fd</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAFjJQN6FAut-p52Z_dA_dC58-Qg841Vas</string>
+    <string name="google_storage_bucket" translatable="false">tkj1-gallery.firebasestorage.app</string>
+    <string name="loading_data">Menghubungkan…</string>
     <string name="loading_image">Memuat…</string>
-    <string name="loading_story">Memuat cerita…</string>
-    <string name="loading_upload">Memuat upload…</string>
-    <string name="loading_video">Memuat video…</string>
+    <string name="loading_story">Menyiapkan…</string>
+    <string name="loading_upload">Menyiapkan…</string>
+    <string name="loading_video">Buffering…</string>
     <string name="login_button">MASUK</string>
     <string name="login_error_empty">Nama tidak boleh kosong!</string>
     <string name="login_error_generic">Login gagal. Coba lagi.</string>
@@ -175,8 +179,12 @@
     <string name="profile_layout_staggered">Staggered</string>
     <string name="profile_layout_staggered_desc">Grid (Masonry)</string>
     <string name="profile_layout_title">Tata Letak Grid</string>
-    <string name="profile_logout">LOGOUT</string>
+    <string name="profile_logout">Logout</string>
+    <string name="profile_privacy_subtitle">Cara data &amp; foto dikelola</string>
+    <string name="profile_privacy_title">Kebijakan Privasi</string>
     <string name="profile_subtitle">TKJ OnE • Dev. Jirankun</string>
+    <string name="profile_terms_subtitle">Aturan penggunaan aplikasi</string>
+    <string name="profile_terms_title">Ketentuan Layanan</string>
     <string name="profile_theme_auto">Otomatis</string>
     <string name="profile_theme_auto_desc">Ikuti tema sistem</string>
     <string name="profile_theme_dark">Gelap</string>
@@ -186,8 +194,11 @@
     <string name="profile_theme_title">Tema Aplikasi</string>
     <string name="profile_upload_subtitle">Upload foto</string>
     <string name="profile_upload_title">Ajukan Upload</string>
+    <string name="profile_uploaders_subtitle">Daftar kontributor foto</string>
+    <string name="profile_uploaders_title">Uploader</string>
+    <string name="project_id" translatable="false">tkj1-gallery</string>
     <string name="share_chooser">Bagikan via</string>
-    <string name="splash_loading">Loading TKJ OnE…</string>
+    <string name="splash_loading">Menyiapkan…</string>
     <string name="story_close">X</string>
     <string name="story_title">Cerita</string>
     <string name="toast_app_error">Terjadi kesalahan. Silakan coba lagi.</string>

@@ -1,302 +1,306 @@
 [
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_skip_previous.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/skip_previous.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_share_social.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/share_social.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_splash.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_splash.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_play.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/play.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_chevron_down.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/chevron_down.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_comfortaa_regular.ttf.flat",
-        "source": "com.tkjone.app-main-48:/font/comfortaa_regular.ttf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_book.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/book.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_comfortaa.xml.flat",
-        "source": "com.tkjone.app-main-48:/font/comfortaa.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_login.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_login.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_information.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/information.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_image.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/image.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_grid.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/grid.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_toast_pill_bg.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/toast_pill_bg.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/xml_provider_paths.xml.flat",
-        "source": "com.tkjone.app-main-48:/xml/provider_paths.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_gallery.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_gallery.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_download.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/download.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_download.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/download.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_cloud_upload.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/cloud_upload.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_comfortaa_regular.ttf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/comfortaa_regular.ttf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_comfortaa_bold.ttf.flat",
-        "source": "com.tkjone.app-main-48:/font/comfortaa_bold.ttf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_in_right.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_in_right.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_photo_detail.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_photo_detail.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_search.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/search.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_wifi.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/wifi.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_semibold.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_semibold.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_fade_out.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/fade_out.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_error.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_error.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_edit_text_bg.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/edit_text_bg.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_home.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_home.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_share.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/share.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_upload.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_upload.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_create.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/create.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_brush.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/brush.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_photo.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/photo.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_thin.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_thin.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/xml_provider_paths.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/xml/provider_paths.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_out_left.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_out_left.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_globe.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/globe.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_profile.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_profile.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_light.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_light.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_in_right.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_in_right.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_search_show.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/search_show.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_document_text.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/document_text.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_item_photo_card.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/item_photo_card.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_wifi.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/wifi.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_fade_in.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/fade_in.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_story.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_story.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_card_in.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/card_in.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_search_show.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/search_show.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_error.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_error.xml"
+        "merged": "com.tkjone.app-debug-61:/layout_screen_story.xml.flat",
+        "source": "com.tkjone.app-main-63:/layout/screen_story.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_heavy.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_heavy.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_skip_previous.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/skip_previous.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_background.png.flat",
-        "source": "com.tkjone.app-main-48:/drawable/background.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_pause_video.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/pause_video.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_bold.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_bold.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_person.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/person.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_brush.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/brush.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_thin.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_thin.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_scale_out.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/scale_out.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_photo_detail.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_photo_detail.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.tkjone.app-main-48:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_regular.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_regular.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.tkjone.app-main-48:/mipmap-hdpi/ic_launcher.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_photo.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/photo.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_information_circle.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/information_circle.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_scale_out.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/scale_out.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_home.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_home.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_cloud_upload.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/cloud_upload.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_person.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/person.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_scale_in.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/scale_in.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_arrow_back.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/arrow_back.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_arrow_back.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/arrow_back.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus.xml.flat",
-        "source": "com.tkjone.app-main-48:/font/torus.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_close.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/close.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.tkjone.app-main-48:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_edit_text_bg.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/edit_text_bg.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_pause_video.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/pause_video.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_activity_main.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/activity_main.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_background.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/background.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_in_left.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_in_left.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_screen_profile.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/screen_profile.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_globe.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/globe.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_cloud.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/cloud.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_search_hide.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/search_hide.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_bold.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_bold.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_up.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_up.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_comfortaa.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/comfortaa.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.tkjone.app-main-48:/mipmap-mdpi/ic_launcher.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_fade_out.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/fade_out.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_upload.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_upload.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_dialog_info.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/dialog_info.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_login.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_login.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_share_social.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/share_social.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_video_player.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_video_player.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_in_left.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_in_left.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_chevron_down.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/chevron_down.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_comfortaa_bold.ttf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/comfortaa_bold.ttf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_skip_next.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/skip_next.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_share.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/share.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_semibold.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_semibold.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_out_right.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_out_right.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_toast_pill_bg.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/toast_pill_bg.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_activity_main.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/activity_main.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_cloud.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/cloud.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_item_photo_card.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/item_photo_card.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_search.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/search.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_fade_in.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/fade_in.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_down.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_down.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_out_left.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_out_left.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_scale_in.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/scale_in.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_arrow_forward.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/arrow_forward.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_story.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_story.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_grid.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/grid.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_arrow_forward.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/arrow_forward.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_dialog_confirm.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/dialog_confirm.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_close.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/close.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_create.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/create.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_light.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_light.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_card_in.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/card_in.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_document.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/document.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_information_circle.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/information_circle.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_book.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/book.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_calendar.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/calendar.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_toast_pill.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/toast_pill.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_splash.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_splash.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_down.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_down.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.tkjone.app-main-48:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_document.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/document.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_dialog_confirm.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/dialog_confirm.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/layout_toast_pill.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/layout/toast_pill.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/font_torus_regular.otf.flat",
-        "source": "com.tkjone.app-main-48:/font/torus_regular.otf"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_image.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/image.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_video_loading_bg.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/video_loading_bg.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_calendar.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/calendar.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_information.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/information.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_dialog_info.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/dialog_info.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/font_torus_heavy.otf.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/font/torus_heavy.otf"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/anim_slide_out_right.xml.flat",
-        "source": "com.tkjone.app-main-48:/anim/slide_out_right.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_slide_up.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/slide_up.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/drawable_document_text.xml.flat",
-        "source": "com.tkjone.app-main-48:/drawable/document_text.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_play.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/play.xml"
     },
     {
-        "merged": "com.tkjone.app-debug-46:/layout_screen_gallery.xml.flat",
-        "source": "com.tkjone.app-main-48:/layout/screen_gallery.xml"
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/drawable_skip_next.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/drawable/skip_next.xml"
+    },
+    {
+        "merged": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-debug-61:/anim_search_hide.xml.flat",
+        "source": "/home/zhyllanf/.gradle/daemon/8.14/com.tkjone.app-main-63:/anim/search_hide.xml"
     }
 ]

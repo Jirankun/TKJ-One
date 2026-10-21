@@ -42,9 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/gallery_filter_all"
-                    android:textColor="@color/accent_blue"
                     android:fontFamily="@font/torus"
-                android:textSize="20sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -81,7 +80,8 @@
                 android:background="?android:attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
 
-        <!-- Search Bar (hidden by default) -->
+        <!-- Search Bar (hidden by default) — kotak persegi, lebar penuh seperti header,
+             tanpa tombol clear. Teks di dalam tetap sejajar dengan header (padding 16dp). -->
         <LinearLayout
             android:id="@+id/search_container"
             android:layout_width="match_parent"
@@ -89,34 +89,22 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@android:color/transparent"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
+            android:paddingHorizontal="0dp"
+            android:paddingVertical="8dp"
             android:visibility="gone">
 
             <EditText
                 android:id="@+id/search_input"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
                 android:hint="@string/gallery_search_hint"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingHorizontal="8dp"
+                android:paddingHorizontal="16dp"
                 android:fontFamily="@font/torus"
                 android:textSize="15sp"
                 android:background="@android:color/transparent" />
-
-            <ImageButton
-                android:id="@+id/search_clear_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="8dp"
-                android:src="@drawable/close"
-                android:background="@android:color/transparent"
-                android:foreground="@null"
-                android:contentDescription="@string/gallery_search_clear"
-                android:visibility="gone" />
         </LinearLayout>
 
         <!-- Offline Banner -->
@@ -148,18 +136,6 @@
             android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <!-- ═══ AD BANNER PLACEHOLDER ═══
-             Pasang iklan di sini (misal: AdMob, Unity Ads, dll)
-             Ukuran banner: match_parent x 50-90dp
-             Contoh:
-             <com.google.android.gms.ads.AdView
-                 android:id="@+id/ad_banner"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 ads:adSize="BANNER"
-                 ads:adUnitId="ca-app-pub-XXXXX" />
-        -->
 
         <!-- Photo Grid -->
         <ScrollView

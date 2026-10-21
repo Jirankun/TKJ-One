@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "276535782088",
+    "project_id": "tkj1-gallery",
+    "storage_bucket": "tkj1-gallery.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276535782088:android:8f43cde1312307f7fb53fd",
+        "android_client_info": {
+          "package_name": "aokaze.jirankun.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFjJQN6FAut-p52Z_dA_dC58-Qg841Vas"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

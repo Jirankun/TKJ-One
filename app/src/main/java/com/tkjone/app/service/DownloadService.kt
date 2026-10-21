@@ -17,8 +17,6 @@ data class DownloadResult(
 )
 
 object DownloadService {
-    private const val DOWNLOAD_DIR_NAME = "DCIM/TKJ Photos"
-
     private val client = OkHttpClient.Builder()
         .dns(FastDns)
         .connectTimeout(10, TimeUnit.SECONDS)
@@ -135,8 +133,4 @@ object DownloadService {
             .replace(Regex("_+"), "_")
     }
 
-    fun isVideoExtension(fileName: String): Boolean {
-        val ext = fileName.substringAfterLast(".").lowercase()
-        return ext in listOf("mp4", "webm", "mov")
-    }
 }

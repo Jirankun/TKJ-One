@@ -15,258 +15,702 @@
 12-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:5:5-75
 12-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:5:22-72
 13    <uses-permission
-13-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:5-107
+13-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:5-7:38
 14        android:name="android.permission.READ_EXTERNAL_STORAGE"
 14-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:22-77
 15        android:maxSdkVersion="32" />
-15-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:6:78-104
+15-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:9-35
 16    <uses-permission
-16-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:5-108
+16-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:5-9:38
 17        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-17-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:22-78
+17-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:22-78
 18        android:maxSdkVersion="28" />
-18-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:7:79-105
+18-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:9:9-35
 19    <uses-permission android:name="android.permission.INTERNET" />
-19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:5-67
-19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:8:22-64
+19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:5-67
+19-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:22-64
 20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:9:5-79
-20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:9:22-76
+20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:11:5-79
+20-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:11:22-76
 21    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:5-83
-21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:10:22-80
+21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:12:5-83
+21-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:12:22-80
 22
 23    <queries>
-23-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:76:5-85:15
+23-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:75:5-84:15
 24        <intent>
-24-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:77:9-80:18
+24-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:76:9-79:18
 25            <action android:name="android.intent.action.VIEW" />
-25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+25-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
 26
 27            <data android:scheme="https" />
-27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+27-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
 28        </intent>
 29        <intent>
-29-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:81:9-84:18
+29-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:80:9-83:18
 30            <action android:name="android.intent.action.VIEW" />
-30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
+30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+30-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
 31
 32            <data android:scheme="http" />
-32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
+32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+32-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
 33        </intent>
-34    </queries>
-35
-36    <permission
-36-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
-37        android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-37-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
-38        android:protectionLevel="signature" />
-38-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+34        <!-- For browser content -->
+35        <intent>
+35-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:38:9-44:18
+36            <action android:name="android.intent.action.VIEW" />
+36-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+36-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
+37
+38            <category android:name="android.intent.category.BROWSABLE" />
+38-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:17-78
+38-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:27-75
 39
-40    <uses-permission android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-40-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
-41
-42    <application
-42-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:12:5-74:19
-43        android:name="com.tkjone.app.TKJOneApp"
-43-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:13:9-34
-44        android:allowBackup="false"
-44-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:17:9-36
-45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-45-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/59f60d66a73968a426bd825595a6e1b5/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
-46        android:debuggable="true"
-47        android:extractNativeLibs="false"
-48        android:icon="@mipmap/ic_launcher"
-48-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:15:9-43
-49        android:label="@string/app_name"
-49-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:14:9-41
-50        android:requestLegacyExternalStorage="true"
-50-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:16:9-52
-51        android:supportsRtl="true"
-51-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:18:9-35
-52        android:usesCleartextTraffic="true" >
-52-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:19:9-44
-53        <activity
-53-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:21:9-33:20
-54            android:name="com.tkjone.app.MainActivity"
-54-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:22:13-41
-55            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-55-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:26:13-163
-56            android:exported="true"
-56-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:23:13-36
-57            android:hardwareAccelerated="true"
-57-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:27:13-47
-58            android:launchMode="singleTop"
-58-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:24:13-43
-59            android:theme="@style/AppTheme"
-59-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:25:13-44
-60            android:windowSoftInputMode="adjustPan" >
-60-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:28:13-52
-61            <intent-filter>
-61-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:29:13-32:29
-62                <action android:name="android.intent.action.MAIN" />
-62-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:30:17-69
-62-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:30:25-66
-63
-64                <category android:name="android.intent.category.LAUNCHER" />
-64-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:31:17-77
-64-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:31:27-74
-65            </intent-filter>
-66        </activity>
-67        <activity
-67-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:35:9-55:20
-68            android:name="com.tkjone.app.UriViewerActivity"
-68-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:36:13-46
-69            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize"
-69-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:39:13-102
-70            android:exported="true"
-70-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:37:13-36
-71            android:hardwareAccelerated="true"
-71-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:40:13-47
-72            android:theme="@style/AppTheme" >
-72-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:38:13-44
-73            <intent-filter android:autoVerify="true" >
-73-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:41:13-48:29
-73-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:41:28-53
-74                <action android:name="android.intent.action.VIEW" />
-74-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-74-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
-75
-76                <category android:name="android.intent.category.DEFAULT" />
-76-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
-76-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
-77                <category android:name="android.intent.category.BROWSABLE" />
-77-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
-77-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
-78
-79                <data
-79-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-80                    android:host="tkj1.pages.dev"
-80-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:23-52
-81                    android:pathPrefix="/photo"
-81-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:23-50
-82                    android:scheme="https" />
-82-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
-83            </intent-filter>
-84            <intent-filter>
-84-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:13-54:29
-85                <action android:name="android.intent.action.VIEW" />
-85-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:17-69
-85-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:25-66
-86
-87                <category android:name="android.intent.category.DEFAULT" />
-87-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:17-76
-87-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:27-73
-88                <category android:name="android.intent.category.BROWSABLE" />
-88-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:17-78
-88-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:27-75
-89
-90                <data android:scheme="tkjone" />
-90-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:17-47:53
-90-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:23-45
-91            </intent-filter>
-92        </activity>
-93
-94        <!-- Fallback WebView in-app bila Custom Tab tidak tersedia -->
-95        <activity
-95-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:58:9-63:50
-96            android:name="com.tkjone.app.WebFallbackActivity"
-96-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:59:13-48
-97            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|uiMode"
-97-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:62:13-109
-98            android:exported="false"
-98-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:60:13-37
-99            android:hardwareAccelerated="true"
-99-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:63:13-47
-100            android:theme="@style/AppTheme" />
-100-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:61:13-44
-101
-102        <provider
-103            android:name="androidx.core.content.FileProvider"
-103-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:66:13-62
-104            android:authorities="aokaze.jirankun.dev.fileprovider"
-104-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:67:13-64
-105            android:exported="false"
-105-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:68:13-37
-106            android:grantUriPermissions="true" >
-106-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:69:13-47
-107            <meta-data
-107-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:70:13-72:58
-108                android:name="android.support.FILE_PROVIDER_PATHS"
-108-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:71:17-67
-109                android:resource="@xml/provider_paths" />
-109-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:72:17-55
-110        </provider>
-111        <provider
-111-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:24:9-32:20
-112            android:name="androidx.startup.InitializationProvider"
-112-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:25:13-67
-113            android:authorities="aokaze.jirankun.dev.androidx-startup"
-113-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:26:13-68
-114            android:exported="false" >
-114-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:27:13-37
-115            <meta-data
-115-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
-116                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-116-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
-117                android:value="androidx.startup" />
-117-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/80a6f655ef79f9ef78ae4b0658a71db2/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
-118            <meta-data
-118-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
-119                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-119-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
-120                android:value="androidx.startup" />
-120-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/0ec536a81124b92158dcf91ff70411e5/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
-121            <meta-data
-121-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
-122                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-122-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
-123                android:value="androidx.startup" />
-123-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
-124        </provider>
+40            <data android:scheme="https" />
+40-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+40-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
+41        </intent> <!-- End of browser content -->
+42        <!-- For CustomTabsService -->
+43        <intent>
+43-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:47:9-49:18
+44            <action android:name="android.support.customtabs.action.CustomTabsService" />
+44-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:48:13-90
+44-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:48:21-87
+45        </intent> <!-- End of CustomTabsService -->
+46        <!-- For MRAID capabilities -->
+47        <intent>
+47-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:52:9-56:18
+48            <action android:name="android.intent.action.INSERT" />
+48-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:53:13-67
+48-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:53:21-64
+49
+50            <data android:mimeType="vnd.android.cursor.dir/event" />
+50-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+51        </intent>
+52        <intent>
+52-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:57:9-61:18
+53            <action android:name="android.intent.action.VIEW" />
+53-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+53-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
+54
+55            <data android:scheme="sms" />
+55-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+55-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
+56        </intent>
+57        <intent>
+57-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:62:9-66:18
+58            <action android:name="android.intent.action.DIAL" />
+58-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:63:13-65
+58-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:63:21-62
+59
+60            <data android:path="tel:" />
+60-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+61        </intent>
+62
+63        <package android:name="com.android.vending" />
+63-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:8:9-55
+63-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:8:18-52
+64    </queries>
+65
+66    <uses-permission android:name="android.permission.WAKE_LOCK" />
+66-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:25:5-68
+66-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:25:22-65
+67    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+67-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:26:5-110
+67-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:26:22-107
+68    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+68-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:25:5-79
+68-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:25:22-76
+69    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+69-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:26:5-88
+69-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:26:22-85
+70    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+70-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:27:5-82
+70-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:27:22-79
+71    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" />
+71-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:29:5-83
+71-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:29:22-80
+72    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+72-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:28:5-77
+72-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:28:22-74
+73
+74    <permission
+74-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+75        android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+75-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+76        android:protectionLevel="signature" />
+76-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+77
+78    <uses-permission android:name="aokaze.jirankun.dev.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+78-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+78-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+79
+80    <application
+80-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:14:5-73:19
+81        android:name="com.tkjone.app.TKJOneApp"
+81-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:15:9-34
+82        android:allowBackup="false"
+82-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:19:9-36
+83        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+83-->[androidx.core:core:1.13.1] /home/zhyllanf/.gradle/caches/8.14/transforms/a0fed605fe12dc4808b355f2372fd874/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+84        android:debuggable="true"
+85        android:extractNativeLibs="false"
+86        android:icon="@mipmap/ic_launcher"
+86-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:17:9-43
+87        android:label="@string/app_name"
+87-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:16:9-41
+88        android:requestLegacyExternalStorage="true"
+88-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:18:9-52
+89        android:supportsRtl="true"
+89-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:20:9-35
+90        android:theme="@style/AppTheme"
+90-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:22:9-40
+91        android:usesCleartextTraffic="true" >
+91-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:21:9-44
+92        <activity
+92-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:25:9-37:20
+93            android:name="com.tkjone.app.MainActivity"
+93-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:26:13-41
+94            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+94-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:30:13-163
+95            android:exported="true"
+95-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:27:13-36
+96            android:hardwareAccelerated="true"
+96-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:31:13-47
+97            android:launchMode="singleTop"
+97-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:28:13-43
+98            android:theme="@style/AppTheme"
+98-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:29:13-44
+99            android:windowSoftInputMode="adjustPan" >
+99-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:32:13-52
+100            <intent-filter>
+100-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:33:13-36:29
+101                <action android:name="android.intent.action.MAIN" />
+101-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:34:17-69
+101-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:34:25-66
+102
+103                <category android:name="android.intent.category.LAUNCHER" />
+103-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:35:17-77
+103-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:35:27-74
+104            </intent-filter>
+105        </activity>
+106        <activity
+106-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:39:9-59:20
+107            android:name="com.tkjone.app.UriViewerActivity"
+107-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:40:13-46
+108            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize"
+108-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:43:13-102
+109            android:exported="true"
+109-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:41:13-36
+110            android:hardwareAccelerated="true"
+110-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:44:13-47
+111            android:theme="@style/AppTheme" >
+111-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:42:13-44
+112            <intent-filter android:autoVerify="true" >
+112-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:13-52:29
+112-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:45:28-53
+113                <action android:name="android.intent.action.VIEW" />
+113-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+113-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
+114
+115                <category android:name="android.intent.category.DEFAULT" />
+115-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:17-76
+115-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:27-73
+116                <category android:name="android.intent.category.BROWSABLE" />
+116-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:17-78
+116-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:27-75
+117
+118                <data
+118-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+119                    android:host="tkj1.pages.dev"
+119-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:50:21-50
+120                    android:pathPrefix="/photo"
+120-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:51:21-48
+121                    android:scheme="https" />
+121-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
+122            </intent-filter>
+123            <intent-filter>
+123-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:53:13-58:29
+124                <action android:name="android.intent.action.VIEW" />
+124-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:17-69
+124-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:46:25-66
 125
-126        <receiver
-126-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
-127            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-127-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
-128            android:directBootAware="false"
-128-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
-129            android:enabled="true"
-129-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
-130            android:exported="true"
-130-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
-131            android:permission="android.permission.DUMP" >
-131-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
-132            <intent-filter>
-132-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
-133                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-133-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
-133-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
-134            </intent-filter>
-135            <intent-filter>
-135-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
-136                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-136-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
-136-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
-137            </intent-filter>
-138            <intent-filter>
-138-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
-139                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-139-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
-139-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
-140            </intent-filter>
-141            <intent-filter>
-141-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
-142                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-142-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
-142-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/c542e1dcccb495df8f5c0506d31a6296/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
-143            </intent-filter>
-144        </receiver>
-145    </application>
+126                <category android:name="android.intent.category.DEFAULT" />
+126-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:17-76
+126-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:47:27-73
+127                <category android:name="android.intent.category.BROWSABLE" />
+127-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:17-78
+127-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:48:27-75
+128
+129                <data android:scheme="tkjone" />
+129-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:17-51:51
+129-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:49:23-45
+130            </intent-filter>
+131        </activity>
+132
+133        <provider
+134            android:name="androidx.core.content.FileProvider"
+134-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:62:13-62
+135            android:authorities="aokaze.jirankun.dev.fileprovider"
+135-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:63:13-64
+136            android:exported="false"
+136-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:64:13-37
+137            android:grantUriPermissions="true" >
+137-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:65:13-47
+138            <meta-data
+138-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:66:13-68:58
+139                android:name="android.support.FILE_PROVIDER_PATHS"
+139-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:67:17-67
+140                android:resource="@xml/provider_paths" />
+140-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:68:17-55
+141        </provider>
+142
+143        <meta-data
+143-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:70:9-72:70
+144            android:name="com.google.android.gms.ads.APPLICATION_ID"
+144-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:71:13-69
+145            android:value="ca-app-pub-6754329161781195~6786451224" />
+145-->/home/zhyllanf/Documents/TKJ-One/app/src/main/AndroidManifest.xml:72:13-67
 146
-147</manifest>
+147        <receiver
+147-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:29:9-33:20
+148            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+148-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:30:13-85
+149            android:enabled="true"
+149-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:31:13-35
+150            android:exported="false" >
+150-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:32:13-37
+151        </receiver>
+152
+153        <service
+153-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:35:9-38:40
+154            android:name="com.google.android.gms.measurement.AppMeasurementService"
+154-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:36:13-84
+155            android:enabled="true"
+155-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:37:13-35
+156            android:exported="false" />
+156-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:38:13-37
+157        <service
+157-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:39:9-43:72
+158            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+158-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:40:13-87
+159            android:enabled="true"
+159-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:41:13-35
+160            android:exported="false"
+160-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:42:13-37
+161            android:permission="android.permission.BIND_JOB_SERVICE" />
+161-->[com.google.android.gms:play-services-measurement:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/df1b22593ea9f55459ef6fc4397575f8/transformed/play-services-measurement-23.0.0/AndroidManifest.xml:43:13-69
+162        <service
+162-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:30:9-36:19
+163            android:name="com.google.firebase.components.ComponentDiscoveryService"
+163-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:31:13-84
+164            android:directBootAware="true"
+164-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+165            android:exported="false" >
+165-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:32:13-37
+166            <meta-data
+166-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:33:13-35:85
+167                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+167-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:34:17-139
+168                android:value="com.google.firebase.components.ComponentRegistrar" />
+168-->[com.google.android.gms:play-services-measurement-api:23.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/5f936dd9ad3b4c4123eb688d0be190bf/transformed/play-services-measurement-api-23.0.0/AndroidManifest.xml:35:17-82
+169            <meta-data
+169-->[com.google.firebase:firebase-installations:17.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/fe05e67b24172733257de30f3a63745a/transformed/firebase-installations-17.0.1/AndroidManifest.xml:18:13-20:85
+170                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+170-->[com.google.firebase:firebase-installations:17.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/fe05e67b24172733257de30f3a63745a/transformed/firebase-installations-17.0.1/AndroidManifest.xml:19:17-127
+171                android:value="com.google.firebase.components.ComponentRegistrar" />
+171-->[com.google.firebase:firebase-installations:17.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/fe05e67b24172733257de30f3a63745a/transformed/firebase-installations-17.0.1/AndroidManifest.xml:20:17-82
+172            <meta-data
+172-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+173                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+173-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+174                android:value="com.google.firebase.components.ComponentRegistrar" />
+174-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+175        </service> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
+176        <activity
+176-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:73:9-79:43
+177            android:name="com.google.android.gms.ads.AdActivity"
+177-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:74:13-65
+178            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+178-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:75:13-122
+179            android:enableOnBackInvokedCallback="false"
+179-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:76:13-56
+180            android:exported="false"
+180-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:77:13-37
+181            android:theme="@android:style/Theme.Translucent" />
+181-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:78:13-61
+182
+183        <provider
+183-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:81:9-86:43
+184            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+184-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:82:13-76
+185            android:authorities="aokaze.jirankun.dev.mobileadsinitprovider"
+185-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:83:13-73
+186            android:exported="false"
+186-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:84:13-37
+187            android:initOrder="100" />
+187-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:85:13-36
+188
+189        <service
+189-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:88:9-92:43
+190            android:name="com.google.android.gms.ads.AdService"
+190-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:89:13-64
+191            android:enabled="true"
+191-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:90:13-35
+192            android:exported="false" />
+192-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:91:13-37
+193
+194        <activity
+194-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:94:9-98:43
+195            android:name="com.google.android.gms.ads.OutOfContextTestingActivity"
+195-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:95:13-82
+196            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+196-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:96:13-122
+197            android:exported="false" />
+197-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:97:13-37
+198        <activity
+198-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:99:9-106:43
+199            android:name="com.google.android.gms.ads.NotificationHandlerActivity"
+199-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:100:13-82
+200            android:excludeFromRecents="true"
+200-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:101:13-46
+201            android:exported="false"
+201-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:102:13-37
+202            android:launchMode="singleTask"
+202-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:103:13-44
+203            android:taskAffinity=""
+203-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:104:13-36
+204            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+204-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:105:13-72
+205
+206        <meta-data
+206-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:108:9-110:36
+207            android:name="com.google.android.gms.ads.flag.OPTIMIZE_AD_LOADING"
+207-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:109:13-79
+208            android:value="true" />
+208-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:110:13-33
+209        <meta-data
+209-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:111:9-113:36
+210            android:name="com.google.android.gms.ads.flag.OPTIMIZE_INITIALIZATION"
+210-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:112:13-83
+211            android:value="true" />
+211-->[com.google.android.gms:play-services-ads-api:25.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ffb12870999baba24cf8abc427c94195/transformed/play-services-ads-api-25.5.0/AndroidManifest.xml:113:13-33
+212
+213        <provider
+213-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+214            android:name="com.google.firebase.provider.FirebaseInitProvider"
+214-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+215            android:authorities="aokaze.jirankun.dev.firebaseinitprovider"
+215-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+216            android:directBootAware="true"
+216-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+217            android:exported="false"
+217-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+218            android:initOrder="100" />
+218-->[com.google.firebase:firebase-common:21.0.0] /home/zhyllanf/.gradle/caches/8.14/transforms/ca45074524c7bccf546998daa5b1c142/transformed/firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+219
+220        <activity
+220-->[com.google.android.gms:play-services-base:18.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8607aabbb3df22afa7b013f3bb58c5ee/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+221            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+221-->[com.google.android.gms:play-services-base:18.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8607aabbb3df22afa7b013f3bb58c5ee/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+222            android:exported="false"
+222-->[com.google.android.gms:play-services-base:18.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8607aabbb3df22afa7b013f3bb58c5ee/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+223            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+223-->[com.google.android.gms:play-services-base:18.5.0] /home/zhyllanf/.gradle/caches/8.14/transforms/8607aabbb3df22afa7b013f3bb58c5ee/transformed/play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+224
+225        <provider
+225-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:31:9-39:20
+226            android:name="androidx.startup.InitializationProvider"
+226-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:32:13-67
+227            android:authorities="aokaze.jirankun.dev.androidx-startup"
+227-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:33:13-68
+228            android:exported="false" >
+228-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:34:13-37
+229            <meta-data
+229-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:36:13-38:52
+230                android:name="androidx.work.WorkManagerInitializer"
+230-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:37:17-68
+231                android:value="androidx.startup" />
+231-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:38:17-49
+232            <meta-data
+232-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/703b909dbad9403b4de1315620d33793/transformed/emoji2-1.4.0/AndroidManifest.xml:29:13-31:52
+233                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+233-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/703b909dbad9403b4de1315620d33793/transformed/emoji2-1.4.0/AndroidManifest.xml:30:17-75
+234                android:value="androidx.startup" />
+234-->[androidx.emoji2:emoji2:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/703b909dbad9403b4de1315620d33793/transformed/emoji2-1.4.0/AndroidManifest.xml:31:17-49
+235            <meta-data
+235-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/f8ce6ab25bf72eff7fe70293cfb7c70f/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+236                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+236-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/f8ce6ab25bf72eff7fe70293cfb7c70f/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+237                android:value="androidx.startup" />
+237-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/zhyllanf/.gradle/caches/8.14/transforms/f8ce6ab25bf72eff7fe70293cfb7c70f/transformed/lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+238            <meta-data
+238-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+239                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+239-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+240                android:value="androidx.startup" />
+240-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+241        </provider>
+242
+243        <service
+243-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:41:9-46:35
+244            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+244-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:42:13-88
+245            android:directBootAware="false"
+245-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:43:13-44
+246            android:enabled="@bool/enable_system_alarm_service_default"
+246-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:44:13-72
+247            android:exported="false" />
+247-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:45:13-37
+248        <service
+248-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:47:9-53:35
+249            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+249-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:48:13-84
+250            android:directBootAware="false"
+250-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:49:13-44
+251            android:enabled="@bool/enable_system_job_service_default"
+251-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:50:13-70
+252            android:exported="true"
+252-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:51:13-36
+253            android:permission="android.permission.BIND_JOB_SERVICE" />
+253-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:52:13-69
+254        <service
+254-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:54:9-59:35
+255            android:name="androidx.work.impl.foreground.SystemForegroundService"
+255-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:55:13-81
+256            android:directBootAware="false"
+256-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:56:13-44
+257            android:enabled="@bool/enable_system_foreground_service_default"
+257-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:57:13-77
+258            android:exported="false" />
+258-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:58:13-37
+259
+260        <receiver
+260-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:61:9-66:35
+261            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+261-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:62:13-88
+262            android:directBootAware="false"
+262-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:63:13-44
+263            android:enabled="true"
+263-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:64:13-35
+264            android:exported="false" />
+264-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:65:13-37
+265        <receiver
+265-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:67:9-77:20
+266            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+266-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:68:13-106
+267            android:directBootAware="false"
+267-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:69:13-44
+268            android:enabled="false"
+268-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:70:13-36
+269            android:exported="false" >
+269-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:71:13-37
+270            <intent-filter>
+270-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:73:13-76:29
+271                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+271-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:74:17-87
+271-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:74:25-84
+272                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+272-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:75:17-90
+272-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:75:25-87
+273            </intent-filter>
+274        </receiver>
+275        <receiver
+275-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:78:9-88:20
+276            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+276-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:79:13-104
+277            android:directBootAware="false"
+277-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:80:13-44
+278            android:enabled="false"
+278-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:81:13-36
+279            android:exported="false" >
+279-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:82:13-37
+280            <intent-filter>
+280-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:84:13-87:29
+281                <action android:name="android.intent.action.BATTERY_OKAY" />
+281-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:85:17-77
+281-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:85:25-74
+282                <action android:name="android.intent.action.BATTERY_LOW" />
+282-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:86:17-76
+282-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:86:25-73
+283            </intent-filter>
+284        </receiver>
+285        <receiver
+285-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:89:9-99:20
+286            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+286-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:90:13-104
+287            android:directBootAware="false"
+287-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:91:13-44
+288            android:enabled="false"
+288-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:92:13-36
+289            android:exported="false" >
+289-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:93:13-37
+290            <intent-filter>
+290-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:95:13-98:29
+291                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+291-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:96:17-83
+291-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:96:25-80
+292                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+292-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:97:17-82
+292-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:97:25-79
+293            </intent-filter>
+294        </receiver>
+295        <receiver
+295-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:100:9-109:20
+296            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+296-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:101:13-103
+297            android:directBootAware="false"
+297-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:102:13-44
+298            android:enabled="false"
+298-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:103:13-36
+299            android:exported="false" >
+299-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:104:13-37
+300            <intent-filter>
+300-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:106:13-108:29
+301                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+301-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:107:17-79
+301-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:107:25-76
+302            </intent-filter>
+303        </receiver>
+304        <receiver
+304-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:110:9-121:20
+305            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+305-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:111:13-88
+306            android:directBootAware="false"
+306-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:112:13-44
+307            android:enabled="false"
+307-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:113:13-36
+308            android:exported="false" >
+308-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:114:13-37
+309            <intent-filter>
+309-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:116:13-120:29
+310                <action android:name="android.intent.action.BOOT_COMPLETED" />
+310-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:117:17-79
+310-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:117:25-76
+311                <action android:name="android.intent.action.TIME_SET" />
+311-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:118:17-73
+311-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:118:25-70
+312                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+312-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:119:17-81
+312-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:119:25-78
+313            </intent-filter>
+314        </receiver>
+315        <receiver
+315-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:122:9-131:20
+316            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+316-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:123:13-99
+317            android:directBootAware="false"
+317-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:124:13-44
+318            android:enabled="@bool/enable_system_alarm_service_default"
+318-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:125:13-72
+319            android:exported="false" >
+319-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:126:13-37
+320            <intent-filter>
+320-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:128:13-130:29
+321                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+321-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:129:17-98
+321-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:129:25-95
+322            </intent-filter>
+323        </receiver>
+324        <receiver
+324-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:132:9-142:20
+325            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+325-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:133:13-78
+326            android:directBootAware="false"
+326-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:134:13-44
+327            android:enabled="true"
+327-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:135:13-35
+328            android:exported="true"
+328-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:136:13-36
+329            android:permission="android.permission.DUMP" >
+329-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:137:13-57
+330            <intent-filter>
+330-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:139:13-141:29
+331                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+331-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:140:17-88
+331-->[androidx.work:work-runtime:2.7.0] /home/zhyllanf/.gradle/caches/8.14/transforms/2f337b82911f27c062dfd88eed12faf7/transformed/work-runtime-2.7.0/AndroidManifest.xml:140:25-85
+332            </intent-filter>
+333        </receiver>
+334
+335        <uses-library
+335-->[androidx.privacysandbox.ads:ads-adservices:1.1.0-beta11] /home/zhyllanf/.gradle/caches/8.14/transforms/789a9d45be2624a3266e94e9671db90f/transformed/ads-adservices-1.1.0-beta11/AndroidManifest.xml:23:9-25:40
+336            android:name="android.ext.adservices"
+336-->[androidx.privacysandbox.ads:ads-adservices:1.1.0-beta11] /home/zhyllanf/.gradle/caches/8.14/transforms/789a9d45be2624a3266e94e9671db90f/transformed/ads-adservices-1.1.0-beta11/AndroidManifest.xml:24:13-50
+337            android:required="false" />
+337-->[androidx.privacysandbox.ads:ads-adservices:1.1.0-beta11] /home/zhyllanf/.gradle/caches/8.14/transforms/789a9d45be2624a3266e94e9671db90f/transformed/ads-adservices-1.1.0-beta11/AndroidManifest.xml:25:13-37
+338
+339        <activity
+339-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:12:9-19:20
+340            android:name="com.google.android.play.core.hsdp.service.HsdpShimActivity"
+340-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:13:13-86
+341            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+341-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:14:13-87
+342            android:excludeFromRecents="true"
+342-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:15:13-46
+343            android:exported="false"
+343-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:16:13-37
+344            android:launchMode="singleTop"
+344-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:17:13-43
+345            android:theme="@style/Theme.HsdpServiceTransparent" >
+345-->[com.google.android.play:hsdp:2.0.1] /home/zhyllanf/.gradle/caches/8.14/transforms/05f4f8228603c4c1c50b4e479d103da8/transformed/hsdp-2.0.1/AndroidManifest.xml:18:13-64
+346        </activity>
+347
+348        <meta-data
+348-->[com.google.android.gms:play-services-basement:18.9.0] /home/zhyllanf/.gradle/caches/8.14/transforms/bae85c0367c9cbef9208b2bf1efe10ba/transformed/play-services-basement-18.9.0/AndroidManifest.xml:21:9-23:69
+349            android:name="com.google.android.gms.version"
+349-->[com.google.android.gms:play-services-basement:18.9.0] /home/zhyllanf/.gradle/caches/8.14/transforms/bae85c0367c9cbef9208b2bf1efe10ba/transformed/play-services-basement-18.9.0/AndroidManifest.xml:22:13-58
+350            android:value="@integer/google_play_services_version" />
+350-->[com.google.android.gms:play-services-basement:18.9.0] /home/zhyllanf/.gradle/caches/8.14/transforms/bae85c0367c9cbef9208b2bf1efe10ba/transformed/play-services-basement-18.9.0/AndroidManifest.xml:23:13-66
+351
+352        <receiver
+352-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+353            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+353-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+354            android:directBootAware="false"
+354-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+355            android:enabled="true"
+355-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+356            android:exported="true"
+356-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+357            android:permission="android.permission.DUMP" >
+357-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+358            <intent-filter>
+358-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+359                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+359-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+359-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+360            </intent-filter>
+361            <intent-filter>
+361-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+362                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+362-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+362-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+363            </intent-filter>
+364            <intent-filter>
+364-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+365                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+365-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+365-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+366            </intent-filter>
+367            <intent-filter>
+367-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+368                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+368-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+368-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/zhyllanf/.gradle/caches/8.14/transforms/9c23f2cef25b7fbdd916687145295ada/transformed/profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+369            </intent-filter>
+370        </receiver>
+371
+372        <service
+372-->[androidx.room:room-runtime:2.2.5] /home/zhyllanf/.gradle/caches/8.14/transforms/3ef65f2eba1c13b6bacc6977da709b4f/transformed/room-runtime-2.2.5/AndroidManifest.xml:25:9-28:40
+373            android:name="androidx.room.MultiInstanceInvalidationService"
+373-->[androidx.room:room-runtime:2.2.5] /home/zhyllanf/.gradle/caches/8.14/transforms/3ef65f2eba1c13b6bacc6977da709b4f/transformed/room-runtime-2.2.5/AndroidManifest.xml:26:13-74
+374            android:directBootAware="true"
+374-->[androidx.room:room-runtime:2.2.5] /home/zhyllanf/.gradle/caches/8.14/transforms/3ef65f2eba1c13b6bacc6977da709b4f/transformed/room-runtime-2.2.5/AndroidManifest.xml:27:13-43
+375            android:exported="false" />
+375-->[androidx.room:room-runtime:2.2.5] /home/zhyllanf/.gradle/caches/8.14/transforms/3ef65f2eba1c13b6bacc6977da709b4f/transformed/room-runtime-2.2.5/AndroidManifest.xml:28:13-37
+376    </application>
+377
+378</manifest>

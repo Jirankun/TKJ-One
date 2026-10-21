@@ -4,18 +4,17 @@
         <meta charset="UTF-8" />
         <meta
             name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+            content="width=device-width, initial-scale=1, maximum-scale=0.9, user-scalable=no, viewport-fit=cover"
         />
         <meta name="theme-color" content="#060B14" />
         <meta name="robots" content="noindex" />
-        <title>Cerita — TKJ OnE</title>
         <link rel="stylesheet" href="../assets/theme.css" />
         <link rel="stylesheet" href="../assets/fa/css/all.min.css" />
         <style>
             html,
             body {
                 height: 100%;
-                overflow: hidden;
+                overflow: hidden; /* Kunci scroll body */
                 background: var(--bg-deep);
                 touch-action: pan-y;
             }
@@ -294,9 +293,117 @@
                     transform: rotate(360deg);
                 }
             }
+
+            /* ---------- POPUP IKLAN KUAT (SHARP & LOCKED) ---------- */
+            #adPopupOverlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.95); /* Hampir hitam pekat */
+                z-index: 99999; /* Paling atas */
+                display: none; /* Hidden by default */
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(5px);
+            }
+
+            .adPopupBox {
+                width: 90%;
+                max-width: 500px;
+                height: 80%;
+                background: #1a1a1a;
+                border: 2px solid #ff0000; /* Border merah tegas */
+                border-radius: 0 !important; /* RUNCING LAMA */
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            }
+
+            .adPopupContent {
+                flex: 1;
+                overflow-y: auto; /* Bisa di scroll dalamnya */
+                padding: 10px;
+                background: #0f0f0f;
+                border-radius: 0 !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Styling konten iklan di dalam popup */
+            .adPopupContent iframe,
+            .adPopupContent ins,
+            .adPopupContent div[id^="container-"] {
+                width: 100% !important;
+                min-height: 250px;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .adPopupFooter {
+                padding: 15px;
+                background: #000;
+                border-top: 1px solid #333;
+                display: flex;
+                justify-content: center;
+                border-radius: 0 !important;
+            }
+
+            #btnCloseAd {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                font-weight: 800;
+                border: none;
+                border-radius: 0 !important; /* RUNCING */
+                cursor: not-allowed;
+                transition: all 0.2s;
+                text-transform: uppercase;
+            }
+
+            /* State Abu-abu (Countdown) */
+            #btnCloseAd.disabled {
+                background-color: #444;
+                color: #aaa;
+            }
+
+            /* State Aktif (Merah Putih) */
+            #btnCloseAd.active {
+                background-color: #ff0000;
+                color: #ffffff;
+                cursor: pointer;
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            }
+
+            #btnCloseAd.active:active {
+                transform: scale(0.98);
+            }
         </style>
     </head>
     <body>
+        <!-- STRUKTUR POPUP IKLAN -->
+        <div id="adPopupOverlay">
+            <div class="adPopupBox">
+                <div class="adPopupContent">
+                    <!-- Konten Iklan Adsterra akan dimuat di sini -->
+                    <script
+                        async="async"
+                        data-cfasync="false"
+                        src="https://pl30270903.profitableratecpmnetwork.com/04f68990e6f339b5dd4731bead5a7f5d/invoke.js"
+                    ></script>
+                    <div id="container-04f68990e6f339b5dd4731bead5a7f5d"></div>
+                </div>
+                <!-- Placeholder jika script gagal load -->
+                <div style="color: #666; text-align: center; margin-top: 20px; font-size: 12px">Please wait...</div>
+                <div class="adPopupFooter">
+                    <button id="btnCloseAd" class="disabled" onclick="closeAdPopup()">Close (3)</button>
+                </div>
+            </div>
+        </div>
+        <!-- END POPUP IKLAN -->
+
         <div class="stage" id="stage">
             <div class="bars" id="bars"></div>
 
@@ -336,8 +443,53 @@
         <script>
             "use strict";
 
+            /* ---------- LOGIKA POPUP IKLAN KUAT ---------- */
+            let adCountdown = 3;
+            let adTimerInterval;
+            const btnCloseAd = document.getElementById("btnCloseAd");
+            const adOverlay = document.getElementById("adPopupOverlay");
+
+            // Fungsi untuk memunculkan popup
+            function showAdPopup() {
+                adOverlay.style.display = "flex";
+                document.body.style.overflow = "hidden"; // Kunci scroll body
+
+                // Reset state
+                adCountdown = 3;
+                btnCloseAd.textContent = `Close (${adCountdown})`;
+                btnCloseAd.className = "disabled";
+
+                // Mulai hitungan mundur
+                clearInterval(adTimerInterval);
+                adTimerInterval = setInterval(() => {
+                    adCountdown--;
+                    if (adCountdown > 0) {
+                        btnCloseAd.textContent = `Close (${adCountdown})`;
+                    } else if (adCountdown === 0) {
+                        btnCloseAd.textContent = `Close`;
+                        btnCloseAd.className = "active"; // Jadi merah putih
+                        clearInterval(adTimerInterval);
+                    }
+                }, 1000);
+            }
+
+            // Fungsi tombol tutup
+            function closeAdPopup() {
+                if (btnCloseAd.classList.contains("active")) {
+                    adOverlay.style.display = "none";
+                    document.body.style.overflow = ""; // Buka kunci scroll
+                    // Lanjutkan story jika perlu
+                    if (state.paused) resume();
+                }
+            }
+
+            // Panggil popup otomatis saat halaman load (atau bisa dipanggil di fungsi start())
+            window.addEventListener("load", () => {
+                setTimeout(showAdPopup, 500); // Delay dikit biar smooth
+            });
+
             const DB_URL = "https://tkj1.pages.dev/DB/photos.json";
-            const MAX_STORIES = 8;
+            const MAX_STORIES = 9;
             const IMAGE_MS = 5000;
             const VIDEO_MS = 10000;
 
@@ -690,5 +842,17 @@
                 });
             })();
         </script>
+        <!-- adsterra banner -->
+        <script>
+            atOptions = {
+                key: "54321290ebae278dd44125a1ea77a016",
+                format: "iframe",
+                height: 60,
+                width: 468,
+                params: {},
+            };
+        </script>
+        <script src="https://www.highrevenueformat.com/54321290ebae278dd44125a1ea77a016/invoke.js"></script>
+        <!-- adsterra banner end -->
     </body>
 </html>

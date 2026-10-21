@@ -77,6 +77,8 @@ fun ComposeHomeScreen(
                             unselectedContentColor = MutedColor
                         )
                     }
+                    // Banner AdMob di bawah bottom navigation
+                    AdBanner()
                 }
             }
         ) { paddingValues ->

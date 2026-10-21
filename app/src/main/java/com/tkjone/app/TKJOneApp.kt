@@ -36,6 +36,8 @@ class TKJOneApp : Application() {
         instance = this
         // Init fast HTTP client with DNS caching at app startup
         com.tkjone.app.service.ApiService.initClient(this)
+        // Firebase Analytics: event otomatis + event custom (scroll, download, search, dll)
+        com.tkjone.app.service.AnalyticsService.init(this)
     }
 
     companion object {

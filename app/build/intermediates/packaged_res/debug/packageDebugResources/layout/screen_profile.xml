@@ -180,6 +180,7 @@
             android:layout_marginHorizontal="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="16dp">
 
             <ImageView
@@ -199,7 +200,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_upload_title"
                     android:fontFamily="@font/torus"
-            android:textSize="15sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -207,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_upload_subtitle"
                     android:fontFamily="@font/torus"
-            android:textSize="13sp" />
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -223,6 +224,7 @@
             android:layout_marginHorizontal="16dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:padding="16dp">
 
             <ImageView
@@ -242,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_github_title"
                     android:fontFamily="@font/torus"
-            android:textSize="15sp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -250,7 +252,138 @@
                     android:layout_height="wrap_content"
                     android:text="@string/profile_github_subtitle"
                     android:fontFamily="@font/torus"
-            android:textSize="13sp" />
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Uploaders -->
+        <LinearLayout
+            android:id="@+id/profile_uploaders_tile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/person" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_uploaders_title"
+                    android:fontFamily="@font/torus"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_uploaders_subtitle"
+                    android:fontFamily="@font/torus"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Privacy Policy -->
+        <LinearLayout
+            android:id="@+id/profile_privacy_tile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/information_circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_privacy_title"
+                    android:fontFamily="@font/torus"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_privacy_subtitle"
+                    android:fontFamily="@font/torus"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp" />
+
+        <!-- Terms of Service -->
+        <LinearLayout
+            android:id="@+id/profile_terms_tile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/document_text" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_terms_title"
+                    android:fontFamily="@font/torus"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_terms_subtitle"
+                    android:fontFamily="@font/torus"
+                    android:textSize="13sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -266,6 +399,7 @@
             android:layout_marginHorizontal="16dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:paddingVertical="14dp">
 
             <TextView

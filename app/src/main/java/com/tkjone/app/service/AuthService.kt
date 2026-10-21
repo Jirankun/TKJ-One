@@ -13,8 +13,8 @@ object AuthService {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
-    private suspend fun getValidUsers(): List<UserStatus> {
-        val result = ApiService.fetchUserStatus()
+    private suspend fun getValidUsers(context: Context): List<UserStatus> {
+        val result = ApiService.fetchUserStatus(context)
         return if (result.isSuccess) result.data.orEmpty() else emptyList()
     }
 
@@ -27,9 +27,9 @@ object AuthService {
         val trimmed = name.trim()
         if (trimmed.isEmpty()) return null
 
-        val validUsers = getValidUsers()
+        val validUsers = getValidUsers(context)
         if (validUsers.isEmpty()) return null
-        val normalizedInput = trimmed.lowercase().replace(" ", "")
+        val normalizedInput = UserStatus.normalizeName(trimmed)
         val matchedUser = validUsers.find { it.normalizedName == normalizedInput } ?: return null
         if (!matchedUser.isActive) return null
 
@@ -45,10 +45,10 @@ object AuthService {
         val trimmed = currentUserName.trim()
         if (trimmed.isEmpty()) return context.getString(R.string.user_invalid)
 
-        val validUsers = getValidUsers()
+        val validUsers = getValidUsers(context)
         if (validUsers.isEmpty()) return null
 
-        val normalizedInput = trimmed.lowercase().replace(" ", "")
+        val normalizedInput = UserStatus.normalizeName(trimmed)
         val matchedUser = validUsers.find { it.normalizedName == normalizedInput }
 
         if (matchedUser == null) return context.getString(R.string.user_deleted)
@@ -68,11 +68,11 @@ object AuthService {
 
     suspend fun getLoginErrorMessage(context: Context, name: String): String {
         val trimmed = name.trim()
-        val validUsers = getValidUsers()
+        val validUsers = getValidUsers(context)
 
         if (validUsers.isEmpty()) return context.getString(R.string.login_error_no_connection)
 
-        val normalizedInput = trimmed.lowercase().replace(" ", "")
+        val normalizedInput = UserStatus.normalizeName(trimmed)
         val matchedUser = validUsers.find { it.normalizedName == normalizedInput }
 
         if (matchedUser == null) return context.getString(R.string.login_error_not_registered)

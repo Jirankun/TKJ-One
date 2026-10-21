@@ -3,7 +3,7 @@
     <string name="app_name">TKJ OnE</string>
 
     <!-- Splash -->
-    <string name="splash_loading">Loading TKJ OnE…</string>
+    <string name="splash_loading">Menyiapkan…</string>
 
     <!-- Login -->
     <string name="login_title">TKJ OnE</string>
@@ -62,15 +62,14 @@
     <string name="user_suspended">Akun Anda di-suspend.</string>
 
     <!-- Gallery -->
-    <string name="gallery_filter_all">Semua (Default)</string>
-    <string name="filter_all">Semua (Default)</string>
+    <string name="gallery_filter_all">Semua</string>
+    <string name="filter_all">Semua</string>
     <string name="filter_photo">Foto</string>
     <string name="filter_video">Video</string>
     <string name="gallery_search_hint">Cari foto…</string>
-    <string name="gallery_search_clear">Hapus pencarian</string>
     <string name="gallery_empty">Belum ada konten</string>
     <string name="gallery_empty_search">Tidak ditemukan \"%s\"</string>
-    <string name="gallery_offline">Tidak ada koneksi internet. Menampilkan foto tersimpan.</string>
+    <string name="gallery_offline">Mode offline aktif\nTips : Buka dan tutup aplikasi untuk kembali ke mode online</string>
     <string name="gallery_cached_refresh_failed">Gagal memperbarui foto. Menampilkan data tersimpan.</string>
     <string name="gallery_loading_thumbs">Memuat %d media…</string>
 
@@ -112,7 +111,13 @@
     <string name="profile_upload_subtitle">Upload foto</string>
     <string name="profile_github_title">GitHub</string>
     <string name="profile_github_subtitle">Tahan untuk Info &amp; Lisensi</string>
-    <string name="profile_logout">LOGOUT</string>
+    <string name="profile_uploaders_title">Uploader</string>
+    <string name="profile_uploaders_subtitle">Daftar kontributor foto</string>
+    <string name="profile_privacy_title">Kebijakan Privasi</string>
+    <string name="profile_privacy_subtitle">Cara data &amp; foto dikelola</string>
+    <string name="profile_terms_title">Ketentuan Layanan</string>
+    <string name="profile_terms_subtitle">Aturan penggunaan aplikasi</string>
+    <string name="profile_logout">Logout</string>
 
     <!-- Update -->
     <string name="update_title">Pembaruan Tersedia</string>
@@ -130,11 +135,11 @@
     <string name="update_install_failed">Gagal instalasi: %s</string>
 
     <!-- Loading -->
-    <string name="loading_data">Memuat data…</string>
-    <string name="loading_upload">Memuat upload…</string>
-    <string name="loading_video">Memuat video…</string>
+    <string name="loading_data">Menghubungkan…</string>
+    <string name="loading_upload">Menyiapkan…</string>
+    <string name="loading_video">Buffering…</string>
     <string name="loading_image">Memuat…</string>
-    <string name="loading_story">Memuat cerita…</string>
+    <string name="loading_story">Menyiapkan…</string>
 
     <!-- Nav -->
     <string name="nav_gallery">Galeri</string>

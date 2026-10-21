@@ -13,6 +13,9 @@ object AppConfig {
     val BASE_URL: String get() = "https://$BASE_HOST"
     val PHOTO_LINK_PREFIX: String get() = "$BASE_URL/photo/?name="
     val UPLOAD_URL: String get() = "$BASE_URL/upload"
+    val UPLOADERS_URL: String get() = "$BASE_URL/uploaders"
+    val PRIVACY_URL: String get() = "$BASE_URL/privacy"
+    val TERMS_URL: String get() = "$BASE_URL/terms"
 
     // ─── API Endpoints (obfuscated) ───
     private val _dbPath = charArrayOf('/','D','B','/')

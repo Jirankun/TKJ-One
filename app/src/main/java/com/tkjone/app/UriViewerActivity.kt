@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.tkjone.app.model.Photo
+import com.tkjone.app.service.AnalyticsService
 import com.tkjone.app.service.ApiService
 import com.tkjone.app.service.DownloadService
 import com.tkjone.app.ui.ThemeHelper
@@ -31,6 +32,7 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         rootContainer = findViewById(R.id.root_container)
+        AnalyticsService.screen("photo_detail_deeplink")
 
         val photoName = extractPhotoName(intent)
         if (photoName == null) { showError(); return }
@@ -74,6 +76,7 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
     }
 
     private fun showPhotoDetail(photo: Photo) {
+        AnalyticsService.photoOpened(photo, photos.indexOf(photo), "deeplink")
         val isDark = isDark
         val v = layoutInflater.inflate(R.layout.screen_photo_detail, null) as ViewGroup
         v.setBackgroundColor(ThemeHelper.getBgColor(isDark))
@@ -93,13 +96,25 @@ class UriViewerActivity : com.tkjone.app.ui.AppActivity() {
         }
 
         v.findViewById<ImageView>(R.id.detail_download_btn).setOnClickListener {
+            AnalyticsService.downloadRequested(photo, "deeplink")
+            val startedAt = System.currentTimeMillis()
             scope.launch {
                 try {
                     val fileName = "${photo.name}.jpg"
                     val result = DownloadService.downloadToDcim(this@UriViewerActivity, photo.url, fileName)
+                    AnalyticsService.downloadFinished(
+                        photo,
+                        result.success,
+                        durationMs = System.currentTimeMillis() - startedAt
+                    )
                     val msg = if (result.success) getString(R.string.toast_download_complete) else result.message
                     Toast.makeText(this@UriViewerActivity, msg, Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
+                    AnalyticsService.downloadFinished(
+                        photo,
+                        false,
+                        durationMs = System.currentTimeMillis() - startedAt
+                    )
                     Toast.makeText(this@UriViewerActivity, e.message ?: "Error", Toast.LENGTH_SHORT).show()
                 }
             }

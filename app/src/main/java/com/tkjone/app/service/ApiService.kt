@@ -19,11 +19,16 @@ import java.util.concurrent.TimeUnit
 data class ApiResult<T>(
     val data: T?,
     val error: String?,
-    val isSuccess: Boolean
+    val isSuccess: Boolean,
+    /** true kalau data berasal dari cache/database, bukan dari server. */
+    val fromCache: Boolean = false
 ) {
     companion object {
-        fun <T> success(data: T) = ApiResult(data = data, error = null, isSuccess = true)
-        fun <T> failure(error: String) = ApiResult<T>(data = null, error = error, isSuccess = false)
+        fun <T> success(data: T, fromCache: Boolean = false) =
+            ApiResult(data = data, error = null, isSuccess = true, fromCache = fromCache)
+
+        fun <T> failure(error: String) =
+            ApiResult<T>(data = null, error = error, isSuccess = false)
     }
 }
 
@@ -65,16 +70,19 @@ object ApiService {
                 val request = networkRequest(PHOTOS_JSON_URL)
                 val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
-                    return@withContext ApiResult.failure(
+                    return@withContext cachedPhotos(context) ?: ApiResult.failure(
                         context.getString(R.string.download_failed_http, response.code)
                     )
                 }
                 val body = response.body?.string() ?: ""
                 val photos = parsePhotos(body)
-                    ?: return@withContext ApiResult.failure(context.getString(R.string.error_format_invalid, "foto"))
+                    ?: return@withContext cachedPhotos(context)
+                        ?: ApiResult.failure(context.getString(R.string.error_format_invalid, "foto"))
+                JsonCacheService.write(context, JsonCacheService.PHOTOS, body)
                 ApiResult.success(photos)
             } catch (e: Exception) {
-                ApiResult.failure(context.getString(R.string.error_load_generic, "foto", e.message ?: ""))
+                cachedPhotos(context)
+                    ?: ApiResult.failure(context.getString(R.string.error_load_generic, "foto", e.message ?: ""))
             }
         }
     }
@@ -124,16 +132,19 @@ object ApiService {
                 val request = networkRequest(INFO_JSON_URL)
                 val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
-                    return@withContext ApiResult.failure(
+                    return@withContext cachedInfo(context) ?: ApiResult.failure(
                         context.getString(R.string.download_failed_http, response.code)
                     )
                 }
                 val body = response.body?.string() ?: ""
                 val messages = parseInfo(body)
-                    ?: return@withContext ApiResult.failure(context.getString(R.string.error_format_invalid, "info"))
+                    ?: return@withContext cachedInfo(context)
+                        ?: ApiResult.failure(context.getString(R.string.error_format_invalid, "info"))
+                JsonCacheService.write(context, JsonCacheService.INFO, body)
                 ApiResult.success(messages)
             } catch (e: Exception) {
-                ApiResult.failure(context.getString(R.string.error_load_generic, "info", e.message ?: ""))
+                cachedInfo(context)
+                    ?: ApiResult.failure(context.getString(R.string.error_load_generic, "info", e.message ?: ""))
             }
         }
     }
@@ -150,34 +161,61 @@ object ApiService {
 
     // ==================== USER STATUS ====================
 
-    suspend fun fetchUserStatus(): ApiResult<List<UserStatus>> {
+    suspend fun fetchUserStatus(context: Context? = null): ApiResult<List<UserStatus>> {
         return withContext(Dispatchers.IO) {
             try {
                 val request = networkRequest(STATUS_JSON_URL)
                 val response = getClient().newCall(request).execute()
                 if (!response.isSuccessful) {
-                    return@withContext ApiResult.failure("HTTP ${response.code}")
+                    return@withContext cachedStatus(context) ?: ApiResult.failure("HTTP ${response.code}")
                 }
                 val body = response.body?.string() ?: ""
                 val users = parseUserStatus(body)
-                    ?: return@withContext ApiResult.failure("Format data status tidak valid")
+                    ?: return@withContext cachedStatus(context)
+                        ?: ApiResult.failure("Format data status tidak valid")
+                context?.let { JsonCacheService.write(it, JsonCacheService.STATUS, body) }
                 ApiResult.success(users)
             } catch (e: Exception) {
-                ApiResult.failure("Gagal memuat status: ${e.message}")
+                cachedStatus(context) ?: ApiResult.failure("Gagal memuat status: ${e.message}")
             }
         }
     }
 
+    // ==================== CACHE DATABASE (fallback offline) ====================
+
+    private fun cachedPhotos(context: Context): ApiResult<List<Photo>>? =
+        JsonCacheService.read(context, JsonCacheService.PHOTOS)
+            ?.let { parsePhotos(it) }
+            ?.let { ApiResult.success(it, fromCache = true) }
+
+    private fun cachedInfo(context: Context): ApiResult<List<InfoMessage>>? =
+        JsonCacheService.read(context, JsonCacheService.INFO)
+            ?.let { parseInfo(it) }
+            ?.let { ApiResult.success(it, fromCache = true) }
+
+    private fun cachedStatus(context: Context?): ApiResult<List<UserStatus>>? {
+        val ctx = context ?: return null
+        return JsonCacheService.read(ctx, JsonCacheService.STATUS)
+            ?.let { parseUserStatus(it) }
+            ?.let { ApiResult.success(it, fromCache = true) }
+    }
+
+    /**
+     * Ambil URL foto profil milik [userName] dari status.json.
+     * Nilainya dinormalisasi (halaman GitHub → .png, http → https) supaya siap dimuat.
+     */
     suspend fun fetchProfileImageUrl(userName: String): String? {
+        val target = UserStatus.normalizeName(userName)
+        if (target.isEmpty()) return null
         return withContext(Dispatchers.IO) {
             try {
                 val request = networkRequest("$STATUS_JSON_URL?t=${System.currentTimeMillis()}")
                 getClient().newCall(request).execute().use { response ->
                     if (!response.isSuccessful) return@withContext null
                     parseUserStatus(response.body?.string().orEmpty())
-                        ?.firstOrNull { it.normalizedName == userName.lowercase().replace(" ", "") }
+                        ?.firstOrNull { it.normalizedName == target }
                         ?.profile
-                        ?.takeIf { it.startsWith("https://", ignoreCase = true) }
+                        ?.let { ProfileImageLoader.normalizeAvatarUrl(it) }
                 }
             } catch (_: Exception) {
                 null
@@ -185,11 +223,19 @@ object ApiService {
         }
     }
 
+    /** status.json berbentuk {"users": [...]}; array polos juga diterima. */
     private fun parseUserStatus(body: String): List<UserStatus>? {
         return try {
-            val json = JSONObject(body)
-            val arr = json.optJSONArray("users") ?: return null
+            val trimmed = body.trim()
+            val arr = if (trimmed.startsWith("[")) {
+                JSONArray(trimmed)
+            } else {
+                JSONObject(trimmed).optJSONArray("users")
+                    ?: JSONObject(trimmed).optJSONArray("data")
+                    ?: return null
+            }
             (0 until arr.length()).map { UserStatus.fromJson(arr.getJSONObject(it)) }
+                .filter { it.name.isNotEmpty() }
         } catch (_: Exception) {
             null
         }

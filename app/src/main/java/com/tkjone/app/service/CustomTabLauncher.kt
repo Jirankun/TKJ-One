@@ -15,9 +15,10 @@ import com.tkjone.app.ui.ThemeHelper
 /**
  * CustomTabLauncher — membuka URL (mis. halaman upload) di Chrome Custom Tab.
  *
- * Perbaikan penting dibanding startActivity(ACTION_VIEW) biasa:
- *  - Tidak melempar ActivityNotFoundException yang dulu bikin force-close
- *    ketika tidak ada browser terpasang → fallback ke WebView viewer in-app.
+ * Semua halaman web (upload, uploaders, privacy, terms, github) dibuka di Custom Tab.
+ * In-app WebView (WebFallbackActivity) sudah DIHAPUS total — kalau perangkat tidak punya
+ * provider Custom Tab, URL dibuka di browser default lewat ACTION_VIEW (bukan WebView).
+ *
  *  - Warna toolbar/status disesuaikan tema aplikasi (polos, konsisten).
  *  - Warm-up client di background supaya tab pertama terbuka instan (bebas stuck).
  */
@@ -66,8 +67,8 @@ object CustomTabLauncher {
     }
 
     /**
-     * Buka [url] di Custom Tab. Jika tidak ada browser sama sekali,
-     * dibuka di [UriViewerActivity]-style fallback WebView (tidak crash).
+     * Buka [url] di Custom Tab. Jika tidak ada provider Custom Tab sama sekali,
+     * fallback ke browser default (ACTION_VIEW) — tanpa WebView in-app.
      */
     fun openUrl(context: Context, url: String) {
         try {
@@ -92,14 +93,13 @@ object CustomTabLauncher {
             Log.w(TAG, "Custom Tab gagal: ${e.message}")
         }
 
-        // Fallback terakhir: tampilkan WebView sederhana in-app (bukan crash)
+        // Fallback terakhir: browser default (bukan WebView in-app)
         try {
-            val fallback = Intent(context, Class.forName("com.tkjone.app.WebFallbackActivity"))
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra("url", url)
-            context.startActivity(fallback)
+            context.startActivity(
+                Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         } catch (e2: Exception) {
-            Log.e(TAG, "Fallback juga gagal", e2)
+            Log.e(TAG, "Fallback browser juga gagal", e2)
             com.tkjone.app.ui.DialogHelper.showToast(
                 context, context.getString(R.string.toast_link_failed)
             )

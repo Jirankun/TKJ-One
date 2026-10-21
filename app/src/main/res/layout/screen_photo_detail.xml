@@ -57,6 +57,18 @@
             android:tint="#0A84FF" />
     </LinearLayout>
 
+    <!-- Indeterminate loading bar: tampil selama gambar kualitas bersih dimuat,
+         hilang otomatis saat gambar berhasil tampil. -->
+    <ProgressBar
+        android:id="@+id/detail_loading_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:indeterminate="true"
+        android:indeterminateTint="#0A84FF"
+        android:max="100"
+        android:progress="0" />
+
     <!-- Media fills all available space: photo (ImageView) or video (VideoView) -->
     <FrameLayout
         android:id="@+id/detail_media_frame"
@@ -65,42 +77,62 @@
         android:layout_weight="1"
         android:background="@android:color/black">
 
-        <ImageView
-            android:id="@+id/detail_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:contentDescription="@null" />
-
+        <!--
+            PENTING: layout_gravity="center" WAJIB ada di VideoView.
+            VideoView mengukur dirinya sendiri mengikuti aspect ratio video (VideoView.onMeasure),
+            jadi ukurannya bisa lebih kecil dari frame. Tanpa gravity, FrameLayout menaruh child
+            di Gravity.TOP|START (kiri-atas) -> video terlihat miring ke kiri dan ada area hitam
+            di sisi kanan. Dengan center, video selalu rata tengah dan letterbox hitam dibagi rata.
+        -->
         <VideoView
             android:id="@+id/detail_video_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:visibility="gone" />
 
-        <!-- Loading spinner for video -->
-        <LinearLayout
-            android:id="@+id/detail_video_loading"
+        <!--
+            ImageView berada DI ATAS VideoView: dipakai sebagai poster thumbnail.
+            Saat media masih loading, thumbnail yang sudah ada di cache ditampilkan di sini
+            sehingga area media tidak pernah kosong dan drag swipe selalu kelihatan.
+            Begitu video siap diputar, ImageView ini disembunyikan.
+        -->
+        <ImageView
+            android:id="@+id/detail_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#99000000"
-            android:gravity="center"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
+
+        <!-- Loading spinner for video (background transparan supaya poster thumbnail tetap
+        terlihat) -->
+        <LinearLayout
+            android:id="@+id/detail_video_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/video_loading_bg"
+            android:layout_gravity="center"
+            android:padding="28dp"
             android:orientation="vertical"
             android:visibility="gone">
 
             <ProgressBar
                 style="?android:attr/progressBarStyleLarge"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+            />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:layout_gravity="center"
                 android:text="@string/loading_video"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/torus"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <!-- Tap-to-open overlay for videos that are not yet playing -->
@@ -127,22 +159,22 @@
         android:background="#CC000000"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="8dp"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="5dp"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/detail_prev_btn"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:padding="6dp"
             android:src="@drawable/skip_previous"
             android:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/detail_play_pause_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="4dp"
             android:padding="7dp"
             android:src="@drawable/play"
@@ -150,8 +182,8 @@
 
         <ImageView
             android:id="@+id/detail_next_btn"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginStart="4dp"
             android:padding="6dp"
             android:src="@drawable/skip_next"
@@ -162,8 +194,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp" />
 
         <TextView
             android:id="@+id/detail_time"
@@ -202,7 +234,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/torus"
-            android:textSize="16sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -212,7 +244,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:fontFamily="@font/torus"
-            android:textSize="11sp"
+                android:textSize="11sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -236,7 +268,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/torus"
-            android:textSize="13sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
         <!-- Uploader -->
@@ -285,7 +317,7 @@
                 android:layout_weight="1"
                 android:text="@string/photo_copyright"
                 android:fontFamily="@font/torus"
-            android:textSize="11sp" />
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 

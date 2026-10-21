@@ -9,11 +9,20 @@ import android.os.Build
 import android.util.Base64
 import android.util.Log
 import com.tkjone.app.model.Photo
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Semaphore
 import kotlinx.coroutines.sync.withPermit
-
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -21,55 +30,102 @@ import java.security.MessageDigest
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 
+/**
+ * Cache gambar dua tingkat, semuanya di cacheDir aplikasi (bukan storage user):
+ *
+ *  • DROP  → thumbnail compressed (WEBP) untuk grid galeri. Cepat & hemat.
+ *  • CLEAN → byte asli dari server untuk tampilan detail/story. Tetap "kualitas bersih",
+ *            tapi disimpan lokal supaya buka foto kedua kali tidak mengunduh ulang.
+ *
+ * Nama file = hash SHA-256 dari (versi-format | url | tanggal-foto). Artinya:
+ *  - URL yang berubah otomatis menghasilkan nama baru → data lama tidak pernah dipakai salah.
+ *  - Naikkan formatVersion kalau algoritma kompresi berubah → cache lama otomatis ditinggalkan
+ *    lalu dibersihkan oleh trim.
+ *
+ * Download (simpan ke galeri) sengaja TIDAK memakai cache ini; DownloadService selalu
+ * mengambil file fresh dari server.
+ */
 object ThumbnailCacheService {
-    private const val TAG = "ThumbCache"
-    private const val MAX_CACHE_SIZE = 192L * 1024 * 1024
-    private const val STALE_THRESHOLD = 3 * 24 * 60 * 60 * 1000L // 3 days
-    private const val MAX_SOURCE_FILE_SIZE = 64L * 1024 * 1024
-    private const val CACHED_THUMBNAIL_MAX_DIMENSION = 1600
-    private const val CACHE_FORMAT_VERSION = "thumb-v2"
+    private const val TAG = "ImageCache"
 
-    private var cacheDir: File? = null
+    private const val MAX_SOURCE_FILE_SIZE = 64L * 1024 * 1024
+    private const val DROP_MAX_DIMENSION = 1600
+    private const val DROP_QUALITY = 88
+    private const val VIDEO_FRAME_QUALITY = 75
+    private const val VIDEO_FRAME_MAX_BYTES = 10L * 1024 * 1024
+
+    /**
+     * Prefetch dibatasi ke halaman pertama saja. Grid tetap memuat thumbnail on-demand,
+     * jadi mengunduh seluruh katalog (ratusan foto) saat app dibuka cuma membuang kuota.
+     */
+    private const val PREFETCH_LIMIT = 30
+
+    /** Dua tingkat cache dengan batas ukuran dan masa simpan masing-masing. */
+    private enum class Tier(val folder: String, val formatVersion: String, val maxBytes: Long, val staleMs: Long) {
+        DROP("thumbnail", "drop-v4", 192L * 1024 * 1024, 3L * 24 * 60 * 60 * 1000),
+        CLEAN("view", "clean-v2", 256L * 1024 * 1024, 7L * 24 * 60 * 60 * 1000)
+    }
+
+    /** Folder cache versi lama — dihapus saat startup supaya tidak menumpuk. */
+    private val legacyFolders = listOf("drops", "clean", "tkjone_thumbs")
+
+    private val directories = ConcurrentHashMap<Tier, File>()
 
     private val client = OkHttpClient.Builder()
         .dns(FastDns)
         .connectTimeout(10, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .addInterceptor { chain ->
-            chain.proceed(chain.request().newBuilder()
-                .header("User-Agent", "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36")
-                .build())
+            chain.proceed(
+                chain.request().newBuilder()
+                    .header("User-Agent", "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36")
+                    .build()
+            )
         }
         .build()
 
     private val downloadSlots = Semaphore(3)
+
+    // Slot terpisah untuk cache view (clean): download foto yang sedang dibuka user tidak
+    // perlu antre di belakang prefetch thumbnail galeri.
+    private val cleanSlots = Semaphore(2)
+
+    @Volatile private var prefetchPaused = false
     private val pendingJobs = ConcurrentHashMap<String, Deferred<String?>>()
-    @Volatile private var scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    // ==================== PUBLIC API — DROP (grid) ====================
 
     fun prefetchThumbnails(context: Context, photos: List<Photo>) {
         val appContext = context.applicationContext
         scope.launch {
-            photos.asSequence().filterNot { it.isVideo }.toList().chunked(3).forEach { batch ->
+            photos.asSequence()
+                .filterNot { it.isVideo }
+                .take(PREFETCH_LIMIT)
+                .toList()
+                .chunked(3)
+                .forEach { batch ->
+                while (prefetchPaused) delay(350)
                 coroutineScope {
                     batch.map { photo ->
                         async {
                             try {
-                                cacheThumbnail(
-                                    appContext,
-                                    photo.url,
-                                    version = photo.date,
-                                    isVideo = photo.isVideo
-                                )
+                                cacheThumbnail(appContext, photo.url, version = photo.date)
                             } catch (error: Exception) {
-                                Log.w(TAG, "Thumbnail prefetch failed for ${photo.name}: ${error.message}")
+                                Log.w(TAG, "Prefetch drop gagal untuk ${photo.name}: ${error.message}")
                                 null
                             }
                         }
                     }.awaitAll()
                 }
-                trimCacheIfNeeded(getCacheDirectory(appContext))
+                trimCacheIfNeeded(appContext, Tier.DROP)
             }
         }
+    }
+
+    /** Pause prefetch thumbnail saat layar detail dibuka agar bandwidth fokus ke foto aktif. */
+    fun setPrefetchPaused(paused: Boolean) {
+        prefetchPaused = paused
     }
 
     fun isVideoUrl(url: String): Boolean {
@@ -77,50 +133,13 @@ object ThumbnailCacheService {
         return clean.endsWith(".mp4") || clean.endsWith(".webm") || clean.endsWith(".mov")
     }
 
-    private fun generateCacheKey(url: String, version: String? = null): String {
-        val key = if (version != null) "$CACHE_FORMAT_VERSION|$url|$version" else "$CACHE_FORMAT_VERSION|$url"
-        val hash = MessageDigest.getInstance("SHA-256").digest(key.toByteArray())
-        val encoded = Base64.encodeToString(hash, Base64.URL_SAFE or Base64.NO_WRAP or Base64.NO_PADDING)
-        val shortHash = if (encoded.length > 43) encoded.substring(0, 43) else encoded
-        return "$shortHash.dat"
-    }
-
-    private fun getCacheDirectory(context: Context): File {
-        cacheDir?.let { if (it.exists()) return it }
-        val dir = File(context.cacheDir, "tkjone_thumbs")
-        if (!dir.exists()) dir.mkdirs()
-        cacheDir = dir
-        return dir
-    }
+    /** Path drop yang sudah ada di cache (tanpa I/O jaringan). */
+    fun getCachedPathSync(context: Context, url: String, version: String? = null): String? =
+        existingFile(dirFor(context, Tier.DROP), url, version, Tier.DROP)?.absolutePath
 
     /**
-     * Check if a thumbnail is already cached. Does NOT block.
-     */
-    fun getCachedPathSync(context: Context, url: String, version: String? = null): String? {
-        val dir = getCacheDirectory(context)
-        val key = generateCacheKey(url, version)
-        val file = File(dir, key)
-        if (!file.isFile || file.length() == 0L) return null
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeFile(file.absolutePath, bounds)
-        if (bounds.outWidth > 0 && bounds.outHeight > 0) return file.absolutePath
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            try {
-                val source = ImageDecoder.createSource(file)
-                ImageDecoder.decodeBitmap(source) { decoder, _, _ ->
-                    decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-                    decoder.setTargetSize(1, 1)
-                }
-                return file.absolutePath
-            } catch (_: Exception) {}
-        }
-        file.delete()
-        return null
-    }
-
-    /**
-     * Get a thumbnail path. Returns cached path immediately, or downloads.
-     * Returns null for videos (they don't need thumbnail cache).
+     * Drop image: kalau belum ada, unduh lalu encode WEBP [DROP_MAX_DIMENSION] px.
+     * Return null untuk video (poster video ditangani terpisah) atau saat gagal.
      */
     suspend fun cacheThumbnail(
         context: Context,
@@ -128,263 +147,169 @@ object ThumbnailCacheService {
         version: String? = null,
         isVideo: Boolean = false
     ): String? {
-        // Check cache first (instant, no blocking)
-        val cached = getCachedPathSync(context, url, version)
-        if (cached != null) return cached
+        getCachedPathSync(context, url, version)?.let { return it }
 
-        // For video URLs: download file then extract first frame
         if (isVideo && isVideoUrl(url)) {
             return downloadSlots.withPermit { extractVideoFrame(context, url, version) }
         }
 
-        val dir = getCacheDirectory(context)
-        val key = generateCacheKey(url, version)
-        val file = File(dir, key)
+        val dir = dirFor(context, Tier.DROP)
+        val target = File(dir, cacheName(url, version, Tier.DROP, "webp"))
+        return runDeduplicated(target) {
+            writeDrop(url, target)
+            target.absolutePath
+        }
+    }
 
-        // Dedup: if same URL is already downloading, wait for it
-        pendingJobs[file.absolutePath]?.let { existing ->
-            return try { existing.await() } catch (_: Exception) { null }
-        }
+    // ==================== PUBLIC API — CLEAN (detail & story) ====================
 
-        val job = scope.async(start = CoroutineStart.LAZY) {
-            try {
-                downloadSlots.withPermit { downloadDirect(url, file) }
-                file.absolutePath
-            } catch (e: Exception) {
-                try { file.delete() } catch (_: Exception) {}
-                Log.e(TAG, "Download failed: $url - ${e.message}")
-                null
-            }
-        }
-        val existing = pendingJobs.putIfAbsent(file.absolutePath, job)
-        if (existing != null) {
-            job.cancel()
-            return try { existing.await() } catch (_: Exception) { null }
-        }
-        job.start()
-        return try {
-            job.await()
-        } finally {
-            pendingJobs.remove(file.absolutePath, job)
+    /** Path gambar kualitas bersih (byte asli) bila sudah tersimpan. */
+    fun getCachedCleanPathSync(context: Context, url: String, version: String? = null): String? =
+        existingFile(dirFor(context, Tier.CLEAN), url, version, Tier.CLEAN)?.absolutePath
+
+    /**
+     * Simpan byte asli dari server ke cache clean (tanpa rekompresi).
+     * Return null kalau gagal / ukurannya tidak wajar.
+     */
+    suspend fun cacheCleanImage(context: Context, url: String, version: String? = null): String? {
+        getCachedCleanPathSync(context, url, version)?.let { return it }
+        val dir = dirFor(context, Tier.CLEAN)
+        val target = File(dir, cacheName(url, version, Tier.CLEAN, "img"))
+        return runDeduplicated(target, cleanSlots) {
+            downloadTo(url, target)
+            trimCacheIfNeeded(context, Tier.CLEAN)
         }
     }
 
     /**
-     * Download URL, write to file, validate it's a real image. Single attempt.
+     * Poster video kualitas bersih (frame asli resolusi penuh, JPEG 92) untuk layar detail.
+     * Disimpan di tier CLEAN, bukan tier thumbnail, supaya tidak ikut kompresi drop.
      */
-    private suspend fun downloadDirect(url: String, file: File) = withContext(Dispatchers.IO) {
-        val sourceFile = File(file.parentFile, "${file.name}.source.part")
-        val thumbnailFile = File(file.parentFile, "${file.name}.thumb.part")
-        sourceFile.delete()
-        thumbnailFile.delete()
-        try {
-            val request = Request.Builder().url(url).build()
-            client.newCall(request).execute().use { response ->
-                if (!response.isSuccessful) throw Exception("HTTP ${response.code}")
-                val body = response.body ?: throw Exception("Empty response")
-                if (body.contentLength() > MAX_SOURCE_FILE_SIZE) throw Exception("Source image exceeds limit")
-                var totalBytes = 0L
-                body.byteStream().use { input ->
-                    sourceFile.outputStream().use { output ->
-                        val buffer = ByteArray(16 * 1024)
-                        while (true) {
-                            val count = input.read(buffer)
-                            if (count < 0) break
-                            totalBytes += count
-                            if (totalBytes > MAX_SOURCE_FILE_SIZE) throw Exception("Source image exceeds limit")
-                            output.write(buffer, 0, count)
+    suspend fun cacheVideoPoster(context: Context, url: String, version: String? = null): String? {
+        val key = "${url}#poster"
+        getCachedCleanPathSync(context, key, version)?.let { return it }
+        val dir = dirFor(context, Tier.CLEAN)
+        val target = File(dir, cacheName(key, version, Tier.CLEAN, "img"))
+        return runDeduplicated(target, cleanSlots) {
+            // Retriever membaca frame langsung dari URL (range request), jadi tidak perlu
+            // mengunduh seluruh video hanya untuk poster.
+            val retriever = MediaMetadataRetriever()
+            try {
+                retriever.setDataSource(url, emptyMap())
+                val frame = retriever.getFrameAtTime(0)
+                    ?: throw Exception("Frame video tidak tersedia")
+                try {
+                    val part = File(dir, "${target.name}.encoded.part")
+                    part.outputStream().use { out ->
+                        if (!frame.compress(Bitmap.CompressFormat.JPEG, 92, out)) {
+                            throw Exception("Encode poster gagal")
                         }
                     }
-                }
-                if (totalBytes == 0L) throw Exception("Empty response")
-            }
-
-            val thumbnail = decodeSampledBitmap(sourceFile.absolutePath, CACHED_THUMBNAIL_MAX_DIMENSION)
-                ?: throw Exception("Unsupported image format")
-            try {
-                thumbnailFile.outputStream().use { output ->
-                    if (!thumbnail.compress(Bitmap.CompressFormat.WEBP, 88, output)) {
-                        throw Exception("Thumbnail encoding failed")
-                    }
+                    if (part.length() == 0L) throw Exception("Poster kosong")
+                    if (target.exists()) target.delete()
+                    if (!part.renameTo(target)) throw Exception("Gagal menyimpan poster")
+                } finally {
+                    frame.recycle()
                 }
             } finally {
-                thumbnail.recycle()
+                try {
+                    retriever.release()
+                } catch (_: Exception) {
+                }
             }
-            if (thumbnailFile.length() == 0L) throw Exception("Empty thumbnail")
-            if (file.exists() && !file.delete()) throw Exception("Unable to replace old thumbnail")
-            if (!thumbnailFile.renameTo(file)) throw Exception("Unable to finalize thumbnail cache")
-        } finally {
-            sourceFile.delete()
-            thumbnailFile.delete()
+            trimCacheIfNeeded(context, Tier.CLEAN)
         }
     }
 
+    // ==================== DECODING ====================
+
     /**
-     * Decode a bitmap from file with downsampling. MUST be called from IO thread.
-     * Returns null on any error — never crashes.
+     * Decode dengan downsampling maksimal [maxWidth] px di sisi terpanjang.
+     * Selalu aman dipanggil dari IO thread; tidak pernah melempar exception.
      */
     fun decodeSampledBitmap(filePath: String, maxWidth: Int = 400): Bitmap? {
         try {
             val opts = BitmapFactory.Options().apply { inJustDecodeBounds = true }
             BitmapFactory.decodeFile(filePath, opts)
-            if (opts.outWidth <= 0 || opts.outHeight <= 0) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    val source = ImageDecoder.createSource(File(filePath))
-                    return ImageDecoder.decodeBitmap(source) { decoder, info, _ ->
-                        decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-                        val scale = maxOf(info.size.width, info.size.height).toFloat() / maxWidth
-                        if (scale > 1f) {
-                            decoder.setTargetSize(
-                                (info.size.width / scale).toInt().coerceAtLeast(1),
-                                (info.size.height / scale).toInt().coerceAtLeast(1)
-                            )
-                        }
-                    }
-                }
-                return null
-            }
+            if (opts.outWidth <= 0 || opts.outHeight <= 0) return decodeWithImageDecoder(filePath, maxWidth)
 
             var sampleSize = 1
             while (opts.outWidth / sampleSize > maxWidth || opts.outHeight / sampleSize > maxWidth) {
                 sampleSize *= 2
             }
-
             val decodeOpts = BitmapFactory.Options().apply {
                 inSampleSize = sampleSize
                 inPreferredConfig = Bitmap.Config.RGB_565
             }
             BitmapFactory.decodeFile(filePath, decodeOpts)?.let { return it }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                val source = ImageDecoder.createSource(File(filePath))
-                return ImageDecoder.decodeBitmap(source) { decoder, info, _ ->
-                    decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
-                    val scale = maxOf(info.size.width, info.size.height).toFloat() / maxWidth
-                    if (scale > 1f) {
-                        decoder.setTargetSize(
-                            (info.size.width / scale).toInt().coerceAtLeast(1),
-                            (info.size.height / scale).toInt().coerceAtLeast(1)
-                        )
-                    }
-                }
-            }
-            return null
+            return decodeWithImageDecoder(filePath, maxWidth)
         } catch (_: OutOfMemoryError) {
             return try {
-                BitmapFactory.decodeFile(filePath, BitmapFactory.Options().apply {
-                    inSampleSize = 8
-                    inPreferredConfig = Bitmap.Config.RGB_565
-                })
-            } catch (_: Exception) { null }
+                BitmapFactory.decodeFile(
+                    filePath,
+                    BitmapFactory.Options().apply {
+                        inSampleSize = 8
+                        inPreferredConfig = Bitmap.Config.RGB_565
+                    }
+                )
+            } catch (_: Exception) {
+                null
+            }
         } catch (_: Exception) {
             return null
         }
     }
 
-    /**
-     * Run bitmap decode on IO dispatcher. Safe for main thread callers.
-     */
-    suspend fun decodeBitmapOnIO(filePath: String, maxWidth: Int = 400): Bitmap? {
-        return withContext(Dispatchers.IO) {
-            decodeSampledBitmap(filePath, maxWidth)
-        }
-    }
-
-    /**
-     * Trim cache: remove oldest files when over limit, plus stale files.
-     * Runs on IO thread.
-     */
-    private fun trimCacheIfNeeded(dir: File) {
-        try {
-            val files = dir.listFiles()?.filter { it.isFile }?.sortedBy { it.lastModified() } ?: return
-
-            // Remove stale files first
-            val now = System.currentTimeMillis()
-            for (f in files) {
-                if (now - f.lastModified() > STALE_THRESHOLD) {
-                    f.delete()
+    private fun decodeWithImageDecoder(filePath: String, maxWidth: Int): Bitmap? {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) return null
+        return try {
+            val source = ImageDecoder.createSource(File(filePath))
+            ImageDecoder.decodeBitmap(source) { decoder, info, _ ->
+                decoder.allocator = ImageDecoder.ALLOCATOR_SOFTWARE
+                val scale = maxOf(info.size.width, info.size.height).toFloat() / maxWidth
+                if (scale > 1f) {
+                    decoder.setTargetSize(
+                        (info.size.width / scale).toInt().coerceAtLeast(1),
+                        (info.size.height / scale).toInt().coerceAtLeast(1)
+                    )
                 }
             }
+        } catch (_: Exception) {
+            null
+        }
+    }
 
-            // Then trim by size
-            val remaining = dir.listFiles()?.filter { it.isFile }?.sortedBy { it.lastModified() } ?: return
-            var totalSize = remaining.sumOf { it.length() }
-            for (f in remaining) {
-                if (totalSize <= MAX_CACHE_SIZE) break
-                totalSize -= f.length()
-                f.delete()
+    suspend fun decodeBitmapOnIO(filePath: String, maxWidth: Int = 400): Bitmap? =
+        withContext(Dispatchers.IO) { decodeSampledBitmap(filePath, maxWidth) }
+
+    // ==================== CACHE MAINTENANCE ====================
+
+    suspend fun clearCache(context: Context) = withContext(Dispatchers.IO) {
+        Tier.values().forEach { tier ->
+            dirFor(context, tier).listFiles()?.forEach { it.delete() }
+        }
+    }
+
+    suspend fun getCacheSize(context: Context): Long = withContext(Dispatchers.IO) {
+        Tier.values().sumOf { tier ->
+            dirFor(context, tier).listFiles()?.sumOf { it.length() } ?: 0L
+        }
+    }
+
+    /** Dipanggil saat startup: buang file kedaluwarsa & rapikan ukuran kedua tier. */
+    suspend fun trimCacheOnStartup(context: Context) = withContext(Dispatchers.IO) {
+        // Migrasi: folder dari versi cache lama dibuang total.
+        legacyFolders.forEach { legacy ->
+            try {
+                File(context.cacheDir, legacy).takeIf { it.isDirectory }?.deleteRecursively()
+            } catch (_: Exception) {
             }
-        } catch (_: Exception) {}
-    }
-
-    suspend fun clearCache(context: Context) {
-        withContext(Dispatchers.IO) {
-            val dir = getCacheDirectory(context)
-            if (dir.exists()) dir.listFiles()?.forEach { it.delete() }
         }
-    }
-
-    suspend fun getCacheSize(context: Context): Long {
-        return withContext(Dispatchers.IO) {
-            val dir = getCacheDirectory(context)
-            if (!dir.exists()) 0L else dir.listFiles()?.sumOf { it.length() } ?: 0L
-        }
-    }
-
-    /**
-     * Call on app startup to clean stale/expired cache files.
-     */
-    suspend fun trimCacheOnStartup(context: Context) {
-        withContext(Dispatchers.IO) {
+        Tier.values().forEach { tier ->
             try {
-                val dir = getCacheDirectory(context)
-                trimCacheIfNeeded(dir)
-            } catch (_: Exception) {}
-        }
-    }
-
-    /**
-     * Extract first frame from a video URL using MediaMetadataRetriever.
-     * Caches the extracted frame as a regular image.
-     */
-    private suspend fun extractVideoFrame(context: Context, url: String, version: String?): String? {
-        return withContext(Dispatchers.IO) {
-            try {
-                val dir = getCacheDirectory(context)
-                val key = generateCacheKey(url, version)
-                val frameFile = File(dir, key)
-
-                // Check if frame already cached
-                if (frameFile.exists() && frameFile.length() > 0) return@withContext frameFile.absolutePath
-
-                // Download video to temp file first, then extract frame
-                val tempFile = File(dir, "tmp_video_${System.currentTimeMillis()}.mp4")
-                try {
-                    val request = Request.Builder().url(url).build()
-                    val response = client.newCall(request).execute()
-                    if (!response.isSuccessful) return@withContext null
-                    val body = response.body ?: return@withContext null
-                    val bytes = body.bytes()
-                    if (bytes.size > 10 * 1024 * 1024) return@withContext null // skip huge videos
-                    tempFile.writeBytes(bytes)
-
-                    val retriever = MediaMetadataRetriever()
-                    try {
-                        retriever.setDataSource(tempFile.absolutePath)
-                        val frame = retriever.getFrameAtTime(0)
-                        if (frame != null) {
-                            frameFile.outputStream().use { out -> frame.compress(Bitmap.CompressFormat.JPEG, 75, out) }
-                            frame.recycle()
-                            frameFile.absolutePath
-                        } else null
-                    } catch (_: Exception) {
-                        null
-                    } finally {
-                        try { retriever.release() } catch (_: Exception) {}
-                    }
-                } finally {
-                    try { tempFile.delete() } catch (_: Exception) {}
-                }
-            } catch (_: Exception) { null }
+                trimCacheIfNeeded(context, tier)
+            } catch (_: Exception) {
+            }
         }
     }
 
@@ -393,4 +318,203 @@ object ThumbnailCacheService {
         pendingJobs.clear()
         scope.coroutineContext.cancelChildren()
     }
+
+    // ==================== INTERNAL ====================
+
+    private fun dirFor(context: Context, tier: Tier): File {
+        directories[tier]?.let { if (it.exists()) return it }
+        val dir = File(context.cacheDir, tier.folder)
+        if (!dir.exists()) dir.mkdirs()
+        directories[tier] = dir
+        return dir
+    }
+
+    /** Nama file = hash dari versi-format + url + versi foto. Ganti URL → nama ikut ganti. */
+    private fun cacheName(url: String, version: String?, tier: Tier, extension: String): String {
+        val raw = "${tier.formatVersion}|$url|${version.orEmpty()}"
+        val hash = MessageDigest.getInstance("SHA-256").digest(raw.toByteArray(Charsets.UTF_8))
+        val encoded = Base64.encodeToString(hash, Base64.URL_SAFE or Base64.NO_WRAP or Base64.NO_PADDING)
+        return "${encoded.take(43)}.$extension"
+    }
+
+    private fun existingFile(dir: File, url: String, version: String?, tier: Tier): File? {
+        val file = File(dir, cacheName(url, version, tier, if (tier == Tier.DROP) "webp" else "img"))
+        if (!file.isFile || file.length() == 0L) return null
+        if (tier == Tier.DROP) {
+            // File drop rusak/terpotong dibuang supaya bisa diunduh ulang (self-healing).
+            val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            BitmapFactory.decodeFile(file.absolutePath, bounds)
+            if (bounds.outWidth <= 0 || bounds.outHeight <= 0) {
+                file.delete()
+                return null
+            }
+        }
+        return file
+    }
+
+    /** Satu URL hanya diunduh sekali walau diminta dari beberapa card sekaligus. */
+    private suspend fun runDeduplicated(
+        target: File,
+        slots: Semaphore = downloadSlots,
+        work: suspend () -> Unit
+    ): String? {
+        pendingJobs[target.absolutePath]?.let { existing ->
+            return try {
+                existing.await()
+            } catch (_: Exception) {
+                null
+            }
+        }
+        val job = scope.async(start = CoroutineStart.LAZY) {
+            try {
+                slots.withPermit { work() }
+                target.absolutePath
+            } catch (e: Exception) {
+                target.delete()
+                Log.e(TAG, "Gagal membuat cache ${target.name}: ${e.message}")
+                null
+            }
+        }
+        val existing = pendingJobs.putIfAbsent(target.absolutePath, job)
+        if (existing != null) {
+            job.cancel()
+            return try {
+                existing.await()
+            } catch (_: Exception) {
+                null
+            }
+        }
+        job.start()
+        return try {
+            job.await()
+        } finally {
+            pendingJobs.remove(target.absolutePath, job)
+        }
+    }
+
+    /** Tulis byte asli dari server ke [target] secara atomik (.part → rename). */
+    private fun downloadTo(url: String, target: File): Long {
+        val part = File(target.parentFile, "${target.name}.part")
+        part.delete()
+        try {
+            client.newCall(Request.Builder().url(url).build()).execute().use { response ->
+                if (!response.isSuccessful) throw Exception("HTTP ${response.code}")
+                val body = response.body ?: throw Exception("Empty response")
+                if (body.contentLength() > MAX_SOURCE_FILE_SIZE) throw Exception("File terlalu besar")
+                var total = 0L
+                body.byteStream().use { input ->
+                    part.outputStream().use { output ->
+                        val buffer = ByteArray(16 * 1024)
+                        while (true) {
+                            val count = input.read(buffer)
+                            if (count < 0) break
+                            total += count
+                            if (total > MAX_SOURCE_FILE_SIZE) throw Exception("File terlalu besar")
+                            output.write(buffer, 0, count)
+                        }
+                    }
+                }
+                if (total == 0L) throw Exception("Empty response")
+            }
+            if (!part.renameTo(target)) throw Exception("Gagal menyimpan cache")
+            return target.length()
+        } finally {
+            part.delete()
+        }
+    }
+
+    /** Drop = unduh, perkecil ke [DROP_MAX_DIMENSION], encode WEBP. */
+    private fun writeDrop(url: String, target: File) {
+        val source = File(target.parentFile, "${target.name}.source.part")
+        val encoded = File(target.parentFile, "${target.name}.encoded.part")
+        source.delete()
+        encoded.delete()
+        try {
+            downloadTo(url, source)
+
+            val bitmap = decodeSampledBitmap(source.absolutePath, DROP_MAX_DIMENSION)
+                ?: throw Exception("Format gambar tidak didukung")
+            try {
+                encoded.outputStream().use { output ->
+                    if (!bitmap.compress(Bitmap.CompressFormat.WEBP, DROP_QUALITY, output)) {
+                        throw Exception("Encode thumbnail gagal")
+                    }
+                }
+            } finally {
+                bitmap.recycle()
+            }
+            if (encoded.length() == 0L) throw Exception("Thumbnail kosong")
+            if (target.exists() && !target.delete()) throw Exception("Gagal mengganti cache lama")
+            if (!encoded.renameTo(target)) throw Exception("Gagal menyimpan thumbnail")
+        } finally {
+            source.delete()
+            encoded.delete()
+        }
+    }
+
+    private fun trimCacheIfNeeded(context: Context, tier: Tier) {
+        try {
+            val dir = dirFor(context, tier)
+            val now = System.currentTimeMillis()
+            dir.listFiles()?.filter { it.isFile }?.forEach { file ->
+                if (now - file.lastModified() > tier.staleMs) file.delete()
+            }
+            val remaining = dir.listFiles()?.filter { it.isFile }?.sortedBy { it.lastModified() } ?: return
+            var total = remaining.sumOf { it.length() }
+            for (file in remaining) {
+                if (total <= tier.maxBytes) break
+                total -= file.length()
+                file.delete()
+            }
+        } catch (_: Exception) {
+        }
+    }
+
+    /** Ambil frame pertama video (poster) lalu simpan sebagai JPEG drop. */
+    private suspend fun extractVideoFrame(context: Context, url: String, version: String?): String? =
+        withContext(Dispatchers.IO) {
+            val dir = dirFor(context, Tier.DROP)
+            val target = File(dir, cacheName(url, version, Tier.DROP, "webp"))
+            if (target.exists() && target.length() > 0L) return@withContext target.absolutePath
+            val tempVideo = File(dir, "video-${System.currentTimeMillis()}.tmp")
+            try {
+                client.newCall(Request.Builder().url(url).build()).execute().use { response ->
+                    if (!response.isSuccessful) return@withContext null
+                    val body = response.body ?: return@withContext null
+                    if (body.contentLength() > VIDEO_FRAME_MAX_BYTES) return@withContext null
+                    val bytes = body.bytes()
+                    if (bytes.size > VIDEO_FRAME_MAX_BYTES) return@withContext null
+                    tempVideo.writeBytes(bytes)
+                }
+                val retriever = MediaMetadataRetriever()
+                try {
+                    retriever.setDataSource(tempVideo.absolutePath)
+                    val frame = retriever.getFrameAtTime(0) ?: return@withContext null
+                    try {
+                        val part = File(dir, "${target.name}.part")
+                        part.outputStream().use { out ->
+                            frame.compress(Bitmap.CompressFormat.JPEG, VIDEO_FRAME_QUALITY, out)
+                        }
+                        if (!part.renameTo(target)) {
+                            part.delete()
+                            return@withContext null
+                        }
+                    } finally {
+                        frame.recycle()
+                    }
+                    target.absolutePath
+                } catch (_: Exception) {
+                    null
+                } finally {
+                    try {
+                        retriever.release()
+                    } catch (_: Exception) {
+                    }
+                }
+            } catch (_: Exception) {
+                null
+            } finally {
+                tempVideo.delete()
+            }
+        }
 }

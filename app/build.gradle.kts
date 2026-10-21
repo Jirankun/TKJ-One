@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.compose") version "2.2.0"
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -84,4 +85,7 @@ dependencies {
     // Image loading with sampled decoding and animated GIF support
     implementation("io.coil-kt:coil:2.7.0")
     implementation("io.coil-kt:coil-gif:2.7.0")
+    // Wajib sejalan dengan GMS yang dibawa play-services-ads (measurement-base 20.x)
+    implementation("com.google.firebase:firebase-analytics:23.0.0")
+    implementation("com.google.android.gms:play-services-ads:25.5.0")
 }
